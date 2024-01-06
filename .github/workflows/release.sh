@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 host=$(uname -s)
-NAME=project_name
+NAME=tools
 TAG=${GITHUB_REF_NAME}
 VERSION=${TAG:1}
 PREFIX="${NAME}-${VERSION}"
@@ -25,18 +25,18 @@ Choose from the options below and put as dependency in your `MODULE.bazel`.
 ### Install from BCR
 
 \`\`\`starlark
-bazel_dep(name = "bzlparty_project_name", version = "${VERSION}")
+bazel_dep(name = "bzlparty_tools", version = "${VERSION}")
 \`\`\`
 
 
 ### Install from Git
 
 \`\`\`starlark
-bazel_dep(name = "bzlparty_project_name")
+bazel_dep(name = "bzlparty_tools")
 
 git_override(
-    module_name = "bzlparty_project_name",
-    remote = "git@github.com:bzlparty/project_name.git",
+    module_name = "bzlparty_tools",
+    remote = "git@github.com:bzlparty/tools.git",
     commit = "${GITHUB_SHA}",
 )
 \`\`\`
@@ -44,11 +44,11 @@ git_override(
 ### Install from Archive
 
 \`\`\`starlark
-bazel_dep(name = "bzlparty_project_name")
+bazel_dep(name = "bzlparty_tools")
 
 archive_override(
-    module_name = "bzlparty_project_name",
-    urls = "https://github.com/bzlparty/project_name/releases/download/${TAG}/${RULES_ARCHIVE}",
+    module_name = "bzlparty_tools",
+    urls = "https://github.com/bzlparty/tools/releases/download/${TAG}/${RULES_ARCHIVE}",
     strip_prefix = "${PREFIX}",
     integrity = "sha256-${RULES_SHA}",
 )

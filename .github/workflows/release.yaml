@@ -15,6 +15,6 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            project_name-*.tar.gz
+            tools-*.tar.gz
           body_path: release_notes.md
           fail_on_unmatched_files: true

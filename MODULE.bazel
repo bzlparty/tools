@@ -1,5 +1,5 @@
 module(
-    name = "bzlparty_project_name",
+    name = "bzlparty_tools",
     version = "0.0.0",
     compatibility_level = 1,
 )
