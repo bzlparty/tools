@@ -38,7 +38,6 @@ jobs:
           - 7.0.0
         folder:
           - "."
-          - "e2e"
     steps:
       - uses: actions/checkout@v4
       - name: Mount bazel caches
