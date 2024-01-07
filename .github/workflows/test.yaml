@@ -23,12 +23,12 @@ jobs:
             ~/.cache/bazel-repo
           key: bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
           restore-keys: bazel-cache-
-      - name: bazel test //:setup
+      - name: bazel test //:lint
         run: >
           bazel
           --bazelrc=${{ github.workspace }}/.bazelrc
           --bazelrc=${{ github.workspace }}/.github/workflows/ci.bazelrc
-          test //:setup
+          test //:lint
   test:
     needs: ["pre-test"]
     runs-on: ubuntu-latest
