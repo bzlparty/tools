@@ -1,0 +1,10 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load(":github_test.bzl", "github_test_suite")
+
+bzl_library(
+    name = "github",
+    srcs = ["github.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+github_test_suite(name = "github_test")
