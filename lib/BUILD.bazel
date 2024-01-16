@@ -7,4 +7,10 @@ bzl_library(
     visibility = ["//visibility:public"],
 )
 
+bzl_library(
+    name = "platforms",
+    srcs = ["platforms.bzl"],
+    visibility = ["//visibility:public"],
+)
+
 github_test_suite(name = "github_test")
