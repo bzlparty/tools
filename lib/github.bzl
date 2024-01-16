@@ -3,7 +3,7 @@
 _HOST = "https://github.com"
 
 def _github_release_url(path, version, artifact):
-    return "{host}/{path}/releases/download/v{version}/{artifact}".format(
+    return "{host}/{path}/releases/download/{version}/{artifact}".format(
         host = _HOST,
         path = path,
         version = version,

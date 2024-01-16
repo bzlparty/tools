@@ -6,7 +6,7 @@ load(":github.bzl", "github")
 def _download_assertions(env, **kwargs):
     asserts.true(env, kwargs.get("executable"))
     asserts.equals(env, kwargs.get("output"), "foo.tar.gz")
-    asserts.equals(env, kwargs.get("url"), "https://github.com/bzlparty/foo/releases/download/v0.0.0/foo.tar.gz")
+    asserts.equals(env, kwargs.get("url"), "https://github.com/bzlparty/foo/releases/download/0.0.0/foo.tar.gz")
 
 def _download_binary_test_impl(ctx):
     env = unittest.begin(ctx)
@@ -25,7 +25,7 @@ download_binary_test = unittest.make(_download_binary_test_impl)
 
 def _download_and_extract_assertions(env, **kwargs):
     asserts.equals(env, kwargs.get("executable"), None)
-    asserts.equals(env, kwargs.get("url"), "https://github.com/bzlparty/foo/releases/download/v0.0.0/foo.tar.gz")
+    asserts.equals(env, kwargs.get("url"), "https://github.com/bzlparty/foo/releases/download/0.0.0/foo.tar.gz")
     asserts.equals(env, kwargs.get("output"), "foo_out")
 
 def _download_archive_test_impl(ctx):
