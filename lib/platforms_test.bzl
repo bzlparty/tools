@@ -1,12 +1,12 @@
 "Platforms Tests"
 
 load("@bazel_skylib//lib:unittest.bzl", "asserts", "unittest")
-load(":platforms.bzl", "PLATFORMS", "host_platform")
+load(":platforms.bzl", "HOST_PLATFORM", "PLATFORMS")
 
 def _host_platform_test_impl(ctx):
     env = unittest.begin(ctx)
 
-    asserts.true(env, host_platform in PLATFORMS.keys())
+    asserts.true(env, HOST_PLATFORM in PLATFORMS.keys())
 
     return unittest.end(env)
 

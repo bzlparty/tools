@@ -51,4 +51,4 @@ def _platform_from_host_constraints():
 
     return "%s_%s" % (os, arch)
 
-host_platform = _platform_from_host_constraints()
+HOST_PLATFORM = _platform_from_host_constraints()
