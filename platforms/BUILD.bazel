@@ -1,0 +1,18 @@
+load("@bzlparty_tools//lib:platforms.bzl", "PLATFORMS")
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+exports_files(
+    ["host.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+[
+    platform(
+        name = p,
+        constraint_values = cv,
+    )
+    for (p, cv) in PLATFORMS.items()
+]
