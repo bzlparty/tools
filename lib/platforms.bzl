@@ -1,4 +1,4 @@
-"Default platform mapping"
+"Default platform mapping and helpers"
 
 PLATFORMS = {
     "linux_amd64": ["@platforms//os:linux", "@platforms//cpu:x86_64"],
@@ -10,3 +10,15 @@ PLATFORMS = {
     "darwin_amd64": ["@platforms//os:macos", "@platforms//cpu:x86_64"],
     "darwin_arm64": ["@platforms//os:macos", "@platforms//cpu:arm64"],
 }
+
+def is_darwin(platform):
+    return platform.startswith("darwin")
+
+def is_freebsd(platform):
+    return platform.startswith("freebsd")
+
+def is_linux(platform):
+    return platform.startswith("linux")
+
+def is_windows(platform):
+    return platform.startswith("windows")
