@@ -1,16 +1,34 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load(":github_test.bzl", "github_test_suite")
+load(":platforms_test.bzl", "platforms_test_suite")
 
 bzl_library(
     name = "github",
     srcs = ["github.bzl"],
     visibility = ["//visibility:public"],
+    deps = [":utils"],
 )
 
 bzl_library(
     name = "platforms",
     srcs = ["platforms.bzl"],
     visibility = ["//visibility:public"],
+    deps = ["@local_config_platform//:constraints.bzl"],
+)
+
+bzl_library(
+    name = "constants",
+    srcs = ["constants.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "utils",
+    srcs = ["utils.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [":constants"],
 )
 
 github_test_suite(name = "github_test")
+
+platforms_test_suite(name = "platforms_test")

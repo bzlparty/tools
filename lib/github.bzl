@@ -1,5 +1,7 @@
 "github utils"
 
+load(":utils.bzl", "is_extractable_archive")
+
 _HOST = "https://github.com"
 
 def _github_release_url(path, version, artifact):
@@ -11,11 +13,11 @@ def _github_release_url(path, version, artifact):
     )
 
 def _download_from_release(ctx, **kwargs):
-    if kwargs.get("executable"):
-        ctx.download(**kwargs)
+    if is_extractable_archive(kwargs.get("url")):
+        ctx.download_and_extract(**kwargs)
         return
 
-    ctx.download_and_extract(**kwargs)
+    ctx.download(**kwargs)
 
 def _github_url_config(orga, project):
     path = "{}/{}".format(orga, project)
