@@ -28,6 +28,9 @@ def is_windows(platform):
 def is_amd64(platform):
     return platform.endswith("amd64") or platform.endswith("x86_64")
 
+def host_platform(ctx):
+    return "%s_%s" % (ctx.os.name, ctx.os.arch)
+
 def _switch(m, default = None):
     for (k, r) in m.items():
         if r:
