@@ -1,3 +1,4 @@
-.bazel*               export-ignore
-.git*                 export-ignore
-e2e                   export-ignore
+.bazel*                       export-ignore
+.git*                         export-ignore
+.pre-commit-config.yaml       export-ignore
+e2e                           export-ignore
