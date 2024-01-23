@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 #
-# A script to generate sha sums for assets of a github release.
-# Shasums are generated for *ALL* assets of the release.
+# A script to generate sha sums for assets form a given URL or github project.
+# If sha sums are generated form a github project, note that *ALL* assets of
+# the latest release are hashed.
 #
 # Options:
 #   -a / --algo       shasum algo to use
+#   -g / --github     Treat input as path to github project (owner/project), default
+#   -u / --url        Treat input as single URL
 #
 #
 # Run from Bazel:
@@ -12,8 +15,15 @@
 # ```bash
 # bazel run @bzlparty_tools//shasum foo/bar hello/world
 # ```
+#
+# Run for a single URL:
+#
+# ```bash
+# bazel run @bzlparty_tools//shasum -u https://example.com/path/to/asset.tar.gz
+# ```
 
 ALGO=384
+URL=0
 
 _curl()
 {
@@ -47,9 +57,6 @@ _hash_assets()
   done
 }
 
-# This is the main function.
-# From a given project path (owner/project), we get the latest release to fetch
-# all assets from, then hash each of them with the set ALGO.
 hash_assets_for_project()
 {
   echo -e "\033[1m$1\033[0m"
@@ -57,16 +64,28 @@ hash_assets_for_project()
   asset_urls=$(_fetch_assets_from_release $1 $id | jq -r ".[] | .browser_download_url")
   
   _hash_assets $asset_urls
-
 }
+
+_print_help()
+{
+  echo -e "Usage: [-a <1, 224, 256, \033[1m384\033[0m, 512, 512224, 512256>] [-g <owner/project>... | -u <url>...]"
+  exit 0
+}
+
+[ $# -eq 0 ] && _print_help;
 
 while [ $# -ne 0 ]; do
   case $1 in
-    -h|--help|"")
-      echo -e "Usage: [-a <1, 224, 256, \033[1m384\033[0m, 512, 512224, 512256>] [-o <file>] <owner/project>..."; exit 0;;
+    -h|--help)
+      _print_help;;
     -a|--algo)
       ALGO="$2"; shift;;
+    -g|--github)
+      GITHUB=1 URL=0;;
+    -u|--url)
+      URL=1 GITHUB=0;;
     *)
+      if [ "$URL" -eq 1 ]; then _hash_assets $@; break; fi
       hash_assets_for_project "$1";;
   esac
   shift; 
