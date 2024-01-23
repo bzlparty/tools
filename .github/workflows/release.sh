@@ -20,7 +20,7 @@ cat > release_notes.md <<EOF
 > [!IMPORTANT]  
 > Installation is only supported via Bzlmod!
 
-Choose from the options below and put as dependency in your `MODULE.bazel`.
+Choose from the options below and put as dependency in your \`MODULE.bazel\`.
 
 ### Install from BCR
 
