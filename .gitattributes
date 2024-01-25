@@ -2,3 +2,4 @@
 .git*                         export-ignore
 .pre-commit-config.yaml       export-ignore
 e2e                           export-ignore
+*_test.bzl                    export-ignore

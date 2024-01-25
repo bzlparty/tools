@@ -8,7 +8,23 @@ PREFIX="${NAME}-${VERSION}"
 RULES_ARCHIVE="${NAME}-${TAG}.tar.gz"
 
 echo -n "build: Create Rules Archive"
-git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
+MODULE_BAZEL_FILE="\
+module(
+    name = \"bzlparty_tools\",
+    version = \"${VERSION}\",
+    compatibility_level = 1,
+)
+bazel_dep(name = \"platforms\", version = \"0.0.8\")
+"
+PUBLIC_PACKAGE="\
+package(default_visibility = [\"//visibility:public\"])
+exports_files(glob([\"*.bzl\"]))
+"
+git archive --format=tar \
+  --add-virtual-file=${PREFIX}/MODULE.bazel:"${MODULE_BAZEL_FILE}" \
+  --add-virtual-file=${PREFIX}/BUILD.bazel:"package(default_visibility = [\"//visibility:public\"])" \
+  --add-virtual-file=${PREFIX}/lib/BUILD.bazel:"${PUBLIC_PACKAGE}" \
+  --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
 RULES_SHA=$(shasum -a 256 $RULES_ARCHIVE | awk '{print $1}')
 echo " ... done ($RULES_ARCHIVE: $RULES_SHA)"
 
