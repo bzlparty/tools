@@ -15,3 +15,16 @@ diff_test(
     file1 = ":lib.BUILD.bazel",
     file2 = ":lib.BUILD.bazel.patched",
 )
+
+patched_file(
+    name = "module_bazel_patched",
+    src = "//:MODULE.bazel",
+    out = "MODULE.bazel.patched",
+    patch = ":module_bazel.patch",
+)
+
+diff_test(
+    name = "module_bazel_test",
+    file1 = ":MODULE.bazel",
+    file2 = ":MODULE.bazel.patched",
+)

@@ -1,5 +1,7 @@
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test")
 
+exports_files(["MODULE.bazel"])
+
 buildifier(
     name = "format",
     exclude_patterns = [

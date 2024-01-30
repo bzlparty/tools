@@ -8,17 +8,8 @@ PREFIX="${NAME}-${VERSION}"
 RULES_ARCHIVE="${NAME}-${TAG}.tar.gz"
 
 echo -n "build: Create Rules Archive"
-MODULE_BAZEL_FILE="\
-module(
-    name = \"bzlparty_tools\",
-    version = \"${VERSION}\",
-    compatibility_level = 1,
-)
-bazel_dep(name = \"platforms\", version = \"0.0.8\")
-bazel_dep(name = \"bazel_skylib\", version = \"1.5.0\")
-"
 git archive --format=tar \
-  --add-virtual-file=${PREFIX}/MODULE.bazel:"${MODULE_BAZEL_FILE}" \
+  --add-virtual-file=${PREFIX}/MODULE.bazel:"$(sed "s/0.0.0/${VERSION}/" dist/MODULE.bazel)" \
   --add-virtual-file=${PREFIX}/BUILD.bazel:"package(default_visibility = [\"//visibility:public\"])" \
   --add-virtual-file=${PREFIX}/lib/BUILD.bazel:"$(cat dist/lib.BUILD.bazel)" \
   --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
