@@ -1,5 +1,7 @@
 .bazel*                       export-ignore
 .git*                         export-ignore
 .pre-commit-config.yaml       export-ignore
+dist                          export-ignore
 e2e                           export-ignore
 *_test.bzl                    export-ignore
+*.lock                        export-ignore

@@ -15,20 +15,17 @@ module(
     compatibility_level = 1,
 )
 bazel_dep(name = \"platforms\", version = \"0.0.8\")
-"
-PUBLIC_PACKAGE="\
-package(default_visibility = [\"//visibility:public\"])
-exports_files(glob([\"*.bzl\"]))
+bazel_dep(name = \"bazel_skylib\", version = \"1.5.0\")
 "
 git archive --format=tar \
   --add-virtual-file=${PREFIX}/MODULE.bazel:"${MODULE_BAZEL_FILE}" \
   --add-virtual-file=${PREFIX}/BUILD.bazel:"package(default_visibility = [\"//visibility:public\"])" \
-  --add-virtual-file=${PREFIX}/lib/BUILD.bazel:"${PUBLIC_PACKAGE}" \
+  --add-virtual-file=${PREFIX}/lib/BUILD.bazel:"$(cat dist/lib.BUILD.bazel)" \
   --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
 RULES_SHA=$(shasum -a 256 $RULES_ARCHIVE | awk '{print $1}')
 echo " ... done ($RULES_ARCHIVE: $RULES_SHA)"
 
-echo -n "build: Creaet Release Notes"
+echo -n "build: Create Release Notes"
 cat > release_notes.md <<EOF
 
 ## Installation
