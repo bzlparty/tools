@@ -1,5 +1,7 @@
 "Patched File"
 
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+
 def patched_file(name, src, patch, out):
     """Apply a patch to a given source file
 
@@ -19,4 +21,18 @@ def patched_file(name, src, patch, out):
         outs = [out],
         cmd = "patch --silent --follow-symlinks --output $(OUTS) --input $(location {patch}) $(rootpath {src})".format(src = src, patch = patch),
         srcs = [src, patch],
+    )
+
+def patched_file_with_diff_test(name, src, patch, file):
+    patched_file(
+        name = "%s_patched" % name,
+        src = src,
+        patch = patch,
+        out = "%s.patched" % name,
+    )
+
+    diff_test(
+        name = "%s_test" % name,
+        file1 = file,
+        file2 = ":%s_patched" % name,
     )

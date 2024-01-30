@@ -1,30 +1,17 @@
-load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
-load("//rules:patched_file.bzl", "patched_file")
+load("//rules:patched_file.bzl", "patched_file_with_diff_test")
 
 package(default_visibility = ["//visibility:private"])
 
-patched_file(
-    name = "lib_build_bazel_patched",
+patched_file_with_diff_test(
+    name = "lib_build_bazel",
     src = "//lib:BUILD.bazel",
-    out = "lib.BUILD.bazel.patched",
+    file = ":lib.BUILD.bazel",
     patch = ":lib_build_bazel.patch",
 )
 
-diff_test(
-    name = "lib_build_bazel_test",
-    file1 = ":lib.BUILD.bazel",
-    file2 = ":lib.BUILD.bazel.patched",
-)
-
-patched_file(
-    name = "module_bazel_patched",
+patched_file_with_diff_test(
+    name = "module_bazel",
     src = "//:MODULE.bazel",
-    out = "MODULE.bazel.patched",
+    file = ":MODULE.bazel",
     patch = ":module_bazel.patch",
-)
-
-diff_test(
-    name = "module_bazel_test",
-    file1 = ":MODULE.bazel",
-    file2 = ":MODULE.bazel.patched",
 )
