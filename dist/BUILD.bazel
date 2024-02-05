@@ -1,17 +1,17 @@
-load("//rules:patched_file.bzl", "patched_file_with_diff_test")
+load("//rules:diff.bzl", "diff", "update_patches")
 
 package(default_visibility = ["//visibility:private"])
 
-patched_file_with_diff_test(
-    name = "lib_build_bazel",
-    src = "//lib:BUILD.bazel",
-    file = ":lib.BUILD.bazel",
-    patch = ":lib_build_bazel.patch",
+diff(
+    name = "module_bazel",
+    source = "//:MODULE.bazel",
+    target = ":MODULE.bazel",
 )
 
-patched_file_with_diff_test(
-    name = "module_bazel",
-    src = "//:MODULE.bazel",
-    file = ":MODULE.bazel",
-    patch = ":module_bazel.patch",
+diff(
+    name = "lib_build_bazel",
+    source = "//lib:BUILD.bazel",
+    target = ":lib.BUILD.bazel",
 )
+
+update_patches()

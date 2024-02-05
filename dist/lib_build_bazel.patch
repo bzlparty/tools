@@ -1,7 +1,5 @@
-diff --git a/lib/BUILD.bazel b/build/lib.BUILD.bazel
-index 9e0753c..9906b4e 100644
---- a/lib/BUILD.bazel
-+++ b/build/lib.BUILD.bazel
+--- lib/BUILD.bazel
++++ dist/lib.BUILD.bazel
 @@ -1,8 +1,6 @@
 -load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 -load(":github_test.bzl", "github_test_suite")
@@ -13,7 +11,7 @@ index 9e0753c..9906b4e 100644
  
  bzl_library(
      name = "github",
-@@ -30,7 +28,3 @@ bzl_library(
+@@ -30,7 +28,3 @@
      visibility = ["//visibility:private"],
      deps = [":constants"],
  )
