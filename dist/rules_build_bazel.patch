@@ -1,0 +1,16 @@
+--- rules/BUILD.bazel
++++ dist/rules.BUILD.bazel
+@@ -1,12 +1,5 @@
+-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
++"Public BUILD file for rules package"
+ 
+ package(default_visibility = ["//visibility:public"])
+ 
+ exports_files(glob(["*.bzl"]))
+-
+-bzl_library(
+-    name = "diff",
+-    srcs = ["diff.bzl"],
+-    visibility = ["//visibility:public"],
+-    deps = ["@aspect_bazel_lib//lib:write_source_files"],
+-)

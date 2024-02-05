@@ -14,4 +14,10 @@ diff(
     target = ":lib.BUILD.bazel",
 )
 
+diff(
+    name = "rules_build_bazel",
+    source = "//rules:BUILD.bazel",
+    target = ":rules.BUILD.bazel",
+)
+
 update_patches()
