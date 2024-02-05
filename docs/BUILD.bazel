@@ -1,0 +1,18 @@
+load("@aspect_bazel_lib//lib:docs.bzl", "stardoc_with_diff_test", "update_docs")
+
+stardoc_with_diff_test(
+    name = "github",
+    bzl_library_target = "//lib:github",
+)
+
+stardoc_with_diff_test(
+    name = "platforms",
+    bzl_library_target = "//lib:platforms",
+)
+
+stardoc_with_diff_test(
+    name = "diff",
+    bzl_library_target = "//rules:diff",
+)
+
+update_docs()

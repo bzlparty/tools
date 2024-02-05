@@ -1,3 +1,12 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
 package(default_visibility = ["//visibility:public"])
 
 exports_files(glob(["*.bzl"]))
+
+bzl_library(
+    name = "diff",
+    srcs = ["diff.bzl"],
+    visibility = ["//visibility:public"],
+    deps = ["@aspect_bazel_lib//lib:write_source_files"],
+)
