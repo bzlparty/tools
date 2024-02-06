@@ -1,0 +1,18 @@
+--- git/BUILD.bazel
++++ dist/git.BUILD.bazel
+@@ -1,4 +1,4 @@
+-load("@aspect_bazel_lib//lib:bats.bzl", "bats_test")
++"Public BUILD file for lib package"
+ 
+ package(
+     default_visibility = ["//visibility:public"],
+@@ -12,9 +12,3 @@
+     },
+     tags = ["manual"],
+ )
+-
+-bats_test(
+-    name = "tag_test",
+-    srcs = ["tag.bats"],
+-    data = ["tag.sh"],
+-)

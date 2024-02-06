@@ -20,4 +20,10 @@ diff(
     target = ":rules.BUILD.bazel",
 )
 
+diff(
+    name = "git_build_bazel",
+    source = "//git:BUILD.bazel",
+    target = ":git.BUILD.bazel",
+)
+
 update_patches()

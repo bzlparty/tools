@@ -13,6 +13,7 @@ git archive --format=tar \
   --add-virtual-file=${PREFIX}/BUILD.bazel:"package(default_visibility = [\"//visibility:public\"])" \
   --add-virtual-file=${PREFIX}/lib/BUILD.bazel:"$(cat dist/lib.BUILD.bazel)" \
   --add-virtual-file=${PREFIX}/rules/BUILD.bazel:"$(cat dist/rules.BUILD.bazel)" \
+  --add-virtual-file=${PREFIX}/git/BUILD.bazel:"$(cat dist/git.BUILD.bazel)" \
   --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
 RULES_SHA=$(shasum -a 256 $RULES_ARCHIVE | awk '{print $1}')
 echo " ... done ($RULES_ARCHIVE: $RULES_SHA)"

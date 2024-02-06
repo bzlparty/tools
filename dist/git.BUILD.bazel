@@ -1,0 +1,14 @@
+"Public BUILD file for lib package"
+
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+sh_binary(
+    name = "tag",
+    srcs = ["tag.sh"],
+    env = {
+        "_SCRIPT_NAME": "git:tag",
+    },
+    tags = ["manual"],
+)
