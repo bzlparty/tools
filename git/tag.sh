@@ -48,12 +48,12 @@ _PUSH_CHANGES=0
 _VERBOSE=0
 _TAG=""
 _DO="create"
-_GIT_TAG_ARGS=""
+_MESSAGE=""
 
 while [ $# -ne 0 ]; do 
   case $1 in
     -h|--help) _print_help;;
-    -m|--message) _GIT_TAG_ARGS="$1 $2"; shift;;
+    -m|--message) _MESSAGE="$2"; shift;;
     -p|--push) _PUSH_CHANGES=1;;
     -u|--update) git fetch --tags;;
     -v|--verbose) _VERBOSE=1;;
@@ -74,7 +74,11 @@ cd "$BUILD_WORKING_DIRECTORY"
 case $_DO in
   create)
     _log "Create tag $_TAG"
-    git tag -a "$_TAG" "$_GIT_TAG_ARGS"
+    if [ "$_MESSAGE" != "" ]; then
+      git tag -a "$_TAG" -m "$_MESSAGE"
+    else
+      git tag -a "$_TAG"
+    fi
 
     if [ $_PUSH_CHANGES -eq 1 ]; then
       _log "Push changes"
