@@ -23,20 +23,14 @@
 # ```
 
 ALGO=384
-URL=0
 
-_curl()
+_fetch_from_github()
 {
   curl -sL \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $GITHUB_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    $@
-}
-
-_fetch_from_github()
-{
-  _curl https://api.github.com/$@
+    https://api.github.com/$@
 }
 
 _fetch_latest_release()
@@ -49,21 +43,26 @@ _fetch_assets_from_release()
   _fetch_from_github "repos/$1/releases/$2/assets"
 }
 
-_hash_assets()
+_generate_shasum()
 {
-  for a in $@; do
-    echo -n "`basename $a` "
-    curl -L -s "${a}" | shasum -a $ALGO | awk "{ print \$1 }" | xxd -r -p | base64
-  done
+  shasum -a $ALGO | awk "{ print \$1 }" | xxd -r -p | base64
 }
 
-hash_assets_for_project()
+_generate_shasum_from_url()
+{
+  echo -n "$(basename $1) "
+  curl -L -s "$1" | _generate_shasum
+}
+
+_generate_shasum_from_github()
 {
   echo -e "\033[1m$1\033[0m"
   id=$(_fetch_latest_release $1 | jq -r ".id")
   asset_urls=$(_fetch_assets_from_release $1 $id | jq -r ".[] | .browser_download_url")
   
-  _hash_assets $asset_urls
+  for a in $asset_urls; do
+    _generate_shasum_from_url "$a"
+  done
 }
 
 _print_help()
@@ -77,16 +76,25 @@ _print_help()
 while [ $# -ne 0 ]; do
   case $1 in
     -h|--help)
-      _print_help;;
+      _print_help
+      ;;
     -a|--algo)
-      ALGO="$2"; shift;;
+      ALGO="$2"
+      shift
+      ;;
     -g|--github)
-      GITHUB=1 URL=0;;
+      _generate_shasum_from_github "$2"
+      break
+      ;;
     -u|--url)
-      URL=1 GITHUB=0;;
+      _generate_shasum_from_url "$2"
+      break
+      ;;
     *)
-      if [ "$URL" -eq 1 ]; then _hash_assets $@; break; fi
-      hash_assets_for_project "$1";;
+      if [ -f "$1" ]; then cat "$1" | _generate_shasum; break; fi
+      echo "$1" | _generate_shasum
+      break
+      ;;
   esac
   shift; 
 done
