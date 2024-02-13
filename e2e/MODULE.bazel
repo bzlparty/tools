@@ -6,3 +6,11 @@ local_path_override(
     module_name = "bzlparty_tools",
     path = "..",
 )
+
+ext = use_extension("@bzlparty_tools_e2e//:extension.bzl", "ext")
+use_repo(ext, "http_binary_file")
+use_repo(ext, "http_binary_output")
+use_repo(ext, "http_binary_custom")
+use_repo(ext, "http_binary_custom_2")
+use_repo(ext, "github_binary_file")
+use_repo(ext, "github_archive")

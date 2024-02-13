@@ -10,3 +10,28 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = ["@aspect_bazel_lib//lib:write_source_files"],
 )
+
+bzl_library(
+    name = "github_repo",
+    srcs = ["github_repo.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":bazel_tools_repo",
+        ":http",
+    ],
+)
+
+bzl_library(
+    name = "http",
+    srcs = ["http.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "bazel_tools_repo",
+    srcs = [
+        "@bazel_tools//tools/build_defs/repo:cache.bzl",
+        "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "@bazel_tools//tools/build_defs/repo:utils.bzl",
+    ],
+)

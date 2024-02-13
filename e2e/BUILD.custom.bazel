@@ -1,0 +1,5 @@
+alias(
+    name = "custom_bin",
+    actual = "@http_binary_custom_2//linux:bin",
+    visibility = ["//visibility:public"],
+)

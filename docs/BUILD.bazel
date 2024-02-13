@@ -15,4 +15,14 @@ stardoc_with_diff_test(
     bzl_library_target = "//rules:diff",
 )
 
+stardoc_with_diff_test(
+    name = "github_repo",
+    bzl_library_target = "//rules:github_repo",
+)
+
+stardoc_with_diff_test(
+    name = "http",
+    bzl_library_target = "//rules:http",
+)
+
 update_docs()

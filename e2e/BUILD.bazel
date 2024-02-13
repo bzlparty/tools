@@ -1,0 +1,20 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+
+build_test(
+    name = "http_binary_test",
+    targets = [
+        "@http_binary_file//bundler-linux-amd64",
+        "@http_binary_file//bundler-linux-amd64:bin",  # actual file path
+        "@http_binary_output//linux",
+        "@http_binary_custom//:bin",
+        "@http_binary_custom_2//:custom_bin",
+    ],
+)
+
+build_test(
+    name = "github_test",
+    targets = [
+        "@github_binary_file//bundler-linux-amd64",
+        "@github_archive//:LICENSE",
+    ],
+)
