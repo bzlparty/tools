@@ -12,8 +12,8 @@ bzl_library(
 )
 
 bzl_library(
-    name = "github_repo",
-    srcs = ["github_repo.bzl"],
+    name = "github",
+    srcs = ["github.bzl"],
     visibility = ["//visibility:public"],
     deps = [
         ":bazel_tools_repo",

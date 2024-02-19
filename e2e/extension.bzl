@@ -1,5 +1,5 @@
 # buildifier: disable=module-docstring
-load("@bzlparty_tools//rules:github_repo.bzl", "github_archive", "github_binary")
+load("@bzlparty_tools//rules:github.bzl", "github_archive", "github_binary")
 load("@bzlparty_tools//rules:http.bzl", "http_binary")
 
 def _impl(_):

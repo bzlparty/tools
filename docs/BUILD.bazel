@@ -11,8 +11,8 @@ stardoc_with_diff_test(
 )
 
 stardoc_with_diff_test(
-    name = "github_repo",
-    bzl_library_target = "//rules:github_repo",
+    name = "github",
+    bzl_library_target = "//rules:github",
 )
 
 stardoc_with_diff_test(
