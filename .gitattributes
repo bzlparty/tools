@@ -3,7 +3,7 @@
 .pre-commit-config.yaml       export-ignore
 .prettierignore               export-ignore
 dist                          export-ignore
-docs                          export-ignore
+docs/BUILD.bazel              export-ignore
 e2e                           export-ignore
 *_test.bzl                    export-ignore
 *.lock                        export-ignore
