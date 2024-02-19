@@ -16,3 +16,11 @@ exports_files(
     )
     for (p, cv) in PLATFORMS.items()
 ]
+
+config_setting(
+    name = "netbsd",
+    constraint_values = [
+        "@platforms//os:netbsd",
+    ],
+    visibility = ["//visibility:public"],
+)
