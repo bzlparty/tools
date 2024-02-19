@@ -11,7 +11,7 @@ echo -n "build: Create Rules Archive"
 git archive --format=tar \
   --add-virtual-file=${PREFIX}/MODULE.bazel:"$(sed "s/0.0.0/${VERSION}/" dist/MODULE.bazel)" \
   --add-virtual-file=${PREFIX}/BUILD.bazel:"$(cat dist/BUILD.root.bazel)" \
-  --add-virtual-file=${PREFIX}/git/BUILD.bazel:"$(cat dist/BUILD.git.bazel)" \
+  --add-virtual-file=${PREFIX}/sh/BUILD.bazel:"$(cat dist/BUILD.sh.bazel)" \
   --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
 RULES_SHA=$(shasum -a 256 $RULES_ARCHIVE | awk '{print $1}')
 echo " ... done ($RULES_ARCHIVE: $RULES_SHA)"

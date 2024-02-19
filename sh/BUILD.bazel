@@ -5,12 +5,24 @@ package(
 )
 
 sh_binary(
+    name = "shasums",
+    srcs = ["shasums.sh"],
+    tags = ["manual"],
+)
+
+sh_binary(
     name = "tag",
     srcs = ["tag.sh"],
     env = {
         "_SCRIPT_NAME": "git:tag",
     },
     tags = ["manual"],
+)
+
+bats_test(
+    name = "shasums_test",
+    srcs = ["shasums.bats"],
+    data = ["shasums.sh"],
 )
 
 bats_test(

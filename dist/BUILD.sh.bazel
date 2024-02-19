@@ -3,6 +3,12 @@ package(
 )
 
 sh_binary(
+    name = "shasums",
+    srcs = ["shasums.sh"],
+    tags = ["manual"],
+)
+
+sh_binary(
     name = "tag",
     srcs = ["tag.sh"],
     env = {
