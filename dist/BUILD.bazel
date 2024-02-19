@@ -1,4 +1,4 @@
-load("//rules:diff.bzl", "diff", "update_patches")
+load("//:diff.bzl", "diff", "update_patches")
 
 package(default_visibility = ["//visibility:private"])
 
@@ -9,15 +9,9 @@ diff(
 )
 
 diff(
-    name = "lib_build_bazel",
-    source = "//lib:BUILD.bazel",
-    target = ":lib.BUILD.bazel",
-)
-
-diff(
-    name = "rules_build_bazel",
-    source = "//rules:BUILD.bazel",
-    target = ":rules.BUILD.bazel",
+    name = "root_build_bazel",
+    source = "//:BUILD.bazel",
+    target = ":root.BUILD.bazel",
 )
 
 diff(

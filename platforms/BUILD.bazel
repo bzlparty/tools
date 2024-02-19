@@ -1,4 +1,4 @@
-load("@bzlparty_tools//lib:platforms.bzl", "PLATFORMS")
+load("@bzlparty_tools//:platforms.bzl", "PLATFORMS")
 
 package(
     default_visibility = ["//visibility:public"],

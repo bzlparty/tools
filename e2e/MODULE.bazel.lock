@@ -846,12 +846,12 @@
   "moduleExtensions": {
     "//:extension.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "B3Xw7KksTOi+SPcnz+mW8NbZpDWvyKJmxhL1Y24oVcA=",
+        "bzlTransitiveDigest": "1LQ2PmYPZrR2FE6OAfnrHKPdLL76v1m65rMOxWk5dLE=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
           "http_binary_output": {
-            "bzlFile": "@@bzlparty_tools~override//rules:http.bzl",
+            "bzlFile": "@@bzlparty_tools~override//:http.bzl",
             "ruleClassName": "http_binary",
             "attributes": {
               "name": "_main~ext~http_binary_output",
@@ -861,7 +861,7 @@
             }
           },
           "github_binary_file": {
-            "bzlFile": "@@bzlparty_tools~override//rules:http.bzl",
+            "bzlFile": "@@bzlparty_tools~override//:http.bzl",
             "ruleClassName": "http_binary",
             "attributes": {
               "url": "https://github.com/bzlparty/rules_html/releases/download/v0.1.0/bundler-linux-amd64",
@@ -870,7 +870,7 @@
             }
           },
           "http_binary_custom": {
-            "bzlFile": "@@bzlparty_tools~override//rules:http.bzl",
+            "bzlFile": "@@bzlparty_tools~override//:http.bzl",
             "ruleClassName": "http_binary",
             "attributes": {
               "name": "_main~ext~http_binary_custom",
@@ -892,7 +892,7 @@
             }
           },
           "http_binary_custom_2": {
-            "bzlFile": "@@bzlparty_tools~override//rules:http.bzl",
+            "bzlFile": "@@bzlparty_tools~override//:http.bzl",
             "ruleClassName": "http_binary",
             "attributes": {
               "name": "_main~ext~http_binary_custom_2",
@@ -903,7 +903,7 @@
             }
           },
           "http_binary_file": {
-            "bzlFile": "@@bzlparty_tools~override//rules:http.bzl",
+            "bzlFile": "@@bzlparty_tools~override//:http.bzl",
             "ruleClassName": "http_binary",
             "attributes": {
               "name": "_main~ext~http_binary_file",

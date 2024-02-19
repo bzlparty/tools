@@ -1,4 +1,4 @@
-"Public BUILD file for rules package"
+"Public BUILD file for root"
 
 package(default_visibility = ["//visibility:public"])
 
