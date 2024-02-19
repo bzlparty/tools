@@ -24,7 +24,7 @@ def github_archive(path, version, asset, **kwargs):
     that constructs an url form a project path, version and asset name.
 
     ```starlark
-    load("@bzlparty_tools//lib:github.bzl", "github_archive")
+    load("@bzlparty_tools//rules:github.bzl", "github_archive")
 
     github_archive(
         name = "mylang",
