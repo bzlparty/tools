@@ -1,5 +1,3 @@
-"Public BUILD file for lib package"
-
 package(
     default_visibility = ["//visibility:public"],
 )

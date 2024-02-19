@@ -9,15 +9,15 @@ diff(
 )
 
 diff(
-    name = "root_build_bazel",
+    name = "build_bazel",
     source = "//:BUILD.bazel",
-    target = ":root.BUILD.bazel",
+    target = ":BUILD.root.bazel",
 )
 
 diff(
     name = "git_build_bazel",
     source = "//git:BUILD.bazel",
-    target = ":git.BUILD.bazel",
+    target = ":BUILD.git.bazel",
 )
 
 update_patches()

@@ -1,12 +1,12 @@
 --- git/BUILD.bazel
-+++ dist/git.BUILD.bazel
-@@ -1,4 +1,4 @@
++++ dist/BUILD.git.bazel
+@@ -1,5 +1,3 @@
 -load("@aspect_bazel_lib//lib:bats.bzl", "bats_test")
-+"Public BUILD file for lib package"
- 
+-
  package(
      default_visibility = ["//visibility:public"],
-@@ -12,9 +12,3 @@
+ )
+@@ -12,9 +10,3 @@
      },
      tags = ["manual"],
  )
