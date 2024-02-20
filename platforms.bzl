@@ -1,4 +1,8 @@
-"Default platform mapping and helpers"
+"""
+# Platforms 
+
+Default platform mappings and helpers
+"""
 
 load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
 

@@ -1,6 +1,10 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-Default platform mapping and helpers
+
+# Platforms 
+
+Default platform mappings and helpers
+
 
 <a id="host_platform"></a>
 

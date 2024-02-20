@@ -1,6 +1,26 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+
+# Diff Utils 
+
 Create and Update Patches
+
+```starlark
+load("@bzlparty_tools//:diff.bzl", "diff", "update_patches")
+
+diff(
+    name = "module_bazel",
+    source = "//:MODULE.bazel",
+    target = ":MODULE.bazel",
+)
+
+update_patches()
+```
+
+&gt; [!NOTE]
+&gt; The `diff` rule uses the `diff` command from the host system.
+&gt; There is no toolchain that uses a platform specific tool.
+
 
 <a id="diff"></a>
 
@@ -11,11 +31,6 @@ diff(<a href="#diff-name">name</a>, <a href="#diff-source">source</a>, <a href="
 </pre>
 
 Create a patch file from `source` and `target` files.
-
-&gt; [!NOTE]
-&gt; This is a simple rule that uses the `diff` command from the host system.
-&gt; There is no toolchain that uses a platform specific tool.
-
 
 **PARAMETERS**
 

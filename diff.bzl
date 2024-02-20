@@ -1,13 +1,29 @@
-"Create and Update Patches"
+"""
+# Diff Utils 
+
+Create and Update Patches
+
+```starlark
+load("@bzlparty_tools//:diff.bzl", "diff", "update_patches")
+
+diff(
+    name = "module_bazel",
+    source = "//:MODULE.bazel",
+    target = ":MODULE.bazel",
+)
+
+update_patches()
+```
+
+> [!NOTE]
+> The `diff` rule uses the `diff` command from the host system.
+> There is no toolchain that uses a platform specific tool.
+"""
 
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 
 def diff(name, source, target, input = None):
     """Create a patch file from `source` and `target` files.
-
-    > [!NOTE]
-    > This is a simple rule that uses the `diff` command from the host system.
-    > There is no toolchain that uses a platform specific tool.
 
     Args:
       name: A unique name for the target.
