@@ -1,4 +1,19 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("@bzlparty_tools//:goawk.bzl", "goawk")
+
+goawk(
+    name = "goawk",
+    srcs = ["awk_test_data.txt"],
+    out = "result.txt",
+    file = "test.awk",
+)
+
+diff_test(
+    name = "goawk_test",
+    file1 = ":result.txt",
+    file2 = ":result_expected.txt",
+)
 
 build_test(
     name = "http_binary_test",

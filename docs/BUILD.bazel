@@ -11,6 +11,11 @@ stardoc_with_diff_test(
 )
 
 stardoc_with_diff_test(
+    name = "goawk",
+    bzl_library_target = "//:goawk",
+)
+
+stardoc_with_diff_test(
     name = "http",
     bzl_library_target = "//:http",
 )

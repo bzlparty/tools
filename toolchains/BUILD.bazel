@@ -1,0 +1,13 @@
+load("//:toolchains.bzl", "resolved_toolchain")
+
+package(default_visibility = ["//visibility:public"])
+
+toolchain_type(
+    name = "goawk_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+resolved_toolchain(
+    name = "goawk",
+    visibility = ["//visibility:public"],
+)

@@ -25,6 +25,12 @@ bzl_library(
 )
 
 bzl_library(
+    name = "goawk",
+    srcs = ["goawk.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
     name = "http",
     srcs = ["http.bzl"],
     visibility = ["//visibility:public"],

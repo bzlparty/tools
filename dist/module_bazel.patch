@@ -1,8 +1,11 @@
 --- ./MODULE.bazel
 +++ dist/MODULE.bazel
-@@ -7,5 +7,3 @@
- bazel_dep(name = "platforms", version = "0.0.8")
+@@ -8,8 +8,6 @@
  bazel_dep(name = "bazel_skylib", version = "1.5.0")
  bazel_dep(name = "aspect_bazel_lib", version = "2.3.0")
--
+ 
 -bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True)
+-
+ ext = use_extension("//:extensions.bzl", "ext")
+ use_repo(ext, "goawk")
+ 
