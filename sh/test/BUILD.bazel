@@ -1,0 +1,17 @@
+load("@aspect_bazel_lib//lib:bats.bzl", "bats_test")
+
+package(
+    default_visibility = ["//visibility:private"],
+)
+
+bats_test(
+    name = "shasums_test",
+    srcs = ["shasums.bats"],
+    data = ["//sh:shasums.sh"],
+)
+
+bats_test(
+    name = "tag_test",
+    srcs = ["tag.bats"],
+    data = ["//sh:tag.sh"],
+)
