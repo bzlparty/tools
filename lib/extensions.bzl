@@ -25,7 +25,7 @@ def _impl(_):
             asset = asset,
             integrity = "sha384-%s" % integrity,
             build_file_content = """
-load("@bzlparty_tools//:toolchains.bzl", "goawk_toolchain")
+load("@bzlparty_tools//lib:toolchains.bzl", "goawk_toolchain")
 goawk_toolchain(
     name = "goawk_toolchain",
     executable = select({
@@ -43,7 +43,7 @@ goawk_toolchain(
 
 def _goawk_toolchains_impl(ctx):
     ctx.file("BUILD", """
-load("@bzlparty_tools//:extensions.bzl", "PLATFORMS")
+load("@bzlparty_tools//lib:extensions.bzl", "PLATFORMS")
 [
     toolchain(
         name = "goawk_%s_toolchain" % platform,

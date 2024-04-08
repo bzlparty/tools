@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "879539ba2477de88a5326c07faacf1294daf3759b0351f6c06e2da899df78afc",
+  "moduleFileHash": "a3c5154397c8f3f7eeed933f4cf0c13026c11c4be90629f06d79a360e664e37b",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -27,7 +27,7 @@
       ],
       "extensionUsages": [
         {
-          "extensionBzlFile": "@bzlparty_tools//:extensions.bzl",
+          "extensionBzlFile": "@bzlparty_tools//lib:extensions.bzl",
           "extensionName": "ext",
           "usingModule": "<root>",
           "location": {
@@ -877,14 +877,14 @@
     }
   },
   "moduleExtensions": {
-    "//:extensions.bzl%ext": {
+    "//lib:extensions.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "kP8SqrWCv8UWCeamG6anOABHaeeWbqMx7OtFrgTrcdc=",
+        "bzlTransitiveDigest": "XcX9TzOpKf1zfqLSZnBOCLHiiGj1LL4XyB2YUbdd3ds=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
           "goawk": {
-            "bzlFile": "@@//:extensions.bzl",
+            "bzlFile": "@@//lib:extensions.bzl",
             "ruleClassName": "goawk_toolchains",
             "attributes": {
               "name": "_main~ext~goawk",
@@ -904,7 +904,7 @@
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_darwin_arm64.tar.gz",
               "name": "_main~ext~goawk_darwin_arm64",
               "integrity": "sha384-ZCZANnwH9/CUugRbwUqehBx924D/+U7B3E9+VlilE/qUBj076pRaDF42DdJgSsNP",
-              "build_file_content": "\nload(\"@bzlparty_tools//:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
             }
           },
           "goawk_linux_amd64": {
@@ -914,7 +914,7 @@
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_linux_amd64.tar.gz",
               "name": "_main~ext~goawk_linux_amd64",
               "integrity": "sha384-3Sp8kKJd7Ztxr8equTvSY0DYW/g2rsEdvJsxHnmCzPgEYhMKOYMSj+hbyCdsglJo",
-              "build_file_content": "\nload(\"@bzlparty_tools//:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
             }
           },
           "goawk_linux_arm64": {
@@ -924,7 +924,7 @@
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_linux_arm64.tar.gz",
               "name": "_main~ext~goawk_linux_arm64",
               "integrity": "sha384-LSH+jvkMlnUOiaRUIo5WVZkXMVZtb3erw5S1r0IjkKc4+OmVbT1ubJDtq8K1H2l6",
-              "build_file_content": "\nload(\"@bzlparty_tools//:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
             }
           },
           "goawk_windows_amd64": {
@@ -934,7 +934,7 @@
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_windows_amd64.zip",
               "name": "_main~ext~goawk_windows_amd64",
               "integrity": "sha384-EbPF8B9Lqf41zO3wq7Fa4bHBPx3X4d0W/cGS15bRE9yD3o/b3f5dyhgxgH9wO+Av",
-              "build_file_content": "\nload(\"@bzlparty_tools//:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
             }
           },
           "goawk_darwin_amd64": {
@@ -944,7 +944,7 @@
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_darwin_amd64.tar.gz",
               "name": "_main~ext~goawk_darwin_amd64",
               "integrity": "sha384-Fg2rpDq5rbE4iDtsFaH6ZKc0UlQB97DT+eSRgSAjqmIPEGa5C3vyCzqNco4Krr9Z",
-              "build_file_content": "\nload(\"@bzlparty_tools//:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
             }
           }
         }

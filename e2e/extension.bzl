@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
-load("@bzlparty_tools//:github.bzl", "github_archive", "github_binary")
-load("@bzlparty_tools//:http.bzl", "http_binary")
+load("@bzlparty_tools//lib:github.bzl", "github_archive", "github_binary")
+load("@bzlparty_tools//lib:http.bzl", "http_binary")
 
 def _impl(_):
     http_binary(

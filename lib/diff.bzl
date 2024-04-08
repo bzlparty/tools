@@ -4,7 +4,7 @@
 Create and Update Patches
 
 ```starlark
-load("@bzlparty_tools//:diff.bzl", "diff", "update_patches")
+load("@bzlparty_tools//lib:diff.bzl", "diff", "update_patches")
 
 diff(
     name = "module_bazel",

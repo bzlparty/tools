@@ -1,4 +1,4 @@
-load("//:toolchains.bzl", "resolved_toolchain")
+load("//lib:toolchains.bzl", "resolved_toolchain")
 
 package(default_visibility = ["//visibility:public"])
 

@@ -1,22 +1,18 @@
 #!/usr/bin/env bash
 
-host=$(uname -s)
-NAME=tools
+ALGO=256
 TAG=${GITHUB_REF_NAME}
-VERSION=${TAG:1}
-PREFIX="${NAME}-${VERSION}"
-RULES_ARCHIVE="${NAME}-${TAG}.tar.gz"
+VERSION=$TAG
+[[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] && VERSION=${TAG:1}
+RULES_ARCHIVE="./bzlparty_tools-$TAG.tar.gz"
 
-echo -n "build: Create Rules Archive"
-git archive --format=tar \
-  --add-virtual-file=${PREFIX}/MODULE.bazel:"$(sed "s/0.0.0/${VERSION}/" dist/MODULE.bazel)" \
-  --add-virtual-file=${PREFIX}/BUILD.bazel:"$(cat dist/BUILD.root.bazel)" \
-  --add-virtual-file=${PREFIX}/sh/BUILD.bazel:"$(cat dist/BUILD.sh.bazel)" \
-  --prefix=${PREFIX}/ ${TAG} | gzip >$RULES_ARCHIVE
-RULES_SHA=$(shasum -a 256 $RULES_ARCHIVE | awk '{print $1}')
-echo " ... done ($RULES_ARCHIVE: $RULES_SHA)"
+sed -i "s|0.0.0|$VERSION|" MODULE.bazel
+bazel build //scripts:dist
+OUTPUT=$(bazel 2>/dev/null cquery --output=files "//scripts:dist")
+cp "$OUTPUT" "$RULES_ARCHIVE"
+RULES_SHA=$(bazel 2>/dev/null run //sh:shasums -- -a "$ALGO"  "$RULES_ARCHIVE")
+echo "Created $RULES_ARCHIVE sha$ALGO:$RULES_SHA"
 
-echo -n "build: Create Release Notes"
 cat > release_notes.md <<EOF
 
 ## Installation
@@ -40,7 +36,7 @@ bazel_dep(name = "bzlparty_tools")
 
 git_override(
     module_name = "bzlparty_tools",
-    remote = "git@github.com:bzlparty/tools.git",
+    remote = "https://github.com/bzlparty/tools.git",
     commit = "${GITHUB_SHA}",
 )
 \`\`\`
@@ -54,14 +50,14 @@ archive_override(
     module_name = "bzlparty_tools",
     urls = "https://github.com/bzlparty/tools/releases/download/${TAG}/${RULES_ARCHIVE}",
     strip_prefix = "${PREFIX}",
-    integrity = "sha256-${RULES_SHA}",
+    integrity = "sha$ALGO-${RULES_SHA}",
 )
 \`\`\`
 
 ## Checksums
 
-**${RULES_ARCHIVE}** ${RULES_SHA}
+**${RULES_ARCHIVE}** sha$ALGO:${RULES_SHA}
 
 EOF
 
-echo " ... done"
+echo "Created release_notes.md"

@@ -25,5 +25,5 @@ filegroup(
         ":tag.sh",
     ],
     tags = ["manual"],
-    visibility = ["//:__pkg__"],
+    visibility = ["//scripts:__pkg__"],
 )

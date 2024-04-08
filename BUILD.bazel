@@ -1,58 +1,6 @@
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test")
-load(":platforms_test.bzl", "platforms_test_suite")
 
-exports_files([
-    "BUILD.bazel",
-    "MODULE.bazel",
-] + glob(["*.bzl"]))
-
-bzl_library(
-    name = "diff",
-    srcs = ["diff.bzl"],
-    visibility = ["//visibility:public"],
-    deps = ["@aspect_bazel_lib//lib:write_source_files"],
-)
-
-bzl_library(
-    name = "github",
-    srcs = ["github.bzl"],
-    visibility = ["//visibility:public"],
-    deps = [
-        ":bazel_tools_repo",
-        ":http",
-    ],
-)
-
-bzl_library(
-    name = "goawk",
-    srcs = ["goawk.bzl"],
-    visibility = ["//visibility:public"],
-)
-
-bzl_library(
-    name = "http",
-    srcs = ["http.bzl"],
-    visibility = ["//visibility:public"],
-)
-
-bzl_library(
-    name = "bazel_tools_repo",
-    srcs = [
-        "@bazel_tools//tools/build_defs/repo:cache.bzl",
-        "@bazel_tools//tools/build_defs/repo:http.bzl",
-        "@bazel_tools//tools/build_defs/repo:utils.bzl",
-    ],
-)
-
-bzl_library(
-    name = "platforms",
-    srcs = ["platforms.bzl"],
-    visibility = ["//visibility:public"],
-    deps = ["@local_config_platform//:constraints.bzl"],
-)
-
-platforms_test_suite(name = "platforms_test")
+exports_files(glob(["*"]))
 
 buildifier(
     name = "format",
