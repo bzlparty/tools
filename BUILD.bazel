@@ -6,6 +6,7 @@ buildifier(
     name = "format",
     exclude_patterns = [
         "./.git/*",
+        "**/assets.bzl",
     ],
     lint_mode = "fix",
     mode = "fix",
@@ -14,6 +15,9 @@ buildifier(
 buildifier_test(
     name = "lint",
     size = "small",
+    exclude_patterns = [
+        "**/assets.bzl",
+    ],
     lint_mode = "warn",
     mode = "check",
     no_sandbox = True,

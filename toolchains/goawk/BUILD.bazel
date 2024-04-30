@@ -1,0 +1,19 @@
+load("//lib:platform_binary.bzl", "platform_binaries")
+
+VERSION = "v1.27.0"
+
+SUPPORTED_PLATFORMS = [
+    "darwin_amd64",
+    "darwin_arm64",
+    "linux_amd64",
+    "linux_arm64",
+    "windows_amd64",
+]
+
+GITHUB_URL = "https://github.com/benhoyt/goawk/releases/download/%s" % VERSION
+
+platform_binaries(
+    name = "goawk",
+    platforms = SUPPORTED_PLATFORMS,
+    url = "%s/goawk_%s_{platform}.{ext}" % (GITHUB_URL, VERSION),
+)

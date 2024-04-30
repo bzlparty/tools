@@ -5,7 +5,9 @@ repos:
     rev: 6.4.0
     hooks:
       - id: buildifier
+        exclude: ".*\/assets.bzl$"
       - id: buildifier-lint
+        exclude: ".*\/assets.bzl$"
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:

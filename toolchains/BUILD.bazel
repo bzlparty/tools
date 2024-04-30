@@ -1,4 +1,4 @@
-load("//lib:toolchains.bzl", "resolved_toolchain")
+load("//lib:toolchains.bzl", "goawk_resolved_toolchain", "ripgrep_resolved_toolchain")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -7,7 +7,17 @@ toolchain_type(
     visibility = ["//visibility:public"],
 )
 
-resolved_toolchain(
+goawk_resolved_toolchain(
     name = "goawk",
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "ripgrep_toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+ripgrep_resolved_toolchain(
+    name = "ripgrep",
     visibility = ["//visibility:public"],
 )

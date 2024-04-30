@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "a3c5154397c8f3f7eeed933f4cf0c13026c11c4be90629f06d79a360e664e37b",
+  "moduleFileHash": "649814c0a22b6a939ffdadf5bd03b36b05c72b38a18cece61c93c16aeb7a206c",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -23,7 +23,8 @@
       "repoName": "bzlparty_tools",
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [
-        "@goawk//:all"
+        "@goawk//:all",
+        "@ripgrep//:all"
       ],
       "extensionUsages": [
         {
@@ -36,10 +37,32 @@
             "column": 20
           },
           "imports": {
-            "goawk": "goawk"
+            "goawk": "goawk",
+            "ripgrep": "ripgrep"
           },
           "devImports": [],
-          "tags": [],
+          "tags": [
+            {
+              "tagName": "goawk",
+              "attributeValues": {},
+              "devDependency": false,
+              "location": {
+                "file": "@@//:MODULE.bazel",
+                "line": 14,
+                "column": 10
+              }
+            },
+            {
+              "tagName": "ripgrep",
+              "attributeValues": {},
+              "devDependency": false,
+              "location": {
+                "file": "@@//:MODULE.bazel",
+                "line": 15,
+                "column": 12
+              }
+            }
+          ],
           "hasDevUseExtension": false,
           "hasNonDevUseExtension": true
         }
@@ -879,72 +902,124 @@
   "moduleExtensions": {
     "//lib:extensions.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "XcX9TzOpKf1zfqLSZnBOCLHiiGj1LL4XyB2YUbdd3ds=",
+        "bzlTransitiveDigest": "hdNknq21SS31U/ohx2on/Qf/2ud5oqUDae369WaEY8A=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
+          "ripgrep": {
+            "bzlFile": "@@//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
+            "attributes": {
+              "name": "_main~ext~ripgrep",
+              "build_file": "toolchain(\n    name = \"ripgrep_darwin_amd64_toolchain\",\n    toolchain = \"@ripgrep_darwin_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_darwin_arm64_toolchain\",\n    toolchain = \"@ripgrep_darwin_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_amd64_toolchain\",\n    toolchain = \"@ripgrep_linux_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_arm64_toolchain\",\n    toolchain = \"@ripgrep_linux_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_windows_amd64_toolchain\",\n    toolchain = \"@ripgrep_windows_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          },
           "goawk": {
-            "bzlFile": "@@//lib:extensions.bzl",
-            "ruleClassName": "goawk_toolchains",
+            "bzlFile": "@@//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
             "attributes": {
               "name": "_main~ext~goawk",
-              "platforms": [
-                "darwin_amd64",
-                "darwin_arm64",
-                "linux_amd64",
-                "linux_arm64",
-                "windows_amd64"
-              ]
+              "build_file": "toolchain(\n    name = \"goawk_darwin_amd64_toolchain\",\n    toolchain = \"@goawk_darwin_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_darwin_arm64_toolchain\",\n    toolchain = \"@goawk_darwin_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_amd64_toolchain\",\n    toolchain = \"@goawk_linux_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_arm64_toolchain\",\n    toolchain = \"@goawk_linux_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_windows_amd64_toolchain\",\n    toolchain = \"@goawk_windows_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          },
+          "ripgrep_linux_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "_main~ext~ripgrep_linux_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-9C2Ethl4TaPzvRR2SDqlSb4bGuBP9NyE9PVUalTLA9fJA1Jd4OTgFKvBgdpGh3vb",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-unknown-linux-musl/rg\",\n)\n"
+            }
+          },
+          "ripgrep_linux_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "_main~ext~ripgrep_linux_arm64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-linux_arm64.tar.gz",
+              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-linux_arm64/rg\",\n)\n"
             }
           },
           "goawk_darwin_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_darwin_arm64.tar.gz",
               "name": "_main~ext~goawk_darwin_arm64",
-              "integrity": "sha384-ZCZANnwH9/CUugRbwUqehBx924D/+U7B3E9+VlilE/qUBj076pRaDF42DdJgSsNP",
-              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_arm64.tar.gz",
+              "integrity": "sha384-iTMrskmk76SaA9VCbAQ0GpoWRiabnum4XcHkDgCWU4XjC2uAakjyhzyuJETtc50D",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
+            }
+          },
+          "ripgrep_darwin_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "_main~ext~ripgrep_darwin_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x85_64-apple-darwin.tar.gz",
+              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x85_64-apple-darwin/rg\",\n)\n"
+            }
+          },
+          "ripgrep_windows_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "_main~ext~ripgrep_windows_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-gnu.zip",
+              "integrity": "sha384-gBz6YsKFpFzkZy6hjiEp2XKiJAkxKpaJQSlDKCj8+qkHHuUhQbWbxAxbXSxNjvij",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-pc-windows-gnu/rg.exe\",\n)\n"
             }
           },
           "goawk_linux_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_linux_amd64.tar.gz",
               "name": "_main~ext~goawk_linux_amd64",
-              "integrity": "sha384-3Sp8kKJd7Ztxr8equTvSY0DYW/g2rsEdvJsxHnmCzPgEYhMKOYMSj+hbyCdsglJo",
-              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_linux_amd64.tar.gz",
+              "integrity": "sha384-a0aNEEzogU7GaezmBA8xvrGI/J+VUdSdwmA+/5T2wTU1KENsLMUdBmFPmBF5Tqm6",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           },
           "goawk_linux_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_linux_arm64.tar.gz",
               "name": "_main~ext~goawk_linux_arm64",
-              "integrity": "sha384-LSH+jvkMlnUOiaRUIo5WVZkXMVZtb3erw5S1r0IjkKc4+OmVbT1ubJDtq8K1H2l6",
-              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_linux_arm64.tar.gz",
+              "integrity": "sha384-1zoo/+D+R4dcXurhXzlSX4nw+546aWICMJ0OJTQFGl9veVKuHW9ZuN3AT6b3P+z6",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           },
           "goawk_windows_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_windows_amd64.zip",
               "name": "_main~ext~goawk_windows_amd64",
-              "integrity": "sha384-EbPF8B9Lqf41zO3wq7Fa4bHBPx3X4d0W/cGS15bRE9yD3o/b3f5dyhgxgH9wO+Av",
-              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_windows_amd64.zip",
+              "integrity": "sha384-zo8BnmeANuUrmLhy+1hNG8PG8Th5ovNnLian5cc0AArEeXvbMsyiWAZdfNt+YoLq",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk.exe\",\n)\n"
+            }
+          },
+          "ripgrep_darwin_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "_main~ext~ripgrep_darwin_arm64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-aarch64-apple-darwin.tar.gz",
+              "integrity": "sha384-3Ah7zo307VFV8plovAg8ex4hDy0P04YU5yz7Fwzs6mR5B4gwDeEJb7A6ggVFHyIL",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-aarch64-apple-darwin/rg\",\n)\n"
             }
           },
           "goawk_darwin_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.25.0/goawk_v1.25.0_darwin_amd64.tar.gz",
               "name": "_main~ext~goawk_darwin_amd64",
-              "integrity": "sha384-Fg2rpDq5rbE4iDtsFaH6ZKc0UlQB97DT+eSRgSAjqmIPEGa5C3vyCzqNco4Krr9Z",
-              "build_file_content": "\nload(\"@bzlparty_tools//lib:toolchains.bzl\", \"goawk_toolchain\")\ngoawk_toolchain(\n    name = \"goawk_toolchain\",\n    executable = select({\n        \"@bazel_tools//src/conditions:host_windows\": \"goawk.exe\",\n        \"//conditions:default\": \"goawk\",\n    }),\n)\n          "
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_amd64.tar.gz",
+              "integrity": "sha384-uPClT5eTKUZQncwg7r/2e20kaz16AANZRp/HC9WquTWeeX9LY6yXJSdJ903zHkBq",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           }
         }
