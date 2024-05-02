@@ -80,30 +80,3 @@ _binary_toolchains = repository_rule(
         "build_file": attr.string(mandatory = True),
     },
 )
-
-def _resolved_toolchain_impl(toolchain):
-    def _impl(ctx):
-        toolchain_info = ctx.toolchains[toolchain]
-        return [
-            toolchain_info,
-            toolchain_info.default,
-            toolchain_info.binary_info,
-            toolchain_info.template_variables,
-        ]
-
-    return _impl
-
-GOAWK_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:goawk_toolchain_type"
-RIPGREP_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:ripgrep_toolchain_type"
-
-goawk_resolved_toolchain = rule(
-    implementation = _resolved_toolchain_impl(GOAWK_TOOLCHAIN_TYPE),
-    toolchains = [GOAWK_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
-ripgrep_resolved_toolchain = rule(
-    implementation = _resolved_toolchain_impl(RIPGREP_TOOLCHAIN_TYPE),
-    toolchains = [RIPGREP_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)

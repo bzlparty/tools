@@ -14,7 +14,7 @@
   },
   "localOverrideHashes": {
     "bazel_tools": "922ea6752dc9105de5af957f7a99a6933c0a6a712d23df6aad16a9c399f7e787",
-    "bzlparty_tools": "649814c0a22b6a939ffdadf5bd03b36b05c72b38a18cece61c93c16aeb7a206c"
+    "bzlparty_tools": "45d8ca2fbbc549982f58422d44dd59933852ff21491be1981ff45fe17dbb9468"
   },
   "moduleDepGraph": {
     "<root>": {
@@ -94,21 +94,25 @@
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [
         "@goawk//:all",
-        "@ripgrep//:all"
+        "@ripgrep//:all",
+        "@typos//:all",
+        "@xsv//:all"
       ],
       "extensionUsages": [
         {
           "extensionBzlFile": "@bzlparty_tools//lib:extensions.bzl",
-          "extensionName": "ext",
+          "extensionName": "tools",
           "usingModule": "bzlparty_tools@_",
           "location": {
             "file": "@@bzlparty_tools~override//:MODULE.bazel",
             "line": 13,
-            "column": 20
+            "column": 22
           },
           "imports": {
             "goawk": "goawk",
-            "ripgrep": "ripgrep"
+            "ripgrep": "ripgrep",
+            "typos": "typos",
+            "xsv": "xsv"
           },
           "devImports": [],
           "tags": [
@@ -119,7 +123,7 @@
               "location": {
                 "file": "@@bzlparty_tools~override//:MODULE.bazel",
                 "line": 14,
-                "column": 10
+                "column": 12
               }
             },
             {
@@ -129,7 +133,27 @@
               "location": {
                 "file": "@@bzlparty_tools~override//:MODULE.bazel",
                 "line": 15,
+                "column": 14
+              }
+            },
+            {
+              "tagName": "typos",
+              "attributeValues": {},
+              "devDependency": false,
+              "location": {
+                "file": "@@bzlparty_tools~override//:MODULE.bazel",
+                "line": 16,
                 "column": 12
+              }
+            },
+            {
+              "tagName": "xsv",
+              "attributeValues": {},
+              "devDependency": false,
+              "location": {
+                "file": "@@bzlparty_tools~override//:MODULE.bazel",
+                "line": 17,
+                "column": 10
               }
             }
           ],
@@ -1463,6 +1487,24 @@
         }
       }
     },
+    "@@bazel_tools//tools/osx:xcode_configure.bzl%xcode_configure_extension": {
+      "general": {
+        "bzlTransitiveDigest": "Qh2bWTU6QW6wkrd87qrU4YeY+SG37Nvw3A0PR4Y0L2Y=",
+        "accumulatedFileDigests": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "local_config_xcode": {
+            "bzlFile": "@@bazel_tools//tools/osx:xcode_configure.bzl",
+            "ruleClassName": "xcode_autoconf",
+            "attributes": {
+              "name": "bazel_tools~xcode_configure_extension~local_config_xcode",
+              "xcode_locator": "@bazel_tools//tools/osx:xcode_locator.m",
+              "remote_xcode": ""
+            }
+          }
+        }
+      }
+    },
     "@@bazel_tools//tools/sh:sh_configure.bzl%sh_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "hp4NgmNjEg5+xgvzfh6L83bt9/aiiWETuNpwNuF1MSU=",
@@ -1479,123 +1521,259 @@
         }
       }
     },
-    "@@bzlparty_tools~override//lib:extensions.bzl%ext": {
+    "@@bzlparty_tools~override//lib:extensions.bzl%tools": {
       "general": {
-        "bzlTransitiveDigest": "z4CP23O9lOMzFrLdlJRlSABpZEaqOCOxVIqO/2cINrc=",
+        "bzlTransitiveDigest": "WBDWr+9IjHNE+VYGgmC2zIUIZbDm/vgC15l6CproYuo=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
-          "ripgrep": {
-            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
-            "ruleClassName": "_binary_toolchains",
-            "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep",
-              "build_file": "toolchain(\n    name = \"ripgrep_darwin_amd64_toolchain\",\n    toolchain = \"@ripgrep_darwin_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_darwin_arm64_toolchain\",\n    toolchain = \"@ripgrep_darwin_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_amd64_toolchain\",\n    toolchain = \"@ripgrep_linux_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_arm64_toolchain\",\n    toolchain = \"@ripgrep_linux_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_windows_amd64_toolchain\",\n    toolchain = \"@ripgrep_windows_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
-            }
-          },
-          "goawk": {
-            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
-            "ruleClassName": "_binary_toolchains",
-            "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk",
-              "build_file": "toolchain(\n    name = \"goawk_darwin_amd64_toolchain\",\n    toolchain = \"@goawk_darwin_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_darwin_arm64_toolchain\",\n    toolchain = \"@goawk_darwin_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_amd64_toolchain\",\n    toolchain = \"@goawk_linux_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_arm64_toolchain\",\n    toolchain = \"@goawk_linux_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_windows_amd64_toolchain\",\n    toolchain = \"@goawk_windows_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
-            }
-          },
-          "ripgrep_linux_amd64": {
+          "typos_linux_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep_linux_amd64",
-              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz",
-              "integrity": "sha384-9C2Ethl4TaPzvRR2SDqlSb4bGuBP9NyE9PVUalTLA9fJA1Jd4OTgFKvBgdpGh3vb",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-unknown-linux-musl/rg\",\n)\n"
+              "name": "bzlparty_tools~override~tools~typos_linux_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/x86_64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-YdD3XLwJTKSKSftpdZ6JbNoiKouHkZ0D/BGQk3736KlzsvQ9sefTkoAYvYIU96Zg",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos\",\n)\n"
             }
           },
-          "ripgrep_linux_arm64": {
+          "xsv_windows_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep_linux_arm64",
-              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-linux_arm64.tar.gz",
-              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-linux_arm64/rg\",\n)\n"
+              "name": "bzlparty_tools~override~tools~xsv_windows_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/aarch64-pc-windows-msvc.tar.gz",
+              "integrity": "sha384-X72q7PrI9fLqaLWjEd/SwKljfaADYKNsuA/jvFHEPiyMSkMt/LDmWUuhTroIam4d",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv.exe\",\n)\n"
             }
           },
           "goawk_darwin_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk_darwin_arm64",
+              "name": "bzlparty_tools~override~tools~goawk_darwin_arm64",
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_arm64.tar.gz",
               "integrity": "sha384-iTMrskmk76SaA9VCbAQ0GpoWRiabnum4XcHkDgCWU4XjC2uAakjyhzyuJETtc50D",
               "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           },
-          "ripgrep_darwin_amd64": {
+          "xsv_darwin_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep_darwin_amd64",
-              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x85_64-apple-darwin.tar.gz",
+              "name": "bzlparty_tools~override~tools~xsv_darwin_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/x85_64-apple-darwin.tar.gz",
               "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x85_64-apple-darwin/rg\",\n)\n"
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv\",\n)\n"
             }
           },
-          "ripgrep_windows_amd64": {
+          "typos_darwin_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep_windows_amd64",
-              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-gnu.zip",
-              "integrity": "sha384-gBz6YsKFpFzkZy6hjiEp2XKiJAkxKpaJQSlDKCj8+qkHHuUhQbWbxAxbXSxNjvij",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-pc-windows-gnu/rg.exe\",\n)\n"
+              "name": "bzlparty_tools~override~tools~typos_darwin_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/aarch64-apple-darwin.tar.gz",
+              "integrity": "sha384-8nOMf5jj3iggOtsS/dChGnhHJBdHkPkJw+2DoGkuOncJfI1TVfxfiOMlNx6cYBjr",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos\",\n)\n"
             }
           },
-          "goawk_linux_amd64": {
+          "xsv_linux_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk_linux_amd64",
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_linux_amd64.tar.gz",
-              "integrity": "sha384-a0aNEEzogU7GaezmBA8xvrGI/J+VUdSdwmA+/5T2wTU1KENsLMUdBmFPmBF5Tqm6",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
+              "name": "bzlparty_tools~override~tools~xsv_linux_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/x86_64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-a9R7blrnvbuiwK3fxRdPvRErETlXLQUnVRnq0TRaVNLQ5ppbXhYZcvbrHd9WuHK8",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv\",\n)\n"
+            }
+          },
+          "typos_windows_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~typos_windows_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/x86_64-pc-windows-msvc.tar.gz",
+              "integrity": "sha384-B45/wcXU/Q5zB7oxY6kuZNDmj4lu1Shnn47/5Eij12JCJQpoMHqlc2NE+CswBJhS",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos.exe\",\n)\n"
+            }
+          },
+          "goawk": {
+            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~goawk",
+              "build_file": "toolchain(\n    name = \"goawk_darwin_amd64_toolchain\",\n    toolchain = \"@goawk_darwin_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_darwin_arm64_toolchain\",\n    toolchain = \"@goawk_darwin_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_amd64_toolchain\",\n    toolchain = \"@goawk_linux_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_linux_arm64_toolchain\",\n    toolchain = \"@goawk_linux_arm64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"goawk_windows_amd64_toolchain\",\n    toolchain = \"@goawk_windows_amd64//:goawk_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:goawk_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          },
+          "ripgrep_linux_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~ripgrep_linux_arm64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-linux_arm64.tar.gz",
+              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-linux_arm64/rg\",\n)\n"
             }
           },
           "goawk_linux_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk_linux_arm64",
+              "name": "bzlparty_tools~override~tools~goawk_linux_arm64",
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_linux_arm64.tar.gz",
               "integrity": "sha384-1zoo/+D+R4dcXurhXzlSX4nw+546aWICMJ0OJTQFGl9veVKuHW9ZuN3AT6b3P+z6",
               "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           },
-          "goawk_windows_amd64": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_archive",
+          "xsv": {
+            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk_windows_amd64",
-              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_windows_amd64.zip",
-              "integrity": "sha384-zo8BnmeANuUrmLhy+1hNG8PG8Th5ovNnLian5cc0AArEeXvbMsyiWAZdfNt+YoLq",
-              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk.exe\",\n)\n"
+              "name": "bzlparty_tools~override~tools~xsv",
+              "build_file": "toolchain(\n    name = \"xsv_darwin_amd64_toolchain\",\n    toolchain = \"@xsv_darwin_amd64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"xsv_darwin_arm64_toolchain\",\n    toolchain = \"@xsv_darwin_arm64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"xsv_linux_amd64_toolchain\",\n    toolchain = \"@xsv_linux_amd64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"xsv_linux_arm64_toolchain\",\n    toolchain = \"@xsv_linux_arm64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"xsv_windows_amd64_toolchain\",\n    toolchain = \"@xsv_windows_amd64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"xsv_windows_arm64_toolchain\",\n    toolchain = \"@xsv_windows_arm64//:xsv_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:xsv_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
             }
           },
           "ripgrep_darwin_arm64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~ripgrep_darwin_arm64",
+              "name": "bzlparty_tools~override~tools~ripgrep_darwin_arm64",
               "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-aarch64-apple-darwin.tar.gz",
               "integrity": "sha384-3Ah7zo307VFV8plovAg8ex4hDy0P04YU5yz7Fwzs6mR5B4gwDeEJb7A6ggVFHyIL",
               "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-aarch64-apple-darwin/rg\",\n)\n"
+            }
+          },
+          "ripgrep": {
+            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~ripgrep",
+              "build_file": "toolchain(\n    name = \"ripgrep_darwin_amd64_toolchain\",\n    toolchain = \"@ripgrep_darwin_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_darwin_arm64_toolchain\",\n    toolchain = \"@ripgrep_darwin_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_amd64_toolchain\",\n    toolchain = \"@ripgrep_linux_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_linux_arm64_toolchain\",\n    toolchain = \"@ripgrep_linux_arm64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"ripgrep_windows_amd64_toolchain\",\n    toolchain = \"@ripgrep_windows_amd64//:ripgrep_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:ripgrep_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          },
+          "typos_linux_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~typos_linux_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/aarch64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-AkCCxhe7jU4ykyZwW9A6R6sihsi0+21/tZ0kWaFhyV2UqwlZC85qN2qPokprTkow",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos\",\n)\n"
+            }
+          },
+          "ripgrep_darwin_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~ripgrep_darwin_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x85_64-apple-darwin.tar.gz",
+              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x85_64-apple-darwin/rg\",\n)\n"
+            }
+          },
+          "xsv_linux_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~xsv_linux_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/aarch64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-S+MRIKADdpHoFvJd5IJVvAu6QbK4lQxAqopDIZbYZC1dZGzHwiKBFtYbAqWS0gea",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv\",\n)\n"
+            }
+          },
+          "goawk_windows_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~goawk_windows_amd64",
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_windows_amd64.zip",
+              "integrity": "sha384-zo8BnmeANuUrmLhy+1hNG8PG8Th5ovNnLian5cc0AArEeXvbMsyiWAZdfNt+YoLq",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk.exe\",\n)\n"
+            }
+          },
+          "xsv_darwin_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~xsv_darwin_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/aarch64-apple-darwin.tar.gz",
+              "integrity": "sha384-LNKs3vYVqUzH09ylwPhkdKMMhV26tmSro8+lXkqvOVtlaCbKWjdYMiaipQ9L+jcb",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv\",\n)\n"
+            }
+          },
+          "xsv_windows_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~xsv_windows_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/x86_64-pc-windows-msvc.tar.gz",
+              "integrity": "sha384-IxVWBJuknchdv83BQ6HjbPkUwTDX8cQzdqhRMNmMrB1/DiJn0Hhq3atrCeYhQngx",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"xsv_binary_toolchain\",\n    prefix = \"xsv\",\n    binary = \"xsv.exe\",\n)\n"
+            }
+          },
+          "typos_windows_arm64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~typos_windows_arm64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/aarch64-pc-windows-msvc.tar.gz",
+              "integrity": "sha384-AuGDiX1gA1199GW2oUL9KqjIhdOpa+N8WFBxq3xNtOOk6FbOIHCLnL0tOmU5dB+N",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos.exe\",\n)\n"
+            }
+          },
+          "ripgrep_linux_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~ripgrep_linux_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz",
+              "integrity": "sha384-9C2Ethl4TaPzvRR2SDqlSb4bGuBP9NyE9PVUalTLA9fJA1Jd4OTgFKvBgdpGh3vb",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-unknown-linux-musl/rg\",\n)\n"
+            }
+          },
+          "typos": {
+            "bzlFile": "@@bzlparty_tools~override//lib:toolchains.bzl",
+            "ruleClassName": "_binary_toolchains",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~typos",
+              "build_file": "toolchain(\n    name = \"typos_darwin_amd64_toolchain\",\n    toolchain = \"@typos_darwin_amd64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"typos_darwin_arm64_toolchain\",\n    toolchain = \"@typos_darwin_arm64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:macos\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"typos_linux_amd64_toolchain\",\n    toolchain = \"@typos_linux_amd64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"typos_linux_arm64_toolchain\",\n    toolchain = \"@typos_linux_arm64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:linux\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"typos_windows_amd64_toolchain\",\n    toolchain = \"@typos_windows_amd64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:x86_64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\ntoolchain(\n    name = \"typos_windows_arm64_toolchain\",\n    toolchain = \"@typos_windows_arm64//:typos_binary_toolchain\",\n    exec_compatible_with = [\"@platforms//os:windows\", \"@platforms//cpu:arm64\"],\n    toolchain_type = \"@bzlparty_tools//toolchains:typos_toolchain_type\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          },
+          "ripgrep_windows_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~ripgrep_windows_amd64",
+              "url": "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-gnu.zip",
+              "integrity": "sha384-gBz6YsKFpFzkZy6hjiEp2XKiJAkxKpaJQSlDKCj8+qkHHuUhQbWbxAxbXSxNjvij",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"ripgrep_binary_toolchain\",\n    prefix = \"ripgrep\",\n    binary = \"ripgrep-14.1.0-x86_64-pc-windows-gnu/rg.exe\",\n)\n"
+            }
+          },
+          "typos_darwin_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~typos_darwin_amd64",
+              "url": "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-1.21.0/x85_64-apple-darwin.tar.gz",
+              "integrity": "sha384-AI+HQg6X3xX+Su/0qIwiSw2Ygga0UNjAFFCZPicIJ8xlzT70tejy5Gx4ZEJ/dHOm",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"typos_binary_toolchain\",\n    prefix = \"typos\",\n    binary = \"typos\",\n)\n"
+            }
+          },
+          "goawk_linux_amd64": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "name": "bzlparty_tools~override~tools~goawk_linux_amd64",
+              "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_linux_amd64.tar.gz",
+              "integrity": "sha384-a0aNEEzogU7GaezmBA8xvrGI/J+VUdSdwmA+/5T2wTU1KENsLMUdBmFPmBF5Tqm6",
+              "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"
             }
           },
           "goawk_darwin_amd64": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_archive",
             "attributes": {
-              "name": "bzlparty_tools~override~ext~goawk_darwin_amd64",
+              "name": "bzlparty_tools~override~tools~goawk_darwin_amd64",
               "url": "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_amd64.tar.gz",
               "integrity": "sha384-uPClT5eTKUZQncwg7r/2e20kaz16AANZRp/HC9WquTWeeX9LY6yXJSdJ903zHkBq",
               "build_file_content": "load(\"@bzlparty_tools//lib:toolchains.bzl\", \"binary_toolchain\")\nbinary_toolchain(\n    name = \"goawk_binary_toolchain\",\n    prefix = \"goawk\",\n    binary = \"goawk\",\n)\n"

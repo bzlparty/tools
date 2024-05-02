@@ -10,9 +10,11 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.3.0")
 
 bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True)
 
-ext = use_extension("//lib:extensions.bzl", "ext")
-ext.goawk()
-ext.ripgrep()
-use_repo(ext, "goawk", "ripgrep")
+tools = use_extension("//lib:extensions.bzl", "tools")
+tools.goawk()
+tools.ripgrep()
+tools.typos()
+tools.xsv()
+use_repo(tools, "goawk", "ripgrep", "typos", "xsv")
 
-register_toolchains("@goawk//:all", "@ripgrep//:all")
+register_toolchains("@goawk//:all", "@ripgrep//:all", "@typos//:all", "@xsv//:all")

@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@bzlparty_tools//lib:goawk.bzl", "goawk")
-load("@bzlparty_tools//lib:ripgrep.bzl", "ripgrep")
+load("@bzlparty_tools//lib:ripgrep.bzl", "ripgrep", "ripgrep_binary")
 
 goawk(
     name = "goawk",
@@ -21,6 +21,13 @@ ripgrep(
     srcs = ["ripgrep_test_data.txt"],
     out = "ripgrep_result.txt",
     pattern = "oo$$",
+)
+
+ripgrep_binary(
+    name = "ripgrep_bin",
+    data = [
+        "ripgrep_test_data.txt",
+    ],
 )
 
 diff_test(

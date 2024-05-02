@@ -2,26 +2,31 @@
 load("//lib:toolchains.bzl", "platform_toolchains")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
+load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
+load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
+
+TOOLS = {
+    "goawk": GOAWK_ASSETS,
+    "ripgrep": RIPGREP_ASSETS,
+    "typos": TYPOS_ASSETS,
+    "xsv": XSV_ASSETS,
+}
+
+TAG_CLASSES = {
+    t: tag_class(attrs = {"name": attr.string(default = t)})
+    for t in TOOLS.keys()
+}
+
+def _has_tag(module, tag):
+    return hasattr(module.tags, tag) and len(getattr(module.tags, tag)) > 0
 
 def _impl(ctx):
     for module in ctx.modules:
-        if len(module.tags.goawk) > 0:
-            platform_toolchains(name = "goawk", assets = GOAWK_ASSETS)
-        if len(module.tags.ripgrep) > 0:
-            platform_toolchains(name = "ripgrep", assets = RIPGREP_ASSETS)
+        for name, assets in TOOLS.items():
+            if _has_tag(module, name):
+                platform_toolchains(name = name, assets = assets)
 
-ext = module_extension(
+tools = module_extension(
     _impl,
-    tag_classes = {
-        "goawk": tag_class(
-            attrs = {
-                "name": attr.string(default = "goawk"),
-            },
-        ),
-        "ripgrep": tag_class(
-            attrs = {
-                "name": attr.string(default = "ripgrep"),
-            },
-        ),
-    },
+    tag_classes = TAG_CLASSES,
 )
