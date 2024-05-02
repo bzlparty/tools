@@ -1,49 +1,18 @@
-load(
-    ":toolchains.bzl",
-    "goawk_resolved_toolchain",
-    "ripgrep_resolved_toolchain",
-    "typos_resolved_toolchain",
-    "xsv_resolved_toolchain",
-)
+load("//toolchains/private:generate_toolchains.bzl", "generate_toolchains")
+load(":toolchains.bzl", "all_toolchains")
 
 package(default_visibility = ["//visibility:public"])
 
-toolchain_type(
-    name = "goawk_toolchain_type",
-    visibility = ["//visibility:public"],
+TOOLS = [
+    "goawk",
+    "ripgrep",
+    "typos",
+    "xsv",
+]
+
+generate_toolchains(
+    name = "toolchains",
+    tools = TOOLS,
 )
 
-goawk_resolved_toolchain(
-    name = "goawk",
-    visibility = ["//visibility:public"],
-)
-
-toolchain_type(
-    name = "ripgrep_toolchain_type",
-    visibility = ["//visibility:public"],
-)
-
-ripgrep_resolved_toolchain(
-    name = "ripgrep",
-    visibility = ["//visibility:public"],
-)
-
-toolchain_type(
-    name = "typos_toolchain_type",
-    visibility = ["//visibility:public"],
-)
-
-typos_resolved_toolchain(
-    name = "typos",
-    visibility = ["//visibility:public"],
-)
-
-toolchain_type(
-    name = "xsv_toolchain_type",
-    visibility = ["//visibility:public"],
-)
-
-xsv_resolved_toolchain(
-    name = "xsv",
-    visibility = ["//visibility:public"],
-)
+all_toolchains()

@@ -926,7 +926,7 @@
   "moduleExtensions": {
     "//lib:extensions.bzl%tools": {
       "general": {
-        "bzlTransitiveDigest": "WBDWr+9IjHNE+VYGgmC2zIUIZbDm/vgC15l6CproYuo=",
+        "bzlTransitiveDigest": "hEVFh0YQrpxBu/QKqEP2wSQEHwYgBOCNXakmthqX7o4=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {

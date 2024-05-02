@@ -1,16 +1,6 @@
 # buildifier: disable=module-docstring
 load("//lib:toolchains.bzl", "platform_toolchains")
-load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
-load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
-load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
-load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
-
-TOOLS = {
-    "goawk": GOAWK_ASSETS,
-    "ripgrep": RIPGREP_ASSETS,
-    "typos": TYPOS_ASSETS,
-    "xsv": XSV_ASSETS,
-}
+load("//toolchains:toolchains.bzl", "TOOLS")
 
 TAG_CLASSES = {
     t: tag_class(attrs = {"name": attr.string(default = t)})
