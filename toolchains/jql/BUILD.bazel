@@ -1,0 +1,28 @@
+load("//lib:platform_binary.bzl", "platform_binaries")
+
+VERSION = "7.1.8"
+
+SUPPORTED_PLATFORMS = [
+    "darwin_amd64",
+    "darwin_arm64",
+    "linux_amd64",
+    "linux_arm64",
+    "windows_amd64",
+]
+
+GITHUB_URL = "https://github.com/yamafaktory/jql/releases/download/jql-v%s" % VERSION
+
+platform_binaries(
+    name = "jql",
+    binary = "jql",
+    darwin_ext = "zip",
+    platforms = SUPPORTED_PLATFORMS,
+    platforms_map = {
+        "darwin_amd64": "x85_64-apple-darwin",
+        "darwin_arm64": "aarch64-apple-darwin",
+        "linux_amd64": "x86_64-unknown-linux-musl",
+        "linux_arm64": "aarch64-unknown-linux-musl",
+        "windows_amd64": "x86_64-pc-windows-msvc",
+    },
+    url = "%s/jql-v%s-{platform}.{ext}" % (GITHUB_URL, VERSION),
+)

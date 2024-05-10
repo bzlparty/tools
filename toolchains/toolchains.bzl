@@ -1,12 +1,14 @@
 # buildifier: disable=module-docstring
 load("//lib:toolchains.bzl", "resolved_toolchain_impl")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
+load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
 load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
 load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
 
 TOOLS = {
     "goawk": GOAWK_ASSETS,
+    "jql": JQL_ASSETS,
     "ripgrep": RIPGREP_ASSETS,
     "typos": TYPOS_ASSETS,
     "xsv": XSV_ASSETS,
@@ -17,6 +19,14 @@ GOAWK_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:goawk_toolchain_type"
 goawk_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(GOAWK_TOOLCHAIN_TYPE),
     toolchains = [GOAWK_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
+
+JQL_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:jql_toolchain_type"
+
+jql_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(JQL_TOOLCHAIN_TYPE),
+    toolchains = [JQL_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -52,6 +62,14 @@ def all_toolchains(name = "all_toolchains"):
     )
     goawk_resolved_toolchain(
         name = "goawk",
+        visibility = ["//visibility:public"],
+    )
+    native.toolchain_type(
+        name = "jql_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    jql_resolved_toolchain(
+        name = "jql",
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(

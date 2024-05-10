@@ -22,12 +22,23 @@ echo -n \"{algo} \";
         tools = ["//sh:shasums"],
     )
 
+def _switch(val, arms, default = None):
+    for k, v in arms.items():
+        if k == val:
+            return v
+    return default
+
 # buildifier: disable=function-docstring
-def platform_binaries(name, url, platforms, binary = None, prefix = "", platforms_map = {}):
+def platform_binaries(name, url, platforms, darwin_ext = "tar.gz", windows_ext = "zip", linux_ext = "tar.gz", binary = None, prefix = "", platforms_map = {}):
     binaries = []
     for platform in platforms:
         _name = "%s_%s" % (name, platform)
         _platform = platforms_map.get(platform, platform)
+        ext = _switch(platform, {
+            "darwin": darwin_ext,
+            "linux": linux_ext,
+            "windows": windows_ext,
+        }, "tar.gz")
         binaries.append(_name)
         platform_binary(
             name = _name,
@@ -35,7 +46,7 @@ def platform_binaries(name, url, platforms, binary = None, prefix = "", platform
             binary = prefix.format(platform = _platform) + (binary or name) + (".exe" if is_windows(platform) else ""),
             url = url.format(
                 platform = _platform,
-                ext = "zip" if is_windows(platform) else "tar.gz",
+                ext = ext,
             ),
         )
 

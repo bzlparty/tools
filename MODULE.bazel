@@ -12,9 +12,10 @@ bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True
 
 tools = use_extension("//lib:extensions.bzl", "tools")
 tools.goawk()
+tools.jql()
 tools.ripgrep()
 tools.typos()
 tools.xsv()
-use_repo(tools, "goawk", "ripgrep", "typos", "xsv")
+use_repo(tools, "goawk", "jql", "ripgrep", "typos", "xsv")
 
-register_toolchains("@goawk//:all", "@ripgrep//:all", "@typos//:all", "@xsv//:all")
+register_toolchains("@goawk//:all", "@jql//:all", "@ripgrep//:all", "@typos//:all", "@xsv//:all")
