@@ -1,6 +1,7 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@bzlparty_tools//lib:goawk.bzl", "goawk")
+load("@bzlparty_tools//lib:jql.bzl", "jql_test")
 load("@bzlparty_tools//lib:ripgrep.bzl", "ripgrep", "ripgrep_binary")
 
 goawk(
@@ -34,6 +35,11 @@ diff_test(
     name = "ripgrep_test",
     file1 = ":ripgrep_result.txt",
     file2 = ":ripgrep_result_expected.txt",
+)
+
+jql_test(
+    name = "json_validate",
+    srcs = ["test.json"],
 )
 
 build_test(
