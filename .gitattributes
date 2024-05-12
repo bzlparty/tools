@@ -7,4 +7,3 @@ toolchains/BUILD.bazel        export-ignore
 toolchains/private            export-ignore
 e2e                           export-ignore
 **/test                       export-ignore
-*.lock                        export-ignore
