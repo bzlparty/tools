@@ -1,6 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//toolchains/private:generate_toolchains.bzl", "generate_toolchains")
-load(":toolchains.bzl", "all_toolchains")
+load(":toolchains.bzl", "toolchains")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -17,7 +17,7 @@ generate_toolchains(
     tools = TOOLS,
 )
 
-all_toolchains()
+toolchains()
 
 bzl_library(
     name = "docs",

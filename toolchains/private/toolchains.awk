@@ -1,6 +1,6 @@
 BEGIN {
   print "# buildifier: disable=function-docstring"
-  print "def all_toolchains(name = \"all_toolchains\"):"
+  print "def toolchains(name = \"toolchains\"):"
 }
 
 {

@@ -55,7 +55,7 @@ xsv_resolved_toolchain = rule(
 )
 
 # buildifier: disable=function-docstring
-def all_toolchains(name = "all_toolchains"):
+def toolchains(name = "toolchains"):
     native.toolchain_type(
         name = "goawk_toolchain_type",
         visibility = ["//visibility:public"],

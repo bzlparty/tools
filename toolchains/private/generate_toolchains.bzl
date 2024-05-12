@@ -40,7 +40,7 @@ _generate_toolchains = rule(
                 Label("//toolchains/private:header.awk"),
                 Label("//toolchains/private:tools.awk"),
                 Label("//toolchains/private:resolved_toolchains.awk"),
-                Label("//toolchains/private:all_toolchains.awk"),
+                Label("//toolchains/private:toolchains.awk"),
             ],
         ),
         "tools": attr.string_list(),
