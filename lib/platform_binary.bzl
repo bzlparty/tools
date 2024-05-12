@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load("//lib:platforms.bzl", "is_windows")
+load(":platforms.bzl", "is_windows")
 
 def platform_binary(name, url, binary, platform, algo = "384"):
     native.genrule(
