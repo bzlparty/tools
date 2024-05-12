@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+NAME=tools
 ALGO=384
 TAG=${GITHUB_REF_NAME}
 VERSION=$TAG
 [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] && VERSION=${TAG:1}
-PREFIX="tools-$VERSION"
-RULES_ARCHIVE="./bzlparty_tools-$TAG.tar.gz"
+PREFIX="$NAME-$VERSION"
+RULES_ARCHIVE="$NAME-$TAG.tar.gz"
 
 module_file=$(mktemp)
 root_build_file=$(mktemp)

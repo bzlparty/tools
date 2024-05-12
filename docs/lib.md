@@ -4,6 +4,9 @@
 
 # lib
 
+```starlark
+load("@bzlparty_tools//lib:defs.bzl", "...")
+```
 
 
 
@@ -82,6 +85,114 @@ Create a patch file from `source` and `target` files.
 | <a id="diff-source"></a>source |  Source file to create the patch for.   |  none |
 | <a id="diff-target"></a>target |  Target file to compare the <code>source</code> to.   |  none |
 | <a id="diff-input"></a>input |  Input patch file, optional. Defaults to a file named like the rule with the <code>patch</code> extension, e.g. <code>module_bazel.patch</code>.   |  <code>None</code> |
+
+
+<a id="host_platform"></a>
+
+## host_platform
+
+<pre>
+host_platform(<a href="#host_platform-ctx">ctx</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="host_platform-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
+
+
+<a id="is_amd64"></a>
+
+## is_amd64
+
+<pre>
+is_amd64(<a href="#is_amd64-platform">platform</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="is_amd64-platform"></a>platform |  <p align="center"> - </p>   |  none |
+
+
+<a id="is_darwin"></a>
+
+## is_darwin
+
+<pre>
+is_darwin(<a href="#is_darwin-platform">platform</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="is_darwin-platform"></a>platform |  <p align="center"> - </p>   |  none |
+
+
+<a id="is_freebsd"></a>
+
+## is_freebsd
+
+<pre>
+is_freebsd(<a href="#is_freebsd-platform">platform</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="is_freebsd-platform"></a>platform |  <p align="center"> - </p>   |  none |
+
+
+<a id="is_netbsd"></a>
+
+## is_netbsd
+
+<pre>
+is_netbsd(<a href="#is_netbsd-platform">platform</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="is_netbsd-platform"></a>platform |  <p align="center"> - </p>   |  none |
+
+
+<a id="is_windows"></a>
+
+## is_windows
+
+<pre>
+is_windows(<a href="#is_windows-platform">platform</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="is_windows-platform"></a>platform |  <p align="center"> - </p>   |  none |
 
 
 <a id="platform_binaries"></a>
