@@ -6,11 +6,6 @@ stardoc_with_diff_test(
 )
 
 stardoc_with_diff_test(
-    name = "platforms",
-    bzl_library_target = "//lib:platforms",
-)
-
-stardoc_with_diff_test(
     name = "sh",
     bzl_library_target = "//sh:docs",
 )
