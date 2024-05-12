@@ -2,8 +2,9 @@
 .git*                         export-ignore
 .pre-commit-config.yaml       export-ignore
 .prettierignore               export-ignore
-dist                          export-ignore
 docs/BUILD.bazel              export-ignore
+toolchains/BUILD.bazel        export-ignore
+toolchains/private            export-ignore
 e2e                           export-ignore
-*_test.bzl                    export-ignore
+**/test                       export-ignore
 *.lock                        export-ignore

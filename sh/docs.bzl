@@ -1,0 +1,7 @@
+"""
+
+# Shell scripts
+
+"""
+
+DOCS = "sh"

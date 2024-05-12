@@ -1,3 +1,5 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
 package(
     default_visibility = ["//visibility:public"],
 )
@@ -17,13 +19,7 @@ sh_binary(
     tags = ["manual"],
 )
 
-filegroup(
-    name = "files",
-    srcs = [
-        ":BUILD.bazel",
-        ":shasums.sh",
-        ":tag.sh",
-    ],
-    tags = ["manual"],
-    visibility = ["//scripts:__pkg__"],
+bzl_library(
+    name = "docs",
+    srcs = ["docs.bzl"],
 )

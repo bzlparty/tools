@@ -1,16 +1,34 @@
 #!/usr/bin/env bash
 
-ALGO=256
+ALGO=384
 TAG=${GITHUB_REF_NAME}
 VERSION=$TAG
 [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] && VERSION=${TAG:1}
+PREFIX="tools-$VERSION"
 RULES_ARCHIVE="./bzlparty_tools-$TAG.tar.gz"
 
-sed -i "s|0.0.0|$VERSION|" MODULE.bazel
-bazel build //scripts:dist
-OUTPUT=$(bazel 2>/dev/null cquery --output=files "//scripts:dist")
-cp "$OUTPUT" "$RULES_ARCHIVE"
-RULES_SHA=$(bazel 2>/dev/null run //sh:shasums -- -a "$ALGO"  "$RULES_ARCHIVE")
+module_file=$(mktemp)
+root_build_file=$(mktemp)
+toolchains_build_file=$(mktemp)
+
+sed \
+  -e "s/0.0.0/$VERSION/" \
+  -e "/dev_dependency/d" \
+  -e "/^$/d" \
+  MODULE.bazel > "$module_file"
+
+echo "package(default_visibility = [\"//visibility:public\"])" > "$root_build_file"
+echo -e "load(\":toolchains.bzl\", \"all_toolchains\")\nall_toolchains()" > "$toolchains_build_file"
+
+git archive --format=tar.gz \
+  --prefix="$PREFIX/" \
+  --add-virtual-file="$PREFIX/MODULE.bazel":"$(< "$module_file")" \
+  --add-virtual-file="$PREFIX/BUILD.bazel":"$(< "$root_build_file")" \
+  --add-virtual-file="$PREFIX/toolchains/BUILD.bazel":"$(< "$toolchains_build_file")" \
+  -o "$RULES_ARCHIVE" "$TAG"
+
+RULES_SHA=$(./sh/shasums.sh -a "$ALGO"  "$RULES_ARCHIVE")
+
 echo "Created $RULES_ARCHIVE sha$ALGO:$RULES_SHA"
 
 cat > release_notes.md <<EOF
@@ -61,3 +79,4 @@ archive_override(
 EOF
 
 echo "Created release_notes.md"
+rm "$module_file" "$root_build_file" "$toolchains_build_file"

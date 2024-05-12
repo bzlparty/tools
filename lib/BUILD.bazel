@@ -8,6 +8,37 @@ exports_files(glob([
 ])
 
 bzl_library(
+    name = "defs",
+    srcs = ["defs.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":diff",
+        ":http",
+        ":jql",
+        ":platform_binary",
+    ],
+)
+
+bzl_library(
+    name = "jql",
+    srcs = ["jql.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@aspect_bazel_lib//lib:lists",
+    ],
+)
+
+bzl_library(
+    name = "platform_binary",
+    srcs = ["platform_binary.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":platforms",
+        "@aspect_bazel_lib//lib:write_source_files",
+    ],
+)
+
+bzl_library(
     name = "diff",
     srcs = ["diff.bzl"],
     visibility = ["//visibility:public"],
@@ -50,14 +81,4 @@ bzl_library(
     srcs = ["platforms.bzl"],
     visibility = ["//visibility:public"],
     deps = ["@local_config_platform//:constraints.bzl"],
-)
-
-filegroup(
-    name = "files",
-    srcs = glob(["*.bzl"]) + [
-        "BUILD.bazel",
-        "dist.awk",
-    ],
-    tags = ["manual"],
-    visibility = ["//scripts:__pkg__"],
 )
