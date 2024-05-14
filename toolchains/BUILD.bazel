@@ -8,6 +8,7 @@ TOOLS = [
     "goawk",
     "jql",
     "ripgrep",
+    "shellcheck",
     "typos",
     "xsv",
 ]
