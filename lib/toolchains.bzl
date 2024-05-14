@@ -39,7 +39,14 @@ binary_toolchain = rule(
 
 # buildifier: disable=function-docstring
 def platform_toolchains(name, assets):
-    toolchains_build_file = ""
+    toolchains_build_file = """\
+load("@bzlparty_tools//platforms:host.bzl", "HOST_PLATFORM")
+
+alias(
+    name = "{name}",
+    actual = "@{name}_%s//:bin" % HOST_PLATFORM,
+)
+""".format(name = name)
     for (platform, config) in assets.items():
         _name = "%s_%s" % (name, platform)
         http_archive(
@@ -52,6 +59,12 @@ binary_toolchain(
     name = "{name}_binary_toolchain",
     prefix = "{name}",
     binary = "{binary}",
+)
+
+alias(
+  name = "bin",
+  actual = "{binary}",
+  visibility = ["//visibility:public"],
 )
 """.format(
                 binary = config.binary,
