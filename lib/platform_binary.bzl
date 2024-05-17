@@ -28,13 +28,16 @@ def _switch(val, arms, default = None):
             return v
     return default
 
+def _os(platform):
+    return platform.split("_")[0]
+
 # buildifier: disable=function-docstring
 def platform_binaries(name, url, platforms, darwin_ext = "tar.gz", windows_ext = "zip", linux_ext = "tar.gz", binary = None, prefix = "", platforms_map = {}):
     binaries = []
     for platform in platforms:
         _name = "%s_%s" % (name, platform)
         _platform = platforms_map.get(platform, platform)
-        ext = _switch(platform, {
+        ext = _switch(_os(platform), {
             "darwin": darwin_ext,
             "linux": linux_ext,
             "windows": windows_ext,
