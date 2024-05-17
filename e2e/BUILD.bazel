@@ -3,6 +3,7 @@ load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@bzlparty_tools//lib:goawk.bzl", "goawk")
 load("@bzlparty_tools//lib:jql.bzl", "jql_test")
 load("@bzlparty_tools//lib:ripgrep.bzl", "ripgrep", "ripgrep_binary")
+load("@bzlparty_tools//lib:shellspec.bzl", "shellspec_test")
 
 goawk(
     name = "goawk",
@@ -40,6 +41,13 @@ diff_test(
 jql_test(
     name = "json_validate",
     srcs = ["test.json"],
+)
+
+shellspec_test(
+    name = "shellspec",
+    srcs = ["hello.sh"],
+    config = ".shellspec",
+    spec = "hello_spec.sh",
 )
 
 build_test(

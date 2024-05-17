@@ -1,0 +1,15 @@
+load("//lib:platform_binary.bzl", "platform_binaries")
+
+VERSION = "0.28.1"
+
+GITHUB_URL = "https://github.com/shellspec/shellspec/releases/download/%s/shellspec-dist.tar.gz" % VERSION
+
+# This is not a proper setup for a toolchain like this
+# We do not include all files properly into the toolchain,
+# only the binary is _included_.
+platform_binaries(
+    name = "shellspec",
+    binary = "shellspec/shellspec",
+    platforms = ["host"],
+    url = GITHUB_URL,
+)

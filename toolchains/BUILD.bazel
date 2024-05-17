@@ -9,6 +9,7 @@ TOOLS = [
     "jql",
     "ripgrep",
     "shellcheck",
+    "shellspec",
     "typos",
     "xsv",
 ]
