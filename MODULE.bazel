@@ -16,8 +16,28 @@ tools.jql()
 tools.ripgrep()
 tools.shellcheck()
 tools.shellspec()
+tools.topiary()
 tools.typos()
 tools.xsv()
-use_repo(tools, "goawk", "jql", "ripgrep", "shellcheck", "shellspec", "typos", "xsv")
+use_repo(
+    tools,
+    "goawk",
+    "jql",
+    "ripgrep",
+    "shellcheck",
+    "shellspec",
+    "topiary",
+    "typos",
+    "xsv",
+)
 
-register_toolchains("@goawk//:all", "@jql//:all", "@ripgrep//:all", "@shellcheck//:all", "@shellspec//:all", "@typos//:all", "@xsv//:all")
+register_toolchains(
+    "@goawk//:all",
+    "@jql//:all",
+    "@ripgrep//:all",
+    "@shellcheck//:all",
+    "@shellspec//:all",
+    "@topiary//:all",
+    "@typos//:all",
+    "@xsv//:all",
+)

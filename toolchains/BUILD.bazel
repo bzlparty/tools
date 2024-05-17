@@ -10,6 +10,7 @@ TOOLS = [
     "ripgrep",
     "shellcheck",
     "shellspec",
+    "topiary",
     "typos",
     "xsv",
 ]

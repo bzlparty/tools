@@ -5,6 +5,7 @@ load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
 load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
 load("//toolchains/shellspec:assets.bzl", SHELLSPEC_ASSETS = "ASSETS")
+load("//toolchains/topiary:assets.bzl", TOPIARY_ASSETS = "ASSETS")
 load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
 load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
 
@@ -14,6 +15,7 @@ TOOLS = {
     "ripgrep": RIPGREP_ASSETS,
     "shellcheck": SHELLCHECK_ASSETS,
     "shellspec": SHELLSPEC_ASSETS,
+    "topiary": TOPIARY_ASSETS,
     "typos": TYPOS_ASSETS,
     "xsv": XSV_ASSETS,
 }
@@ -55,6 +57,14 @@ SHELLSPEC_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:shellspec_toolchain_type
 shellspec_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(SHELLSPEC_TOOLCHAIN_TYPE),
     toolchains = [SHELLSPEC_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
+
+TOPIARY_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:topiary_toolchain_type"
+
+topiary_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(TOPIARY_TOOLCHAIN_TYPE),
+    toolchains = [TOPIARY_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -114,6 +124,14 @@ def toolchains(name = "toolchains"):
     )
     shellspec_resolved_toolchain(
         name = "shellspec",
+        visibility = ["//visibility:public"],
+    )
+    native.toolchain_type(
+        name = "topiary_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    topiary_resolved_toolchain(
+        name = "topiary",
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(
