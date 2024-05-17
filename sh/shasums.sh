@@ -23,6 +23,7 @@
 # ```
 
 ALGO=384
+FILE_INFO=1
 
 _fetch_from_github()
 {
@@ -50,7 +51,7 @@ _generate_shasum()
 
 _generate_shasum_from_url()
 {
-  echo -n "$(basename $1) "
+  [ $FILE_INFO -eq 1 ] && echo -n "$(basename $1) "
   curl -L -s "$1" | _generate_shasum
 }
 
@@ -85,6 +86,9 @@ while [ $# -ne 0 ]; do
     -g|--github)
       _generate_shasum_from_github "$2"
       break
+      ;;
+    -n|--no-fileinfo)
+      FILE_INFO=0
       ;;
     -u|--url)
       _generate_shasum_from_url "$2"
