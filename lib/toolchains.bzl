@@ -1,16 +1,19 @@
 "# Toolchains"
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load(":platforms.bzl", "PLATFORMS")
+load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
+load(":platforms.bzl", "HOST_PLATFORM", "PLATFORMS")
 
 def _binary_toolchain_impl(ctx):
     binary = ctx.file.binary
+    files = ctx.files.files
     default_info = DefaultInfo(
-        files = depset([binary]),
-        runfiles = ctx.runfiles(files = [binary]),
+        files = depset([binary] + files),
+        runfiles = ctx.runfiles(files = [binary] + files),
     )
     binary_info = BinaryToolchainInfo(
         binary = binary,
+        files = files,
     )
     env = dict([("%s_BIN" % ctx.attr.prefix.upper(), binary.path)])
     variable_info = platform_common.TemplateVariableInfo(env)
@@ -26,6 +29,7 @@ BinaryToolchainInfo = provider(
     doc = "Binary Toolchain Provider",
     fields = {
         "binary": "Path to binary",
+        "files": "Paths to library files",
     },
 )
 
@@ -34,6 +38,7 @@ binary_toolchain = rule(
     attrs = {
         "binary": attr.label(mandatory = True, allow_single_file = True),
         "prefix": attr.string(mandatory = True),
+        "files": attr.label_list(allow_files = True, default = []),
     },
 )
 
@@ -48,7 +53,8 @@ alias(
 )
 """.format(name = name)
     for (platform, config) in assets.items():
-        _name = "%s_%s" % (name, platform)
+        _platform = HOST_PLATFORM if platform == "host" else platform
+        _name = "%s_%s" % (name, _platform)
         http_archive(
             name = _name,
             url = config.url,
@@ -81,8 +87,8 @@ toolchain(
 )
 """.format(
             name = name,
-            platform = platform,
-            compatible_with = PLATFORMS[platform],
+            platform = _platform,
+            compatible_with = HOST_CONSTRAINTS if platform == "host" else PLATFORMS[platform],
         )
 
     _binary_toolchains(name = name, build_file = toolchains_build_file)
