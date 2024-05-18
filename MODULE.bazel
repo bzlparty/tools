@@ -41,3 +41,7 @@ register_toolchains(
     "@typos//:all",
     "@xsv//:all",
 )
+
+files = use_extension("//lib:extensions.bzl", "files")
+files.topiary_queries()
+use_repo(files, "topiary_queries")

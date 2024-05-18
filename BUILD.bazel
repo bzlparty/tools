@@ -1,9 +1,12 @@
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test")
+load("//lib:topiary.bzl", "topiary")
 load("//lib:typos.bzl", "typos_test")
 
 exports_files(glob(["*"]))
 
 typos_test(name = "typos")
+
+topiary(name = "topiary")
 
 buildifier(
     name = "format",
