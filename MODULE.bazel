@@ -11,6 +11,7 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.3.0")
 bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True)
 
 tools = use_extension("//lib:extensions.bzl", "tools")
+tools.fd()
 tools.goawk()
 tools.jql()
 tools.ripgrep()
@@ -21,6 +22,7 @@ tools.typos()
 tools.xsv()
 use_repo(
     tools,
+    "fd",
     "goawk",
     "jql",
     "ripgrep",
@@ -32,6 +34,7 @@ use_repo(
 )
 
 register_toolchains(
+    "@fd//:all",
     "@goawk//:all",
     "@jql//:all",
     "@ripgrep//:all",

@@ -1,0 +1,28 @@
+load("//lib:platform_binary.bzl", "platform_binaries")
+
+VERSION = "10.1.0"
+
+SUPPORTED_PLATFORMS = [
+    "darwin_amd64",
+    "darwin_arm64",
+    "linux_amd64",
+    "linux_arm64",
+    "windows_amd64",
+]
+
+GITHUB_URL = "https://github.com/sharkdp/fd/releases/download/v%s" % VERSION
+
+platform_binaries(
+    name = "fd",
+    binary = "fd",
+    platforms = SUPPORTED_PLATFORMS,
+    platforms_map = {
+        "darwin_amd64": "x85_64-apple-darwin",
+        "darwin_arm64": "aarch64-apple-darwin",
+        "linux_amd64": "x86_64-unknown-linux-musl",
+        "linux_arm64": "aarch64-unknown-linux-musl",
+        "windows_amd64": "x86_64-pc-windows-msvc",
+    },
+    prefix = "fd-v%s-{platform}/" % VERSION,
+    url = "%s/fd-v%s-{platform}.{ext}" % (GITHUB_URL, VERSION),
+)
