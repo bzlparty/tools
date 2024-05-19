@@ -8,7 +8,7 @@ typos_test(name = "typos")
 
 topiary(
     name = "topiary",
-    exclude = ["e2e"],
+    extensions = ["json"],
 )
 
 buildifier(

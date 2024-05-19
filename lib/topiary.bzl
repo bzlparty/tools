@@ -15,7 +15,7 @@ def _topiary_impl(ctx):
         content = """\
 export TOPIARY_LANGUAGE_DIR="{queries_dir}";
 files=$({fd} . "$BUILD_WORKING_DIRECTORY" {fd_args})
-{bin} format --skip-idempotence $files
+{bin} format $files
 """.format(
             bin = topiary.path,
             fd = fd.path,
