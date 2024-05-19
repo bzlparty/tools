@@ -6,7 +6,10 @@ exports_files(glob(["*"]))
 
 typos_test(name = "typos")
 
-topiary(name = "topiary")
+topiary(
+    name = "topiary",
+    exclude = ["e2e"],
+)
 
 buildifier(
     name = "format",
