@@ -7,11 +7,11 @@ package(
 bats_test(
     name = "shasums_test",
     srcs = ["shasums.bats"],
-    data = ["//sh:shasums.sh"],
+    data = ["//sh:shasums.bash"],
 )
 
 bats_test(
     name = "tag_test",
     srcs = ["tag.bats"],
-    data = ["//sh:tag.sh"],
+    data = ["//sh:tag.bash"],
 )

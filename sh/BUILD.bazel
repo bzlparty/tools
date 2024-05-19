@@ -7,13 +7,13 @@ package(
 
 sh_binary(
     name = "shasums",
-    srcs = ["shasums.sh"],
+    srcs = ["shasums.bash"],
     tags = ["manual"],
 )
 
 sh_binary(
     name = "tag",
-    srcs = ["tag.sh"],
+    srcs = ["tag.bash"],
     env = {
         "_SCRIPT_NAME": "git:tag",
     },
@@ -28,7 +28,7 @@ bzl_library(
 shellcheck_test(
     name = "lint",
     srcs = [
-        # "shasums.sh",
-        "tag.sh",
+        # "shasums.bash",
+        "tag.bash",
     ],
 )
