@@ -5,9 +5,9 @@ package(
 )
 
 bats_test(
-    name = "shasums_test",
-    srcs = ["shasums.bats"],
-    data = ["//sh:shasums.bash"],
+    name = "sha_test",
+    srcs = ["sha.bats"],
+    data = ["//sh:sha.bash"],
 )
 
 bats_test(

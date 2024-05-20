@@ -6,8 +6,8 @@ package(
 )
 
 sh_binary(
-    name = "shasums",
-    srcs = ["shasums.bash"],
+    name = "sha",
+    srcs = ["sha.bash"],
     tags = ["manual"],
 )
 
@@ -28,7 +28,7 @@ bzl_library(
 shellcheck_test(
     name = "lint",
     srcs = [
-        # "shasums.bash",
+        # "sha.bash",
         "tag.bash",
     ],
 )

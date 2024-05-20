@@ -1,2 +1,2 @@
-# Print only the shasums
+# Print only the sha
 { print $2 }

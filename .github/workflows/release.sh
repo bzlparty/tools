@@ -28,7 +28,7 @@ git archive --format=tar.gz \
   --add-virtual-file="$PREFIX/toolchains/BUILD.bazel":"$(< "$toolchains_build_file")" \
   -o "$RULES_ARCHIVE" "$TAG"
 
-RULES_SHA=$(./sh/shasums.sh -a "$ALGO"  "$RULES_ARCHIVE")
+RULES_SHA=$(./sh/sha.bash -a "$ALGO"  "$RULES_ARCHIVE")
 
 echo "Created $RULES_ARCHIVE sha$ALGO:$RULES_SHA"
 

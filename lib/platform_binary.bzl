@@ -11,7 +11,7 @@ echo -n \"{platform} \";
 echo -n \"{url} \";
 echo -n \"{binary} \";
 echo -n \"{algo} \";
-./$(location //sh:shasums) -a {algo} -u {url}
+./$(location //sh:sha) -a {algo} -u {url}
 ) > $(OUTS)
 """.format(
             algo = algo,
@@ -19,7 +19,7 @@ echo -n \"{algo} \";
             platform = platform,
             binary = binary,
         ),
-        tools = ["//sh:shasums"],
+        tools = ["//sh:sha"],
     )
 
 def _switch(val, arms, default = None):
