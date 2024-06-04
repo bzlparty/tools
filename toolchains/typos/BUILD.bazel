@@ -1,6 +1,6 @@
 load("//lib:platform_binary.bzl", "platform_binaries")
 
-VERSION = "1.21.0"
+VERSION = "1.22.0"
 
 SUPPORTED_PLATFORMS = [
     "darwin_amd64",
