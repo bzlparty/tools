@@ -2,6 +2,9 @@
 def _typos_impl(ctx):
     output = ctx.actions.declare_file("%s.bash" % ctx.attr.name)
     typos = ctx.toolchains["@bzlparty_tools//toolchains:typos_toolchain_type"].binary_info.binary
+    args = []
+    if len(ctx.attr.exclude) > 0:
+        args.extend(["--exclude=\"%s\"" % path for path in ctx.attr.exclude])
     ctx.actions.write(
         output = output,
         content = """\
@@ -12,9 +15,10 @@ set -o pipefail -o errexit
 typos_bin=$(realpath "{path}");
 workspace=$(dirname "$(realpath "{workspace}")")
 
-eval "$typos_bin $workspace"
+eval "$typos_bin $workspace {args}"
 """.format(
             path = typos.path,
+            args = " ".join(args),
             workspace = ctx.file.workspace.path,
         ),
         is_executable = True,
@@ -32,6 +36,7 @@ _typos_test = rule(
     _typos_impl,
     attrs = {
         "workspace": attr.label(allow_single_file = True, default = Label("//:MODULE.bazel")),
+        "exclude": attr.string_list(default = []),
     },
     toolchains = ["@bzlparty_tools//toolchains:typos_toolchain_type"],
     test = True,

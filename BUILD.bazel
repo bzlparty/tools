@@ -4,7 +4,12 @@ load("//lib:typos.bzl", "typos_test")
 
 exports_files(glob(["*"]))
 
-typos_test(name = "typos")
+typos_test(
+    name = "typos",
+    exclude = [
+        "**/assets.bzl",
+    ],
+)
 
 topiary(
     name = "topiary",
