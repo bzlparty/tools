@@ -19,6 +19,11 @@ PLATFORMS = {
     "darwin_arm64": ["@platforms//os:macos", "@platforms//cpu:arm64"],
 }
 
+GO_PLATFORMS = [
+    p.split("_")
+    for p in PLATFORMS.keys()
+]
+
 def is_darwin(platform):
     return platform.startswith("darwin") or platform.startswith("macos")
 

@@ -1,0 +1,41 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//lib:platforms.bzl", "GO_PLATFORMS")
+load("//lib:sha.bzl", "sha")
+
+go_library(
+    name = "sha_lib",
+    srcs = [
+        "main.go",
+    ],
+    importpath = "github.com/bzlparty/tools/cmd/sha",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "sha",
+    embed = [":sha_lib"],
+    visibility = ["//visibility:public"],
+)
+
+[
+    (
+        go_binary(
+            name = "sha_%s_%s" % (os, arch),
+            embed = [":sha_lib"],
+            goarch = arch,
+            goos = os,
+            visibility = ["//visibility:public"],
+        ),
+        sha(
+            name = "sha_%s_%s_sha384" % (os, arch),
+            src = "sha_%s_%s" % (os, arch),
+        ),
+    )
+    for os, arch in GO_PLATFORMS
+]
+
+filegroup(
+    name = "dist",
+    srcs = ["sha_%s_%s" % (os, arch) for os, arch in GO_PLATFORMS] +
+           ["sha_%s_%s_sha384" % (os, arch) for os, arch in GO_PLATFORMS],
+)

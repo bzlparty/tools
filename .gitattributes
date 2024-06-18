@@ -2,6 +2,7 @@
 .git*                         export-ignore
 .pre-commit-config.yaml       export-ignore
 .prettierignore               export-ignore
+cmd                           export-ignore
 docs/BUILD.bazel              export-ignore
 toolchains/BUILD.bazel        export-ignore
 toolchains/private            export-ignore
