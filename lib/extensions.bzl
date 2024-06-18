@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("//lib:toolchains.bzl", "platform_toolchains")
+load("//lib:toolchains.bzl", "register_platform_toolchains")
 load("//toolchains:toolchains.bzl", "TOOLS")
 
 TAG_CLASSES = {
@@ -15,7 +15,7 @@ def _impl(ctx):
     for module in ctx.modules:
         for name, assets in TOOLS.items():
             if _has_tag(module, name):
-                platform_toolchains(name = name, assets = assets)
+                register_platform_toolchains(name = name, assets = assets)
 
 def load_files(**kwargs):
     build_file = """\
