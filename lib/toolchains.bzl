@@ -1,5 +1,6 @@
 "# Toolchains"
 
+load("@bazel_skylib//lib:types.bzl", "types")
 load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
 load(":platforms.bzl", "HOST_PLATFORM", "PLATFORMS")
 
@@ -65,7 +66,7 @@ def _is_archive(url):
             return True
     return False
 
-def _platform_toolchain_impl(ctx):
+def _create_repository_from_remote(ctx):
     if _is_archive(ctx.attr.url):
         ctx.download_and_extract(
             url = ctx.attr.url,
@@ -78,6 +79,10 @@ def _platform_toolchain_impl(ctx):
             integrity = ctx.attr.integrity,
             executable = True,
         )
+
+def _platform_toolchain_impl(ctx):
+    if ctx.attr.url != "":
+        _create_repository_from_remote(ctx)
 
     ctx.file("BUILD.bazel", """\
 load("@bzlparty_tools//lib:toolchains.bzl", "binary_toolchain")
@@ -100,34 +105,23 @@ alias(
 platform_toolchain = repository_rule(
     _platform_toolchain_impl,
     attrs = {
-        "url": attr.string(),
+        "url": attr.string(default = ""),
         "binary": attr.string(),
         "prefix": attr.string(),
         "integrity": attr.string(),
     },
 )
 
-# buildifier: disable=function-docstring
-def register_platform_toolchains(name, assets):
-    toolchains_build_file = """\
+_TOOLCHAINS_BUILD_FILE_BEGIN = """\
 load("@bzlparty_tools//platforms:host.bzl", "HOST_PLATFORM")
 
 alias(
     name = "{name}",
     actual = "@{name}_%s//:bin" % HOST_PLATFORM,
 )
-""".format(name = name)
-    for (platform, config) in assets.items():
-        _platform = HOST_PLATFORM if platform == "host" else platform
-        _name = "%s_%s" % (name, _platform)
-        platform_toolchain(
-            name = _name,
-            prefix = name,
-            url = config.url,
-            integrity = config.integrity,
-            binary = config.binary,
-        )
-        toolchains_build_file += """\
+"""
+
+_TOOLCHAINS_BUILD_FILE_PARTIAL = """\
 toolchain(
     name = "{name}_{platform}_toolchain",
     toolchain = "@{name}_{platform}//:{name}_binary_toolchain",
@@ -135,11 +129,40 @@ toolchain(
     toolchain_type = "@bzlparty_tools//toolchains:{name}_toolchain_type",
     visibility = ["//visibility:public"],
 )
-""".format(
-            name = name,
-            platform = _platform,
-            compatible_with = HOST_CONSTRAINTS if platform == "host" else PLATFORMS[platform],
+"""
+
+# buildifier: disable=function-docstring
+def register_platform_toolchains(name, assets):
+    toolchains_build_file = _TOOLCHAINS_BUILD_FILE_BEGIN.format(name = name)
+    if types.is_dict(assets):
+        for (platform, config) in assets.items():
+            _name = "%s_%s" % (name, platform)
+            platform_toolchain(
+                name = _name,
+                prefix = name,
+                url = config.url,
+                integrity = config.integrity,
+                binary = config.binary,
+            )
+            toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
+                name = name,
+                platform = platform,
+                compatible_with = HOST_CONSTRAINTS if platform == "host" else PLATFORMS[platform],
+            )
+    elif types.is_string(assets):
+        _name = "%s_%s" % (name, HOST_PLATFORM)
+        platform_toolchain(
+            name = _name,
+            prefix = name,
+            binary = assets,
         )
+        toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
+            name = name,
+            platform = HOST_PLATFORM,
+            compatible_with = HOST_CONSTRAINTS,
+        )
+    else:
+        fail("Cannot process assets: {}".format(assets))
 
     platform_toolchains(name = name, build_file = toolchains_build_file)
 

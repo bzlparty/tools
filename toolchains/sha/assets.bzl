@@ -1,1 +1,1 @@
-ASSETS = None
+ASSETS = "@bzlparty_tools//cmd/sha"
