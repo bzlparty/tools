@@ -9,6 +9,7 @@ TOOLS = [
     "goawk",
     "jql",
     "ripgrep",
+    "sha",
     "shellcheck",
     "shellspec",
     "topiary",

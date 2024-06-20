@@ -16,6 +16,7 @@ tools.fd()
 tools.goawk()
 tools.jql()
 tools.ripgrep()
+tools.sha()
 tools.shellcheck()
 tools.shellspec()
 tools.topiary()
@@ -27,6 +28,7 @@ use_repo(
     "goawk",
     "jql",
     "ripgrep",
+    "sha",
     "shellcheck",
     "shellspec",
     "topiary",
@@ -39,6 +41,7 @@ register_toolchains(
     "@goawk//:all",
     "@jql//:all",
     "@ripgrep//:all",
+    "@sha//:all",
     "@shellcheck//:all",
     "@shellspec//:all",
     "@topiary//:all",

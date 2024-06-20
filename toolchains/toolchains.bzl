@@ -4,6 +4,7 @@ load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
 load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
+load("//toolchains/sha:assets.bzl", SHA_ASSETS = "ASSETS")
 load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
 load("//toolchains/shellspec:assets.bzl", SHELLSPEC_ASSETS = "ASSETS")
 load("//toolchains/topiary:assets.bzl", TOPIARY_ASSETS = "ASSETS")
@@ -15,6 +16,7 @@ TOOLS = {
     "goawk": GOAWK_ASSETS,
     "jql": JQL_ASSETS,
     "ripgrep": RIPGREP_ASSETS,
+    "sha": SHA_ASSETS,
     "shellcheck": SHELLCHECK_ASSETS,
     "shellspec": SHELLSPEC_ASSETS,
     "topiary": TOPIARY_ASSETS,
@@ -51,6 +53,14 @@ RIPGREP_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:ripgrep_toolchain_type"
 ripgrep_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(RIPGREP_TOOLCHAIN_TYPE),
     toolchains = [RIPGREP_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
+
+SHA_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:sha_toolchain_type"
+
+sha_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(SHA_TOOLCHAIN_TYPE),
+    toolchains = [SHA_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -126,6 +136,14 @@ def toolchains(name = "toolchains"):
     )
     ripgrep_resolved_toolchain(
         name = "ripgrep",
+        visibility = ["//visibility:public"],
+    )
+    native.toolchain_type(
+        name = "sha_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    sha_resolved_toolchain(
+        name = "sha",
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(
