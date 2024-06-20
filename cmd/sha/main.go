@@ -103,7 +103,7 @@ Usage:
 
 Description:
 
-      This program prints the interity shasum for a given file.
+      This program prints the integrity shasum for a given file.
 
 Options:
 
