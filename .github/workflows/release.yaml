@@ -6,15 +6,32 @@ on:
       - "v*.*.*"
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DEST: dist
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./scripts/release/build.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
   release:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: .github/workflows/release.sh
+      - uses: actions/download-artifact@v4
+      - run: ./scripts/release/notes.sh > release_notes.md
       - uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
           files: |
-            tools-*.tar.gz
+            dist/*.sha384
+            dist/sha_*
+            dist/tools-*.tar.gz
           body_path: release_notes.md
           fail_on_unmatched_files: true

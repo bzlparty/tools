@@ -1,0 +1,83 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load(":git_archive.bzl", "git_archive")
+
+sh_binary(
+    name = "copy_assets",
+    srcs = ["copy_assets.sh"],
+    args = [
+        "$(rlocationpaths //cmd/sha:bins)",
+        "$(rlocationpaths //cmd/sha:shasums)",
+    ],
+    data = [
+        "//cmd/sha:bins",
+        "//cmd/sha:shasums",
+    ],
+    tags = ["manual"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_binary(
+    name = "create_assets",
+    srcs = ["create_assets.sh"],
+    tags = ["manual"],
+)
+
+genrule(
+    name = "create_assets_bzl",
+    srcs = ["//cmd/sha:shasums"],
+    outs = ["toolchains_sha_assets.bzl"],
+    cmd = "./$(location :create_assets) $(SRCS) > $(OUTS)",
+    tags = ["manual"],
+    tools = [":create_assets"],
+)
+
+genrule(
+    name = "root_module_bazel",
+    srcs = ["//:MODULE.bazel"],
+    outs = ["root_MODULE.bazel"],
+    cmd = """
+version=$${TAG:1}
+sed \
+  -e "s/0.0.0/$$version/" \
+  -e "/dev_dependency/d" \
+  -e "/^$$/d" \
+  $(SRCS) > $(OUTS)
+""",
+    tags = ["manual"],
+)
+
+write_file(
+    name = "root_build_bazel",
+    out = "root_BUILD.bazel",
+    content = [
+        """package(default_visibility = ["//visibility:public"])""",
+    ],
+    tags = ["manual"],
+)
+
+write_file(
+    name = "toolchains_build_bazel",
+    out = "toolchains_BUILD.bazel",
+    content = [
+        """load(":toolchains.bzl", "all_toolchains")""",
+        "all_toolchains()",
+    ],
+    tags = ["manual"],
+)
+
+filegroup(
+    name = "extra_package_files",
+    srcs = [
+        ":root_BUILD.bazel",
+        ":root_MODULE.bazel",
+        ":toolchains_BUILD.bazel",
+        ":toolchains_sha_assets.bzl",
+    ],
+    tags = ["manual"],
+)
+
+git_archive(
+    name = "git_archive",
+    data = [":extra_package_files"],
+    tags = ["manual"],
+)

@@ -35,7 +35,13 @@ go_binary(
 ]
 
 filegroup(
-    name = "dist",
-    srcs = ["sha_%s_%s" % (os, arch) for os, arch in GO_PLATFORMS] +
-           ["sha_%s_%s_sha384" % (os, arch) for os, arch in GO_PLATFORMS],
+    name = "bins",
+    srcs = ["sha_%s_%s" % (os, arch) for os, arch in GO_PLATFORMS],
+    visibility = ["//scripts/release:__pkg__"],
+)
+
+filegroup(
+    name = "shasums",
+    srcs = ["sha_%s_%s_sha384" % (os, arch) for os, arch in GO_PLATFORMS],
+    visibility = ["//scripts/release:__pkg__"],
 )
