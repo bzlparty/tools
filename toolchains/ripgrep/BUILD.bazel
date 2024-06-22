@@ -16,7 +16,7 @@ platform_binaries(
     binary = "rg",
     platforms = SUPPORTED_PLATFORMS,
     platforms_map = {
-        "darwin_amd64": "x85_64-apple-darwin",
+        "darwin_amd64": "x86_64-apple-darwin",
         "darwin_arm64": "aarch64-apple-darwin",
         "linux_amd64": "x86_64-unknown-linux-musl",
         "windows_amd64": "x86_64-pc-windows-gnu",

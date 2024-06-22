@@ -18,7 +18,7 @@ platform_binaries(
     binary = "xsv",
     platforms = SUPPORTED_PLATFORMS,
     platforms_map = {
-        "darwin_amd64": "x85_64-apple-darwin",
+        "darwin_amd64": "x86_64-apple-darwin",
         "darwin_arm64": "aarch64-apple-darwin",
         "linux_amd64": "x86_64-unknown-linux-musl",
         "linux_arm64": "aarch64-unknown-linux-musl",
