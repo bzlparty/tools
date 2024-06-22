@@ -66,6 +66,28 @@ jql_test(<a href="#jql_test-name">name</a>, <a href="#jql_test-srcs">srcs</a>)
 | <a id="jql_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | required |  |
 
 
+<a id="platform_binary"></a>
+
+## platform_binary
+
+<pre>
+platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_binary-algo">algo</a>, <a href="#platform_binary-binary">binary</a>, <a href="#platform_binary-platform">platform</a>, <a href="#platform_binary-url">url</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="platform_binary-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="platform_binary-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
+| <a id="platform_binary-binary"></a>binary |  -   | String | optional | <code>""</code> |
+| <a id="platform_binary-platform"></a>platform |  -   | String | optional | <code>""</code> |
+| <a id="platform_binary-url"></a>url |  -   | String | optional | <code>""</code> |
+
+
 <a id="diff"></a>
 
 ## diff
@@ -220,27 +242,5 @@ platform_binaries(<a href="#platform_binaries-name">name</a>, <a href="#platform
 | <a id="platform_binaries-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="platform_binaries-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
 | <a id="platform_binaries-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
-
-
-<a id="platform_binary"></a>
-
-## platform_binary
-
-<pre>
-platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_binary-url">url</a>, <a href="#platform_binary-binary">binary</a>, <a href="#platform_binary-platform">platform</a>, <a href="#platform_binary-algo">algo</a>)
-</pre>
-
-
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="platform_binary-name"></a>name |  <p align="center"> - </p>   |  none |
-| <a id="platform_binary-url"></a>url |  <p align="center"> - </p>   |  none |
-| <a id="platform_binary-binary"></a>binary |  <p align="center"> - </p>   |  none |
-| <a id="platform_binary-platform"></a>platform |  <p align="center"> - </p>   |  none |
-| <a id="platform_binary-algo"></a>algo |  <p align="center"> - </p>   |  <code>"384"</code> |
 
 

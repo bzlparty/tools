@@ -2,25 +2,49 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load(":platforms.bzl", "is_windows")
 
-def platform_binary(name, url, binary, platform, algo = "384"):
-    native.genrule(
-        name = name,
-        outs = ["%s.meta" % name],
-        cmd = """(
-echo -n \"{platform} \";
-echo -n \"{url} \";
-echo -n \"{binary} \";
-echo -n \"{algo} \";
-./$(location //sh:sha) -a {algo} -u {url}
-) > $(OUTS)
-""".format(
-            algo = algo,
-            url = url,
-            platform = platform,
-            binary = binary,
+def _platform_binary_impl(ctx):
+    launcher = ctx.actions.declare_file("%s_/%s" % (ctx.label.name, ctx.label.name))
+    sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
+    out = ctx.actions.declare_file("%s.meta" % ctx.label.name)
+    ctx.actions.write(
+        output = launcher,
+        is_executable = True,
+        content = """
+integrity=$({sha} {url})
+echo "{platform} {url} {binary} {algo} ${{integrity}}" > {out}
+      """.format(
+            url = ctx.attr.url,
+            binary = ctx.attr.binary,
+            algo = ctx.attr.algo,
+            platform = ctx.attr.platform,
+            sha = sha.path,
+            out = out.path,
         ),
-        tools = ["//sh:sha"],
     )
+
+    ctx.actions.run(
+        outputs = [out],
+        inputs = [launcher],
+        executable = launcher,
+        tools = [sha],
+    )
+
+    return [
+        DefaultInfo(
+            files = depset([out]),
+        ),
+    ]
+
+platform_binary = rule(
+    _platform_binary_impl,
+    attrs = {
+        "url": attr.string(),
+        "binary": attr.string(),
+        "algo": attr.string(default = "384"),
+        "platform": attr.string(),
+    },
+    toolchains = ["@bzlparty_tools//toolchains:sha_toolchain_type"],
+)
 
 def _switch(val, arms, default = None):
     for k, v in arms.items():
