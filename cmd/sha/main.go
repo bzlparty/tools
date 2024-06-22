@@ -10,6 +10,8 @@ import (
 	"flag"
 	"fmt"
 	"hash"
+	"io"
+	"net/http"
 	"os"
 	"strconv"
 	"strings"
@@ -65,7 +67,7 @@ func RunApp() (err error) {
 			return
 		}
 	} else {
-		fmt.Println(shasum)
+		fmt.Print(shasum)
 	}
 
 	return
@@ -114,11 +116,23 @@ Options:
 	}
 	flag.Parse()
 	var input = flag.Arg(0)
-
 	var err error
+
+	// Try to read input as file
 	content, err = os.ReadFile(input)
-	if errors.Is(err, os.ErrNotExist) {
-		handleInitError(err)
+	if err != nil {
+		// Try to get input as request
+		response, err := http.Get(input)
+		if err != nil {
+			handleInitError(errors.New(fmt.Sprintf("Could not get input %s", input)))
+		}
+		defer response.Body.Close()
+		if response.StatusCode == http.StatusOK {
+			content, err = io.ReadAll(response.Body)
+			if err != nil {
+				handleInitError(errors.New(fmt.Sprintf("Could not read response %v", response)))
+			}
+		}
 	}
 }
 
