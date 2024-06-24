@@ -136,7 +136,8 @@ def register_platform_toolchains(name, assets):
     toolchains_build_file = _TOOLCHAINS_BUILD_FILE_BEGIN.format(name = name)
     if types.is_dict(assets):
         for (platform, config) in assets.items():
-            _name = "%s_%s" % (name, platform)
+            _platform = HOST_PLATFORM if platform == "host" else platform
+            _name = "%s_%s" % (name, _platform)
             platform_toolchain(
                 name = _name,
                 prefix = name,
@@ -146,7 +147,7 @@ def register_platform_toolchains(name, assets):
             )
             toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
                 name = name,
-                platform = platform,
+                platform = _platform,
                 compatible_with = HOST_CONSTRAINTS if platform == "host" else PLATFORMS[platform],
             )
     elif types.is_string(assets):
