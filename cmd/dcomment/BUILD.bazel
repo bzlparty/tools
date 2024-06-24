@@ -1,0 +1,6 @@
+cc_binary(
+    name = "dcomment",
+    srcs = ["dcomment.cpp"],
+    defines = ["OLD_COMMENTS"],
+    visibility = ["//visibility:public"],
+)

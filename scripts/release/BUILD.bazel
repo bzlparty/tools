@@ -37,13 +37,12 @@ genrule(
     outs = ["root_MODULE.bazel"],
     cmd = """
 version=$${TAG:1}
-sed \
-  -e "s/0.0.0/$$version/" \
-  -e "/dev_dependency/d" \
-  -e "/^$$/d" \
-  $(SRCS) > $(OUTS)
+t=$$(tempfile)
+$(location //cmd/dcomment) -d _BZLPARTY_RELEASE_ $(SRCS) "$$t"
+sed "s/0.0.0/$$version/" "$$t" > $(OUTS)
 """,
     tags = ["manual"],
+    tools = ["//cmd/dcomment"],
 )
 
 write_file(
