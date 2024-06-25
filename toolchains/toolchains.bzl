@@ -105,7 +105,7 @@ xsv_resolved_toolchain = rule(
 )
 
 # buildifier: disable=function-docstring
-def toolchains(name = "toolchains"):
+def bzlparty_toolchains(name = "toolchains"):
     native.toolchain_type(
         name = "fd_toolchain_type",
         visibility = ["//visibility:public"],

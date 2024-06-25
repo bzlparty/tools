@@ -59,8 +59,8 @@ write_file(
     name = "toolchains_build_bazel",
     out = "toolchains_BUILD.bazel",
     content = [
-        """load(":toolchains.bzl", "all_toolchains")""",
-        "all_toolchains()",
+        """load(":toolchains.bzl", "bzlparty_toolchains")""",
+        "bzlparty_toolchains()",
     ],
     tags = ["manual"],
 )

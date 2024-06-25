@@ -1,6 +1,5 @@
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//toolchains/private:generate_toolchains.bzl", "generate_toolchains")
-load(":toolchains.bzl", "toolchains")
+load(":toolchains.bzl", "bzlparty_toolchains")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -18,14 +17,8 @@ TOOLS = [
 ]
 
 generate_toolchains(
-    name = "toolchains",
+    name = "generate_toolchains",
     tools = TOOLS,
 )
 
-toolchains()
-
-bzl_library(
-    name = "docs",
-    srcs = ["docs.bzl"],
-    visibility = ["//visibility:public"],
-)
+bzlparty_toolchains()
