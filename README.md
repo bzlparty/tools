@@ -5,12 +5,6 @@
 
 Functionality and tooling used in bzlparty rulesets.
 
-**Rules**
-
-- [`diff`](/docs/diff.md#diff)/[`update_patches`](/docs/diff.md#update_patches)
-- [`github_archive`](/docs/github.md#github_archive)/[`github_binary`](/docs/github.md#github_binary)
-- [`http_binary`](/docs/http.md#http_binary)
-
 ## Installation
 
 See install instructions on the [release page](https://github.com/bzlparty/tools/releases).
