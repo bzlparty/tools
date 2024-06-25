@@ -1,4 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//lib:shellcheck.bzl", "shellcheck_test")
 load(":git_archive.bzl", "git_archive")
 
 sh_binary(
@@ -79,4 +80,9 @@ git_archive(
     name = "git_archive",
     data = [":extra_package_files"],
     tags = ["manual"],
+)
+
+shellcheck_test(
+    name = "sh_check",
+    srcs = glob(["*.sh"]),
 )

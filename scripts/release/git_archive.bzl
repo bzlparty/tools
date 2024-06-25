@@ -13,8 +13,8 @@ def _git_archive_impl(ctx):
         output = launcher,
         is_executable = True,
         substitutions = {
-            "{name}": "tools",
-            "{virtual_files}": " ".join([
+            "%NAME%": "tools",
+            "%VIRTUAL_FILES%": " ".join([
                 """--add-virtual-file="$PREFIX/%s":"$(< "%s")" """ % (_get_target_path(f), f.path)
                 for f in ctx.files.data
             ]),
