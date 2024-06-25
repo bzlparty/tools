@@ -23,6 +23,10 @@ load(
     _is_netbsd = "is_netbsd",
     _is_windows = "is_windows",
 )
+load(":shellcheck.bzl", _shellcheck_test = "shellcheck_test")
+load(":shellspec.bzl", _shellspec_test = "shellspec_test")
+load(":topiary.bzl", _topiary = "topiary")
+load(":typos.bzl", _typos_test = "typos_test")
 
 jql_test = _jql_test
 platform_binary = _platform_binary
@@ -33,3 +37,7 @@ is_darwin = _is_darwin
 is_freebsd = _is_freebsd
 is_netbsd = _is_netbsd
 is_windows = _is_windows
+topiary = _topiary
+typos_test = _typos_test
+shellspec_test = _shellspec_test
+shellcheck_test = _shellcheck_test

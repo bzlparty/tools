@@ -51,6 +51,67 @@ platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_bin
 | <a id="platform_binary-url"></a>url |  -   | String | optional | <code>""</code> |
 
 
+<a id="shellcheck_test"></a>
+
+## shellcheck_test
+
+<pre>
+shellcheck_test(<a href="#shellcheck_test-name">name</a>, <a href="#shellcheck_test-format">format</a>, <a href="#shellcheck_test-srcs">srcs</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="shellcheck_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="shellcheck_test-format"></a>format |  -   | String | optional | <code>""</code> |
+| <a id="shellcheck_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
+
+
+<a id="shellspec_test"></a>
+
+## shellspec_test
+
+<pre>
+shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test-config">config</a>, <a href="#shellspec_test-spec">spec</a>, <a href="#shellspec_test-srcs">srcs</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="shellspec_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="shellspec_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="shellspec_test-spec"></a>spec |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
+
+
+<a id="topiary"></a>
+
+## topiary
+
+<pre>
+topiary(<a href="#topiary-name">name</a>, <a href="#topiary-exclude">exclude</a>, <a href="#topiary-extensions">extensions</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="topiary-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="topiary-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
+| <a id="topiary-extensions"></a>extensions |  -   | List of strings | optional | <code>["sh", "bash"]</code> |
+
+
 <a id="host_platform"></a>
 
 ## host_platform
@@ -184,5 +245,23 @@ platform_binaries(<a href="#platform_binaries-name">name</a>, <a href="#platform
 | <a id="platform_binaries-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="platform_binaries-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
 | <a id="platform_binaries-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
+
+
+<a id="typos_test"></a>
+
+## typos_test
+
+<pre>
+typos_test(<a href="#typos_test-kwargs">kwargs</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="typos_test-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 

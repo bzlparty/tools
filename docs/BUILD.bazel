@@ -12,7 +12,7 @@ stardoc_with_diff_test(
 
 stardoc_with_diff_test(
     name = "toolchains",
-    bzl_library_target = "//toolchains:docs",
+    bzl_library_target = "//lib:toolchains",
 )
 
 update_docs()
