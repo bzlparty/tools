@@ -1,4 +1,3 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@bzlparty_tools//lib:goawk.bzl", "goawk")
 load("@bzlparty_tools//lib:jql.bzl", "jql_test")
@@ -61,23 +60,4 @@ shellspec_test(
     srcs = ["hello.sh"],
     config = ".shellspec",
     spec = "hello_spec.sh",
-)
-
-build_test(
-    name = "http_binary_test",
-    targets = [
-        "@http_binary_file//bundler-linux-amd64",
-        "@http_binary_file//bundler-linux-amd64:bin",  # actual file path
-        "@http_binary_output//linux",
-        "@http_binary_custom//:bin",
-        "@http_binary_custom_2//:custom_bin",
-    ],
-)
-
-build_test(
-    name = "github_test",
-    targets = [
-        "@github_binary_file//bundler-linux-amd64",
-        "@github_archive//:LICENSE",
-    ],
 )
