@@ -2,29 +2,38 @@
 
 def _sha_impl(ctx):
     sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
+    sha_launcher = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
     if ctx.outputs.out:
         out = ctx.outputs.out
     else:
         out = ctx.actions.declare_file("%s.sha%s" % (ctx.file.src.basename, ctx.attr.algo))
 
-    ctx.actions.run_shell(
-        outputs = [out],
-        inputs = [ctx.file.src],
-        command = """
-{sha} -a {algo} {src} > {target}
+    ctx.actions.write(
+        output = sha_launcher,
+        content = """
+./{sha} $@ < {src}
 """.format(
             sha = sha.path,
-            algo = ctx.attr.algo,
             src = ctx.file.src.path,
-            target = out.path,
         ),
+        is_executable = True,
+    )
+
+    args = ctx.actions.args()
+    args.add("-algo", ctx.attr.algo)
+    args.add("-write", out)
+
+    ctx.actions.run(
+        outputs = [out],
+        inputs = [ctx.file.src],
+        executable = sha_launcher,
+        arguments = [args],
         tools = [sha],
     )
 
     return [
         DefaultInfo(
             files = depset([out]),
-            # runfiles = ctx.runfiles([ctx.file.src, ctx.file._sha]),
         ),
     ]
 
