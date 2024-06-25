@@ -1,0 +1,14 @@
+load("//lib:shellcheck.bzl", "shellcheck_test")
+load("//lib:shellspec.bzl", "shellspec_test")
+
+shellspec_test(
+    name = "shellspec",
+    srcs = ["hello.sh"],
+    config = ".shellspec",
+    spec = "hello_spec.sh",
+)
+
+shellcheck_test(
+    name = "shellcheck",
+    srcs = glob(["*.sh"]),
+)

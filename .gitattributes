@@ -6,6 +6,7 @@
 cmd                           export-ignore
 docs/BUILD.bazel              export-ignore
 e2e                           export-ignore
+examples                      export-ignore
 go.mod                        export-ignore
 scripts                       export-ignore
 toolchains/BUILD.bazel        export-ignore

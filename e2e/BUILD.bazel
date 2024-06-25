@@ -1,63 +1,9 @@
-load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
-load("@bzlparty_tools//lib:goawk.bzl", "goawk")
-load("@bzlparty_tools//lib:jql.bzl", "jql_test")
-load("@bzlparty_tools//lib:ripgrep.bzl", "ripgrep", "ripgrep_binary")
-load("@bzlparty_tools//lib:sha.bzl", "sha")
-load("@bzlparty_tools//lib:shellspec.bzl", "shellspec_test")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
-sha(
-    name = "sha",
-    src = "test.awk",
-    out = "sha_result.txt",
-)
-
-diff_test(
-    name = "sha_test",
-    file1 = ":sha_result.txt",
-    file2 = ":sha_result_expected.txt",
-)
-
-goawk(
-    name = "goawk",
-    srcs = ["awk_test_data.txt"],
-    out = "goawk_result.txt",
-    file = "test.awk",
-)
-
-diff_test(
-    name = "goawk_test",
-    file1 = ":goawk_result.txt",
-    file2 = ":goawk_result_expected.txt",
-)
-
-ripgrep(
-    name = "ripgrep",
-    srcs = ["ripgrep_test_data.txt"],
-    out = "ripgrep_result.txt",
-    pattern = "oo$$",
-)
-
-ripgrep_binary(
-    name = "ripgrep_bin",
-    data = [
-        "ripgrep_test_data.txt",
+build_test(
+    name = "builds",
+    targets = [
+        "//toolchains:bazel_files",
+        "//toolchains:bzl_files",
     ],
-)
-
-diff_test(
-    name = "ripgrep_test",
-    file1 = ":ripgrep_result.txt",
-    file2 = ":ripgrep_result_expected.txt",
-)
-
-jql_test(
-    name = "json_validate",
-    srcs = ["test.json"],
-)
-
-shellspec_test(
-    name = "shellspec",
-    srcs = ["hello.sh"],
-    config = ".shellspec",
-    spec = "hello_spec.sh",
 )

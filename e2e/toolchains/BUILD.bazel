@@ -1,0 +1,24 @@
+load("@bzlparty_tools//lib:jql.bzl", "jql_test")
+load(":goawk.bzl", "goawk")
+load(":ripgrep.bzl", "ripgrep")
+
+package(default_visibility = ["//visibility:public"])
+
+goawk(
+    name = "bzl_files",
+    srcs = [":files.txt"],
+    out = "bzl_files.txt",
+    file = ":filter.awk",
+)
+
+ripgrep(
+    name = "bazel_files",
+    srcs = [":files.txt"],
+    out = "bazel_files.txt",
+    pattern = "\\.bazel",
+)
+
+jql_test(
+    name = "json_validate",
+    srcs = ["test.json"],
+)
