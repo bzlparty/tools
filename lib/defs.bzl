@@ -23,6 +23,7 @@ load(
     _is_netbsd = "is_netbsd",
     _is_windows = "is_windows",
 )
+load(":sha.bzl", _sha = "sha")
 load(":shellcheck.bzl", _shellcheck_test = "shellcheck_test")
 load(":shellspec.bzl", _shellspec_test = "shellspec_test")
 load(":topiary.bzl", _topiary = "topiary")
@@ -39,5 +40,6 @@ is_netbsd = _is_netbsd
 is_windows = _is_windows
 topiary = _topiary
 typos_test = _typos_test
+sha = _sha
 shellspec_test = _shellspec_test
 shellcheck_test = _shellcheck_test

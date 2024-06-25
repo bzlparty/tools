@@ -1,0 +1,6 @@
+load("//lib:defs.bzl", "sha")
+
+sha(
+    name = "build_bazel_sha",
+    src = "BUILD.bazel",
+)

@@ -51,6 +51,27 @@ platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_bin
 | <a id="platform_binary-url"></a>url |  -   | String | optional | <code>""</code> |
 
 
+<a id="sha"></a>
+
+## sha
+
+<pre>
+sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-out">out</a>, <a href="#sha-src">src</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="sha-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="sha-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
+| <a id="sha-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  |
+| <a id="sha-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+
+
 <a id="shellcheck_test"></a>
 
 ## shellcheck_test
