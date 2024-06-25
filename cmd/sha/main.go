@@ -6,7 +6,6 @@ import (
 	_ "crypto/sha256"
 	_ "crypto/sha512"
 	"encoding/base64"
-	"errors"
 	"flag"
 	"fmt"
 	"hash"
@@ -118,25 +117,29 @@ Options:
 	var input = flag.Arg(0)
 	var err error
 
-	// Try to read input as file
-	content, err = os.ReadFile(input)
-	if err != nil {
-		// Try to get input as request
-		response, err := http.Get(input)
+	if input == "" {
+		content, err = io.ReadAll(os.Stdin)
+		handleInitError(err)
+	} else {
+		// Try to read input as file
+		content, err = os.ReadFile(input)
 		if err != nil {
-			handleInitError(errors.New(fmt.Sprintf("Could not get input %s", input)))
-		}
-		defer response.Body.Close()
-		if response.StatusCode == http.StatusOK {
-			content, err = io.ReadAll(response.Body)
-			if err != nil {
-				handleInitError(errors.New(fmt.Sprintf("Could not read response %v", response)))
+			// Try to get input as request
+			response, err := http.Get(input)
+			handleInitError(err)
+			defer response.Body.Close()
+			if response.StatusCode == http.StatusOK {
+				content, err = io.ReadAll(response.Body)
+				handleInitError(err)
 			}
 		}
+
 	}
 }
 
 func handleInitError(err error) {
-	fmt.Println("Error:", err.Error())
-	os.Exit(1)
+	if err != nil {
+		fmt.Println("Init Error:", err.Error())
+		os.Exit(1)
+	}
 }
