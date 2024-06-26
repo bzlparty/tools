@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         bazelversion:
-          - 7.0.0
+          - 7.2.0
         folder:
           - "."
           - "e2e"
