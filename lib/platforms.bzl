@@ -4,8 +4,6 @@
 Default platform mappings and helpers
 """
 
-load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
-
 PLATFORMS = {
     "darwin_amd64": ["@platforms//os:macos", "@platforms//cpu:x86_64"],
     "darwin_arm64": ["@platforms//os:macos", "@platforms//cpu:arm64"],
@@ -51,10 +49,19 @@ def _switch(m, default = None):
             return k
     return default
 
-def _platform_from_host_constraints():
+def platform_from_constraints(constraints):
+    """Get platform from constraints
+
+    Args:
+      constraints: list of platform constraints, e.g. `["@platforms//os:linux", "@platforms//cpu:x86_64"]`.
+
+    Returns:
+      platform string, e.g. `linux_amd64`.
+    """
+
     os = ""
     arch = ""
-    for hc in HOST_CONSTRAINTS:
+    for hc in constraints:
         target = hc.split(":").pop()
         os = _switch({
             "darwin": is_darwin(target),
@@ -67,5 +74,3 @@ def _platform_from_host_constraints():
         }, arch)
 
     return "%s_%s" % (os, arch)
-
-HOST_PLATFORM = _platform_from_host_constraints()

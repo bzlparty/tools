@@ -1,3 +1,4 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bzlparty_tools//lib:platforms.bzl", "PLATFORMS")
 
 package(
@@ -7,6 +8,14 @@ package(
 exports_files(
     ["host.bzl"],
     visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "host",
+    srcs = ["host.bzl"],
+    deps = [
+        "@platforms//host:constraints_lib",
+    ],
 )
 
 [

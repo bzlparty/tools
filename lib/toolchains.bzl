@@ -1,8 +1,8 @@
 "# Toolchains"
 
 load("@bazel_skylib//lib:types.bzl", "types")
-load("@local_config_platform//:constraints.bzl", "HOST_CONSTRAINTS")
-load(":platforms.bzl", "HOST_PLATFORM", "PLATFORMS")
+load("//platforms:host.bzl", "HOST_CONSTRAINTS", "HOST_PLATFORM")
+load(":platforms.bzl", "PLATFORMS")
 
 def _binary_toolchain_impl(ctx):
     binary = ctx.file.binary

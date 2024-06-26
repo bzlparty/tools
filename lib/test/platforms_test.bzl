@@ -1,7 +1,8 @@
 "Platforms Tests"
 
 load("@bazel_skylib//lib:unittest.bzl", "asserts", "unittest")
-load("//lib:platforms.bzl", "HOST_PLATFORM", "PLATFORMS")
+load("//lib:platforms.bzl", "PLATFORMS")
+load("//platforms:host.bzl", "HOST_PLATFORM")
 
 def _host_platform_test_impl(ctx):
     env = unittest.begin(ctx)
