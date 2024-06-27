@@ -11,6 +11,11 @@ stardoc_with_diff_test(
 )
 
 stardoc_with_diff_test(
+    name = "platforms",
+    bzl_library_target = "//lib:platforms",
+)
+
+stardoc_with_diff_test(
     name = "toolchains",
     bzl_library_target = "//lib:toolchains",
 )
