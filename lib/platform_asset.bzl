@@ -4,29 +4,52 @@ load(":platforms.bzl", "is_windows")
 
 def _platform_asset_impl(ctx):
     launcher = ctx.actions.declare_file("%s_/%s" % (ctx.label.name, ctx.label.name))
+    info = ctx.actions.declare_file("%s_/%s_info.csv" % (ctx.label.name, ctx.label.name))
     sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
-    out = ctx.actions.declare_file("%s.meta" % ctx.label.name)
+    xsv = ctx.toolchains["@bzlparty_tools//toolchains:xsv_toolchain_type"].binary_info.binary
+    out = ctx.actions.declare_file("%s.csv" % ctx.label.name)
+    ctx.actions.write(
+        output = info,
+        is_executable = False,
+        content = """\
+Name,Platform,Url,Binary
+{name},{platform},{url},{binary}
+""".format(
+            binary = ctx.attr.binary,
+            name = ctx.label.name,
+            platform = ctx.attr.platform,
+            url = ctx.attr.url,
+        ),
+    )
     ctx.actions.write(
         output = launcher,
         is_executable = True,
         content = """
-integrity=$({sha} {url})
-echo "{platform} {url} {binary} {algo} ${{integrity}}" > {out}
+integrity=$({sha} -a "{algo}" "{url}")
+integrity_csv=$(mktemp)
+cat > "$integrity_csv" << EOF
+Integrity
+sha{algo}-$integrity
+EOF
+
+{xsv} cat columns {info} "$integrity_csv" > {out} 
+rm -rf "$integrity_csv"
       """.format(
-            url = ctx.attr.url,
-            binary = ctx.attr.binary,
             algo = ctx.attr.algo,
-            platform = ctx.attr.platform,
-            sha = sha.path,
+            info = info.path,
             out = out.path,
+            sha = sha.path,
+            url = ctx.attr.url,
+            xsv = xsv.path,
         ),
     )
 
     ctx.actions.run(
         outputs = [out],
-        inputs = [launcher],
+        inputs = [launcher, info],
         executable = launcher,
-        tools = [sha],
+        tools = [sha, xsv],
+        mnemonic = "AssetInfo",
     )
 
     return [
@@ -43,7 +66,10 @@ platform_asset = rule(
         "algo": attr.string(default = "384"),
         "platform": attr.string(),
     },
-    toolchains = ["@bzlparty_tools//toolchains:sha_toolchain_type"],
+    toolchains = [
+        "@bzlparty_tools//toolchains:sha_toolchain_type",
+        "@bzlparty_tools//toolchains:xsv_toolchain_type",
+    ],
 )
 
 def _switch(val, arms, default = None):
@@ -84,11 +110,16 @@ def assets(name = "assets", **kwargs):
         name = name,
         outs = ["%s_bzl" % name],
         tools = ["@bzlparty_tools//lib:assets.awk"],
-        cmd = """
-cat $(SRCS) |
+        cmd = """\
+./$(XSV_BIN) cat rows $(SRCS) | 
+./$(COREUTILS_BIN) tail +2 | 
 ./$(GOAWK_BIN) -f $(location @bzlparty_tools//lib:assets.awk) > $(OUTS)
-        """,
-        toolchains = ["@bzlparty_tools//toolchains:goawk"],
+""",
+        toolchains = [
+            "@bzlparty_tools//toolchains:xsv",
+            "@bzlparty_tools//toolchains:goawk",
+            "@coreutils_toolchains//:resolved_toolchain",
+        ],
         **kwargs
     )
 
