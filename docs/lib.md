@@ -29,12 +29,12 @@ jql_test(<a href="#jql_test-name">name</a>, <a href="#jql_test-srcs">srcs</a>)
 | <a id="jql_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | required |  |
 
 
-<a id="platform_binary"></a>
+<a id="platform_asset"></a>
 
-## platform_binary
+## platform_asset
 
 <pre>
-platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_binary-algo">algo</a>, <a href="#platform_binary-binary">binary</a>, <a href="#platform_binary-platform">platform</a>, <a href="#platform_binary-url">url</a>)
+platform_asset(<a href="#platform_asset-name">name</a>, <a href="#platform_asset-algo">algo</a>, <a href="#platform_asset-binary">binary</a>, <a href="#platform_asset-platform">platform</a>, <a href="#platform_asset-url">url</a>)
 </pre>
 
 
@@ -44,11 +44,11 @@ platform_binary(<a href="#platform_binary-name">name</a>, <a href="#platform_bin
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="platform_binary-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="platform_binary-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
-| <a id="platform_binary-binary"></a>binary |  -   | String | optional | <code>""</code> |
-| <a id="platform_binary-platform"></a>platform |  -   | String | optional | <code>""</code> |
-| <a id="platform_binary-url"></a>url |  -   | String | optional | <code>""</code> |
+| <a id="platform_asset-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="platform_asset-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
+| <a id="platform_asset-binary"></a>binary |  -   | String | optional | <code>""</code> |
+| <a id="platform_asset-platform"></a>platform |  -   | String | optional | <code>""</code> |
+| <a id="platform_asset-url"></a>url |  -   | String | optional | <code>""</code> |
 
 
 <a id="sha"></a>
@@ -241,13 +241,13 @@ is_windows(<a href="#is_windows-platform">platform</a>)
 | <a id="is_windows-platform"></a>platform |  <p align="center"> - </p>   |  none |
 
 
-<a id="platform_binaries"></a>
+<a id="multi_platform_assets"></a>
 
-## platform_binaries
+## multi_platform_assets
 
 <pre>
-platform_binaries(<a href="#platform_binaries-name">name</a>, <a href="#platform_binaries-url">url</a>, <a href="#platform_binaries-platforms">platforms</a>, <a href="#platform_binaries-darwin_ext">darwin_ext</a>, <a href="#platform_binaries-windows_ext">windows_ext</a>, <a href="#platform_binaries-linux_ext">linux_ext</a>, <a href="#platform_binaries-binary">binary</a>, <a href="#platform_binaries-prefix">prefix</a>,
-                  <a href="#platform_binaries-platforms_map">platforms_map</a>)
+multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#multi_platform_assets-url">url</a>, <a href="#multi_platform_assets-platforms">platforms</a>, <a href="#multi_platform_assets-darwin_ext">darwin_ext</a>, <a href="#multi_platform_assets-windows_ext">windows_ext</a>, <a href="#multi_platform_assets-linux_ext">linux_ext</a>, <a href="#multi_platform_assets-binary">binary</a>, <a href="#multi_platform_assets-prefix">prefix</a>,
+                      <a href="#multi_platform_assets-platforms_map">platforms_map</a>)
 </pre>
 
 
@@ -257,15 +257,15 @@ platform_binaries(<a href="#platform_binaries-name">name</a>, <a href="#platform
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="platform_binaries-name"></a>name |  <p align="center"> - </p>   |  none |
-| <a id="platform_binaries-url"></a>url |  <p align="center"> - </p>   |  none |
-| <a id="platform_binaries-platforms"></a>platforms |  <p align="center"> - </p>   |  none |
-| <a id="platform_binaries-darwin_ext"></a>darwin_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
-| <a id="platform_binaries-windows_ext"></a>windows_ext |  <p align="center"> - </p>   |  <code>"zip"</code> |
-| <a id="platform_binaries-linux_ext"></a>linux_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
-| <a id="platform_binaries-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
-| <a id="platform_binaries-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
-| <a id="platform_binaries-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
+| <a id="multi_platform_assets-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a id="multi_platform_assets-url"></a>url |  <p align="center"> - </p>   |  none |
+| <a id="multi_platform_assets-platforms"></a>platforms |  <p align="center"> - </p>   |  none |
+| <a id="multi_platform_assets-darwin_ext"></a>darwin_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
+| <a id="multi_platform_assets-windows_ext"></a>windows_ext |  <p align="center"> - </p>   |  <code>"zip"</code> |
+| <a id="multi_platform_assets-linux_ext"></a>linux_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
+| <a id="multi_platform_assets-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
+| <a id="multi_platform_assets-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
+| <a id="multi_platform_assets-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
 
 
 <a id="typos_test"></a>

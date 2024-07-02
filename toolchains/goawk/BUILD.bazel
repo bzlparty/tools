@@ -1,4 +1,4 @@
-load("//lib:platform_binary.bzl", "platform_binaries")
+load("//lib:platform_asset.bzl", "multi_platform_assets")
 
 VERSION = "v1.27.0"
 
@@ -12,7 +12,7 @@ SUPPORTED_PLATFORMS = [
 
 GITHUB_URL = "https://github.com/benhoyt/goawk/releases/download/%s" % VERSION
 
-platform_binaries(
+multi_platform_assets(
     name = "goawk",
     platforms = SUPPORTED_PLATFORMS,
     url = "%s/goawk_%s_{platform}.{ext}" % (GITHUB_URL, VERSION),

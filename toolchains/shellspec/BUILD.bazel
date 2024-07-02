@@ -1,4 +1,4 @@
-load("//lib:platform_binary.bzl", "platform_binaries")
+load("//lib:platform_asset.bzl", "multi_platform_assets")
 
 VERSION = "0.28.1"
 
@@ -7,7 +7,7 @@ GITHUB_URL = "https://github.com/shellspec/shellspec/releases/download/%s/shells
 # This is not a proper setup for a toolchain like this
 # We do not include all files properly into the toolchain,
 # only the binary is _included_.
-platform_binaries(
+multi_platform_assets(
     name = "shellspec",
     binary = "shellspec/shellspec",
     platforms = ["host"],

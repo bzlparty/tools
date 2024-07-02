@@ -1,4 +1,4 @@
-load("//lib:platform_binary.bzl", "platform_binaries")
+load("//lib:platform_asset.bzl", "multi_platform_assets")
 
 VERSION = "7.1.8"
 
@@ -12,7 +12,7 @@ SUPPORTED_PLATFORMS = [
 
 GITHUB_URL = "https://github.com/yamafaktory/jql/releases/download/jql-v%s" % VERSION
 
-platform_binaries(
+multi_platform_assets(
     name = "jql",
     binary = "jql",
     darwin_ext = "zip",

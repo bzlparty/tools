@@ -41,8 +41,8 @@ lib/BUILD.bazel
 lib/defs.bzl
 lib/extensions.bzl
 lib/jql.bzl
-lib/platform_binary.awk
-lib/platform_binary.bzl
+lib/assets.awk
+lib/platform_asset.bzl
 lib/platforms.bzl
 lib/sha.bzl
 lib/shellcheck.bzl

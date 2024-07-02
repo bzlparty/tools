@@ -12,7 +12,7 @@ bzl_library(
     srcs = ["defs.bzl"],
     deps = [
         ":jql",
-        ":platform_binary",
+        ":platform_asset",
         ":sha",
         ":shellcheck",
         ":shellspec",
@@ -58,8 +58,8 @@ bzl_library(
 )
 
 bzl_library(
-    name = "platform_binary",
-    srcs = ["platform_binary.bzl"],
+    name = "platform_asset",
+    srcs = ["platform_asset.bzl"],
     deps = [
         ":platforms",
         "@aspect_bazel_lib//lib:write_source_files",

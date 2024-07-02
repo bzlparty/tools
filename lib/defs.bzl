@@ -10,9 +10,9 @@ load("@bzlparty_tools//lib:defs.bzl", "...")
 
 load(":jql.bzl", _jql_test = "jql_test")
 load(
-    ":platform_binary.bzl",
-    _platform_binaries = "platform_binaries",
-    _platform_binary = "platform_binary",
+    ":platform_asset.bzl",
+    _multi_platform_assets = "multi_platform_assets",
+    _platform_asset = "platform_asset",
 )
 load(
     ":platforms.bzl",
@@ -30,8 +30,8 @@ load(":topiary.bzl", _topiary = "topiary")
 load(":typos.bzl", _typos_test = "typos_test")
 
 jql_test = _jql_test
-platform_binary = _platform_binary
-platform_binaries = _platform_binaries
+platform_asset = _platform_asset
+multi_platform_assets = _multi_platform_assets
 host_platform = _host_platform
 is_amd64 = _is_amd64
 is_darwin = _is_darwin

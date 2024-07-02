@@ -1,4 +1,4 @@
-load("//lib:platform_binary.bzl", "platform_binaries")
+load("//lib:platform_asset.bzl", "multi_platform_assets")
 
 VERSION = "1.22.9"
 
@@ -13,7 +13,7 @@ SUPPORTED_PLATFORMS = [
 
 GITHUB_URL = "https://github.com/cargo-prebuilt/index/releases/download/typos-cli-%s" % VERSION
 
-platform_binaries(
+multi_platform_assets(
     name = "typos",
     binary = "typos",
     platforms = SUPPORTED_PLATFORMS,

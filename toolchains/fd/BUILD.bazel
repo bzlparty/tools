@@ -1,4 +1,4 @@
-load("//lib:platform_binary.bzl", "platform_binaries")
+load("//lib:platform_asset.bzl", "multi_platform_assets")
 
 VERSION = "10.1.0"
 
@@ -12,7 +12,7 @@ SUPPORTED_PLATFORMS = [
 
 GITHUB_URL = "https://github.com/sharkdp/fd/releases/download/v%s" % VERSION
 
-platform_binaries(
+multi_platform_assets(
     name = "fd",
     binary = "fd",
     platforms = SUPPORTED_PLATFORMS,
