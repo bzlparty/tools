@@ -45,14 +45,14 @@ def _files_impl(ctx):
                 files = ["topiary-queries/queries/*.scm"],
             )
 
-files = module_extension(
-    _files_impl,
+files_ext = struct(
+    impl = _files_impl,
     tag_classes = {
         "topiary_queries": tag_class(),
     },
 )
 
-tools = module_extension(
-    _impl,
+tools_ext = struct(
+    impl = _impl,
     tag_classes = TAG_CLASSES,
 )
