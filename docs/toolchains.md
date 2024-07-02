@@ -90,7 +90,7 @@ Binary Toolchain Provider
 ## register_platform_toolchains
 
 <pre>
-register_platform_toolchains(<a href="#register_platform_toolchains-name">name</a>, <a href="#register_platform_toolchains-assets">assets</a>)
+register_platform_toolchains(<a href="#register_platform_toolchains-name">name</a>, <a href="#register_platform_toolchains-assets">assets</a>, <a href="#register_platform_toolchains-toolchain_type">toolchain_type</a>)
 </pre>
 
 
@@ -102,6 +102,7 @@ register_platform_toolchains(<a href="#register_platform_toolchains-name">name</
 | :------------- | :------------- | :------------- |
 | <a id="register_platform_toolchains-name"></a>name |  <p align="center"> - </p>   |  none |
 | <a id="register_platform_toolchains-assets"></a>assets |  <p align="center"> - </p>   |  none |
+| <a id="register_platform_toolchains-toolchain_type"></a>toolchain_type |  <p align="center"> - </p>   |  none |
 
 
 <a id="resolved_toolchain_impl"></a>

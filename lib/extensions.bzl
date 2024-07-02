@@ -15,7 +15,11 @@ def _impl(ctx):
     for module in ctx.modules:
         for name, assets in TOOLS.items():
             if _has_tag(module, name):
-                register_platform_toolchains(name = name, assets = assets)
+                register_platform_toolchains(
+                    name = name,
+                    assets = assets,
+                    toolchain_type = "@bzlparty_tools//toolchains:%s_toolchain_type",
+                )
 
 def load_files(**kwargs):
     build_file = """\

@@ -132,7 +132,7 @@ toolchain(
 """
 
 # buildifier: disable=function-docstring
-def register_platform_toolchains(name, assets):
+def register_platform_toolchains(name, assets, toolchain_type):
     toolchains_build_file = _TOOLCHAINS_BUILD_FILE_BEGIN.format(name = name)
     if types.is_dict(assets):
         for (platform, config) in assets.items():
@@ -148,6 +148,7 @@ def register_platform_toolchains(name, assets):
             toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
                 name = name,
                 platform = _platform,
+                toolchain_type = toolchain_type,
                 compatible_with = HOST_CONSTRAINTS if platform == "host" else PLATFORMS[platform],
             )
     elif types.is_string(assets):
@@ -160,6 +161,7 @@ def register_platform_toolchains(name, assets):
         toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
             name = name,
             platform = HOST_PLATFORM,
+            toolchain_type = toolchain_type,
             compatible_with = HOST_CONSTRAINTS,
         )
     else:
