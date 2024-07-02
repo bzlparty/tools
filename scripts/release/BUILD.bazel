@@ -46,12 +46,33 @@ sed "s/0.0.0/$$version/" "$$t" > $(OUTS)
     tools = ["//cmd/dcomment"],
 )
 
+ROOT_BUILD_FILE = """\
+load("@rules_license//rules:license.bzl", "license")
+
+package(
+    default_applicable_licenses = [":license"],
+    default_visibility = ["//visibility:public"],
+)
+
+license(
+    name = "license",
+    license_kinds = [
+        "@rules_license//licenses/spdx:LGPL-3.0-or-later",
+    ],
+    license_text = "LICENSE",
+)
+
+exports_files([
+    "LICENSE",
+    "MODULE.bazel",
+    "extensions.bzl",
+])
+"""
+
 write_file(
     name = "root_build_bazel",
     out = "root_BUILD.bazel",
-    content = [
-        """package(default_visibility = ["//visibility:public"])""",
-    ],
+    content = [ROOT_BUILD_FILE],
     tags = ["manual"],
 )
 
