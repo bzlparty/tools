@@ -1,5 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("//lib:shellcheck.bzl", "shellcheck_test")
+load("//toolchains:toolchains.bzl", "TOOLS")
 load(":git_archive.bzl", "git_archive")
 
 sh_binary(
@@ -69,10 +70,25 @@ exports_files([
 ])
 """
 
+TOOLCHAIN_ALIAS = """\
+alias(
+  name = "{name}",
+  actual = "@bzlparty_tools//toolchains:{name}",
+)
+
+alias(
+  name = "{name}_toolchain_type",
+  actual = "@bzlparty_tools//toolchains:{name}_toolchain_type",
+)
+"""
+
 write_file(
     name = "root_build_bazel",
     out = "root_BUILD.bazel",
-    content = [ROOT_BUILD_FILE],
+    content = [ROOT_BUILD_FILE] + [
+        TOOLCHAIN_ALIAS.format(name = name)
+        for name in TOOLS.keys()
+    ],
     tags = ["manual"],
 )
 
