@@ -103,7 +103,7 @@ def multi_platform_assets(name, url, platforms, darwin_ext = "tar.gz", windows_e
             ),
         )
 
-    assets(srcs = binaries)
+    assets(name = "%s_assets" % name, srcs = binaries)
 
 def assets(name = "assets", **kwargs):
     native.genrule(
