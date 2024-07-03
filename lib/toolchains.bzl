@@ -126,7 +126,7 @@ toolchain(
     name = "{name}_{platform}_toolchain",
     toolchain = "@{name}_{platform}//:{name}_binary_toolchain",
     exec_compatible_with = {compatible_with},
-    toolchain_type = "@bzlparty_tools//toolchains:{name}_toolchain_type",
+    toolchain_type = "{toolchain_type}",
     visibility = ["//visibility:public"],
 )
 """

@@ -18,7 +18,7 @@ def _impl(ctx):
                 register_platform_toolchains(
                     name = name,
                     assets = assets,
-                    toolchain_type = "@bzlparty_tools//toolchains:%s_toolchain_type",
+                    toolchain_type = "@bzlparty_tools//toolchains:%s_toolchain_type" % name,
                 )
 
 def load_files(**kwargs):
