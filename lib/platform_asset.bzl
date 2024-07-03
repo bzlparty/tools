@@ -105,26 +105,71 @@ def multi_platform_assets(name, url, platforms, darwin_ext = "tar.gz", windows_e
 
     assets(name = "%s_assets" % name, srcs = binaries)
 
+def _assets_impl(ctx):
+    script = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
+    xsv = ctx.toolchains["@bzlparty_tools//toolchains:xsv_toolchain_type"].binary_info.binary
+    goawk = ctx.toolchains["@bzlparty_tools//toolchains:goawk_toolchain_type"].binary_info.binary
+    utils = ctx.toolchains["@aspect_bazel_lib//lib:coreutils_toolchain_type"].coreutils_info.bin
+    out = ctx.outputs.out
+
+    ctx.actions.write(
+        output = script,
+        content = """\
+#!/usr/bin/env bash
+
+{xsv} cat rows $@ |
+{utils} tail +2 |
+{goawk} -f {assets_awk} > {out}
+      """.format(
+            xsv = xsv.path,
+            goawk = goawk.path,
+            utils = utils.path,
+            out = out.path,
+            assets_awk = ctx.file._assets_awk.path,
+        ),
+        is_executable = True,
+    )
+
+    args = ctx.actions.args()
+    args.add_all(ctx.files.srcs)
+
+    ctx.actions.run(
+        inputs = ctx.files.srcs + [ctx.file._assets_awk],
+        outputs = [ctx.outputs.out],
+        arguments = [args],
+        tools = [xsv, goawk, utils],
+        executable = script,
+    )
+
+    return [
+        DefaultInfo(
+            files = depset([out]),
+        ),
+    ]
+
+_assets = rule(
+    _assets_impl,
+    attrs = {
+        "srcs": attr.label_list(allow_empty = False, allow_files = True, mandatory = True),
+        "out": attr.output(mandatory = True),
+        "_assets_awk": attr.label(default = Label("@bzlparty_tools//lib:assets.awk"), allow_single_file = True),
+    },
+    toolchains = [
+        "@bzlparty_tools//toolchains:xsv_toolchain_type",
+        "@bzlparty_tools//toolchains:goawk_toolchain_type",
+        "@aspect_bazel_lib//lib:coreutils_toolchain_type",
+    ],
+)
+
 def assets(name = "assets", **kwargs):
-    native.genrule(
+    _assets(
         name = name,
-        outs = ["%s_bzl" % name],
-        tools = ["@bzlparty_tools//lib:assets.awk"],
-        cmd = """\
-./$(XSV_BIN) cat rows $(SRCS) | 
-./$(COREUTILS_BIN) tail +2 | 
-./$(GOAWK_BIN) -f $(location @bzlparty_tools//lib:assets.awk) > $(OUTS)
-""",
-        toolchains = [
-            "@bzlparty_tools//toolchains:xsv",
-            "@bzlparty_tools//toolchains:goawk",
-            "@coreutils_toolchains//:resolved_toolchain",
-        ],
+        out = "%s_bzl" % name,
         **kwargs
     )
 
     write_source_file(
         name = "update_%s" % name,
-        in_file = "%s" % name,
+        in_file = "%s_bzl" % name,
         out_file = ":assets.bzl",
     )
