@@ -15,9 +15,6 @@ bazel_dep(name = "rules_go", version = "0.48.0")
 bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True)
 #endif
 
-bazel_lib_toolchains = use_extension("@aspect_bazel_lib//lib:extensions.bzl", "toolchains")
-use_repo(bazel_lib_toolchains, "coreutils_toolchains")
-
 tools = use_extension("//:extensions.bzl", "tools")
 tools.fd()
 tools.goawk()
