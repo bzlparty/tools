@@ -15,4 +15,4 @@ RULES_ARCHIVE="$DEST/%NAME%-$TAG.tar.gz"
 cd "$BUILD_WORKING_DIRECTORY" || exit 1
 
 git archive --format=tar.gz --prefix="$PREFIX/" %VIRTUAL_FILES% -o "$RULES_ARCHIVE" "$TAG"
-exec "$DEST/sha_linux_amd64" "$RULES_ARCHIVE" > "$RULES_ARCHIVE".sha384
+exec %SHA% "$RULES_ARCHIVE" > "$RULES_ARCHIVE".sha384

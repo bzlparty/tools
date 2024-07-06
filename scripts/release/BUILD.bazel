@@ -1,7 +1,8 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//lib:git_archive.bzl", "git_archive")
 load("//lib:shellcheck.bzl", "shellcheck_test")
+load("//platforms:host.bzl", "HOST_PLATFORM")
 load("//toolchains:toolchains.bzl", "TOOLS")
-load(":git_archive.bzl", "git_archive")
 
 sh_binary(
     name = "copy_assets",
@@ -102,21 +103,17 @@ write_file(
     tags = ["manual"],
 )
 
-filegroup(
-    name = "extra_package_files",
-    srcs = [
-        ":root_BUILD.bazel",
-        ":root_MODULE.bazel",
-        ":toolchains_BUILD.bazel",
-        ":toolchains_sha_assets.bzl",
-    ],
-    tags = ["manual"],
-)
-
 git_archive(
     name = "git_archive",
-    data = [":extra_package_files"],
+    package_name = "tools",
+    sha = "//cmd/sha:sha_%s" % HOST_PLATFORM,
     tags = ["manual"],
+    virtual_files = {
+        ":root_BUILD.bazel": "BUILD.bazel",
+        ":root_MODULE.bazel": "MODULE.bazel",
+        ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
+        ":toolchains_sha_assets.bzl": "toolchains/sha/assets.bzl",
+    },
 )
 
 shellcheck_test(
