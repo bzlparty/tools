@@ -118,6 +118,7 @@ load("@bzlparty_tools//platforms:host.bzl", "HOST_PLATFORM")
 alias(
     name = "{name}",
     actual = "@{name}_%s//:bin" % HOST_PLATFORM,
+    visibility = ["//visibility:public"],
 )
 """
 
