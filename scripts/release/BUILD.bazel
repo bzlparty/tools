@@ -1,4 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//lib:create_module_bazel.bzl", "create_module_bazel")
 load("//lib:git_archive.bzl", "git_archive")
 load("//lib:shellcheck.bzl", "shellcheck_test")
 load("//platforms:host.bzl", "HOST_PLATFORM")
@@ -34,18 +35,10 @@ genrule(
     tools = [":create_assets"],
 )
 
-genrule(
+create_module_bazel(
     name = "root_module_bazel",
-    srcs = ["//:MODULE.bazel"],
-    outs = ["root_MODULE.bazel"],
-    cmd = """
-version=$${TAG:1}
-t=$$(tempfile)
-$(location //cmd/dcomment) -d _BZLPARTY_RELEASE_ $(SRCS) "$$t"
-sed "s/0.0.0/$$version/" "$$t" > $(OUTS)
-""",
+    out = "root_MODULE.bazel",
     tags = ["manual"],
-    tools = ["//cmd/dcomment"],
 )
 
 ROOT_BUILD_FILE = """\

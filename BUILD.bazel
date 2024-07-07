@@ -26,7 +26,7 @@ typos_test(
     name = "typos",
     exclude = [
         "**/assets.bzl",
-        "**/cmd/dcomment/dcomment.cpp",
+        "**/vendor/**",
     ],
 )
 
