@@ -1,0 +1,25 @@
+load("//lib:platform_asset.bzl", "multi_platform_assets")
+
+VERSION = "1.8.3"
+
+SUPPORTED_PLATFORMS = [
+    "darwin_amd64",
+    "darwin_arm64",
+    "linux_amd64",
+    "linux_arm64",
+]
+
+GITHUB_URL = "https://github.com/biomejs/biome/releases/download/cli/v%s" % VERSION
+
+multi_platform_assets(
+    name = "biome",
+    binary = "biome",
+    platforms = SUPPORTED_PLATFORMS,
+    platforms_map = {
+        "darwin_amd64": "darwin-x64",
+        "darwin_arm64": "darwin-arm64",
+        "linux_amd64": "linux-x64-musl",
+        "linux_arm64": "linux-arm64-musl",
+    },
+    url = "%s/biome-{platform}" % GITHUB_URL,
+)

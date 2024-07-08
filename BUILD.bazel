@@ -1,5 +1,6 @@
 load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test")
 load("@rules_license//rules:license.bzl", "license")
+load("//lib:biome.bzl", "biome", "biome_test")
 load("//lib:topiary.bzl", "topiary")
 load("//lib:typos.bzl", "typos_test")
 
@@ -20,6 +21,7 @@ exports_files([
     "LICENSE",
     "MODULE.bazel",
     "extensions.bzl",
+    "biome.json",
 ])
 
 typos_test(
@@ -28,6 +30,16 @@ typos_test(
         "**/assets.bzl",
         "**/vendor/**",
     ],
+)
+
+biome(
+    name = "check_write",
+    config = "//:biome.json",
+)
+
+biome_test(
+    name = "check",
+    config = "//:biome.json",
 )
 
 topiary(

@@ -4,6 +4,7 @@ load(":toolchains.bzl", "bzlparty_toolchains")
 package(default_visibility = ["//visibility:public"])
 
 TOOLS = [
+    "biome",
     "fd",
     "goawk",
     "jql",

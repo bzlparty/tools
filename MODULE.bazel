@@ -16,6 +16,7 @@ bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True
 #endif
 
 tools = use_extension("//:extensions.bzl", "tools")
+tools.biome()
 tools.fd()
 tools.goawk()
 tools.jql()
@@ -28,6 +29,7 @@ tools.typos()
 tools.xsv()
 use_repo(
     tools,
+    "biome",
     "fd",
     "goawk",
     "jql",
@@ -41,6 +43,7 @@ use_repo(
 )
 
 register_toolchains(
+    "@biome//:all",
     "@fd//:all",
     "@goawk//:all",
     "@jql//:all",

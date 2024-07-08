@@ -1,5 +1,6 @@
 # buildifier: disable=module-docstring
 load("//lib:toolchains.bzl", "resolved_toolchain_impl")
+load("//toolchains/biome:assets.bzl", BIOME_ASSETS = "ASSETS")
 load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
 load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
@@ -12,6 +13,7 @@ load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
 load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
 
 TOOLS = {
+    "biome": BIOME_ASSETS,
     "fd": FD_ASSETS,
     "goawk": GOAWK_ASSETS,
     "jql": JQL_ASSETS,
@@ -23,6 +25,14 @@ TOOLS = {
     "typos": TYPOS_ASSETS,
     "xsv": XSV_ASSETS,
 }
+
+BIOME_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:biome_toolchain_type"
+
+biome_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(BIOME_TOOLCHAIN_TYPE),
+    toolchains = [BIOME_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
 
 FD_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:fd_toolchain_type"
 
@@ -106,6 +116,14 @@ xsv_resolved_toolchain = rule(
 
 # buildifier: disable=function-docstring
 def bzlparty_toolchains(name = "toolchains"):
+    native.toolchain_type(
+        name = "biome_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    biome_resolved_toolchain(
+        name = "biome",
+        visibility = ["//visibility:public"],
+    )
     native.toolchain_type(
         name = "fd_toolchain_type",
         visibility = ["//visibility:public"],
