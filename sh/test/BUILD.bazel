@@ -5,12 +5,6 @@ package(
 )
 
 bats_test(
-    name = "sha_test",
-    srcs = ["sha.bats"],
-    data = ["//sh:sha.bash"],
-)
-
-bats_test(
     name = "tag_test",
     srcs = ["tag.bats"],
     data = ["//sh:tag.bash"],

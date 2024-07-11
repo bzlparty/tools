@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.darwin.x86_64.tar.xz", binary = "shellcheck-v0.10.0/shellcheck", integrity = "sha384-AKCp696EYrUlUgrEP8FdVLM8In2qlqNL7ST/DKLZeMzozZGzgPHh7LkhHq2u2lXf"),
     "darwin_arm64": struct(url = "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.darwin.aarch64.tar.xz", binary = "shellcheck-v0.10.0/shellcheck", integrity = "sha384-Tg78Ym7+vFDJH2FXFbanstrwNYParQN0K4BWBy2OR8tjZ5sksGdBE/tEScSwy2BV"),

@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/x86_64-apple-darwin.tar.gz", binary = "xsv", integrity = "sha384-TVkRtZC5ixq2jiomb4yIz8exuU94aPTcYuNiuRYJ0iMN3lHzACYpO6PZLCyYV5pB"),
     "darwin_arm64": struct(url = "https://github.com/cargo-prebuilt/index/releases/download/xsv-0.13.0/aarch64-apple-darwin.tar.gz", binary = "xsv", integrity = "sha384-LNKs3vYVqUzH09ylwPhkdKMMhV26tmSro8+lXkqvOVtlaCbKWjdYMiaipQ9L+jcb"),

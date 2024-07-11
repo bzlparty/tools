@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-x86_64-apple-darwin.tar.gz", binary = "fd-v10.1.0-x86_64-apple-darwin/fd", integrity = "sha384-zdTenknFRF5GcrKTVQUR6v5gBwO26UNqXY/ggoMOkyWo6DbLwpLKIaMaqP/XUCKu"),
     "darwin_arm64": struct(url = "https://github.com/sharkdp/fd/releases/download/v10.1.0/fd-v10.1.0-aarch64-apple-darwin.tar.gz", binary = "fd-v10.1.0-aarch64-apple-darwin/fd", integrity = "sha384-MdhcWHZ4NpZ6+WkduY78cCIPG9aWKyXxTMWOz9R8ITYMudB3n2xG5kyjRU/wp0GV"),

@@ -1,5 +1,7 @@
 BEGIN {
   FS = ","
+  print "\"Assets\""
+  print ""
   print "ASSETS = {"
 }
 

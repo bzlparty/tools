@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_amd64.tar.gz", binary = "goawk", integrity = "sha384-uPClT5eTKUZQncwg7r/2e20kaz16AANZRp/HC9WquTWeeX9LY6yXJSdJ903zHkBq"),
     "darwin_arm64": struct(url = "https://github.com/benhoyt/goawk/releases/download/v1.27.0/goawk_v1.27.0_darwin_arm64.tar.gz", binary = "goawk", integrity = "sha384-iTMrskmk76SaA9VCbAQ0GpoWRiabnum4XcHkDgCWU4XjC2uAakjyhzyuJETtc50D"),

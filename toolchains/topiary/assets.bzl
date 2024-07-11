@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/tweag/topiary/releases/download/v0.4.0/topiary-cli-x86_64-apple-darwin.tar.xz", binary = "topiary-cli-x86_64-apple-darwin/topiary", integrity = "sha384-nIDGt4KdlZMvvyN+7P3BupToHFFVdVvisUgf6VBvHVkrd8WVqJGAbSVmnVBKRe7M"),
     "darwin_arm64": struct(url = "https://github.com/tweag/topiary/releases/download/v0.4.0/topiary-cli-aarch64-apple-darwin.tar.xz", binary = "topiary-cli-aarch64-apple-darwin/topiary", integrity = "sha384-C/tZ9oDI0AE6zjC8+Gl317izGGleNn+Al2S3YNeL3U9dJt+kE4L/WpXL43BitSNX"),

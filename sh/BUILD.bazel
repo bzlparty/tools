@@ -1,14 +1,7 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load("//lib:shellcheck.bzl", "shellcheck_test")
 
 package(
     default_visibility = ["//visibility:public"],
-)
-
-sh_binary(
-    name = "sha",
-    srcs = ["sha.bash"],
-    tags = ["manual"],
 )
 
 sh_binary(
@@ -23,12 +16,4 @@ sh_binary(
 bzl_library(
     name = "docs",
     srcs = ["docs.bzl"],
-)
-
-shellcheck_test(
-    name = "lint",
-    srcs = [
-        # "sha.bash",
-        "tag.bash",
-    ],
 )

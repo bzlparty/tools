@@ -1,3 +1,5 @@
+"Assets"
+
 ASSETS = {
     "darwin_amd64": struct(url = "https://github.com/yamafaktory/jql/releases/download/jql-v7.1.8/jql-v7.1.8-x86_64-apple-darwin.zip", binary = "jql", integrity = "sha384-3F7mN1OrkxQOaWElYrWimSKuGHdD7O2U+svvHoDLOBp9udIcte61f8H79n8THVuQ"),
     "darwin_arm64": struct(url = "https://github.com/yamafaktory/jql/releases/download/jql-v7.1.8/jql-v7.1.8-aarch64-apple-darwin.zip", binary = "jql", integrity = "sha384-oaiMcdZtqWXQg24ixqSuptUSK7ZYFgBNInP/I77FSFzfzDWqZxmWNExT/BZ2SRT0"),
