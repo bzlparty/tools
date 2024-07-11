@@ -1,8 +1,6 @@
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("//lib:create_module_bazel.bzl", "create_module_bazel")
 load("//lib:git_archive.bzl", "git_archive")
 load("//platforms:host.bzl", "HOST_PLATFORM")
-load("//toolchains:toolchains.bzl", "TOOLS")
+load(":defs.bzl", "dist_files")
 
 sh_binary(
     name = "copy_assets",
@@ -25,75 +23,7 @@ sh_binary(
     tags = ["manual"],
 )
 
-genrule(
-    name = "create_assets_bzl",
-    srcs = ["//cmd/sha:shasums"],
-    outs = ["toolchains_sha_assets.bzl"],
-    cmd = "./$(location :create_assets) $(SRCS) > $(OUTS)",
-    tags = ["manual"],
-    tools = [":create_assets"],
-)
-
-create_module_bazel(
-    name = "root_module_bazel",
-    out = "root_MODULE.bazel",
-    tags = ["manual"],
-)
-
-ROOT_BUILD_FILE = """\
-load("@rules_license//rules:license.bzl", "license")
-
-package(
-    default_applicable_licenses = [":license"],
-    default_visibility = ["//visibility:public"],
-)
-
-license(
-    name = "license",
-    license_kinds = [
-        "@rules_license//licenses/spdx:LGPL-3.0-or-later",
-    ],
-    license_text = "LICENSE",
-)
-
-exports_files([
-    "LICENSE",
-    "MODULE.bazel",
-    "extensions.bzl",
-])
-"""
-
-TOOLCHAIN_ALIAS = """\
-alias(
-  name = "{name}",
-  actual = "@bzlparty_tools//toolchains:{name}",
-)
-
-alias(
-  name = "{name}_toolchain_type",
-  actual = "@bzlparty_tools//toolchains:{name}_toolchain_type",
-)
-"""
-
-write_file(
-    name = "root_build_bazel",
-    out = "root_BUILD.bazel",
-    content = [ROOT_BUILD_FILE] + [
-        TOOLCHAIN_ALIAS.format(name = name)
-        for name in TOOLS.keys()
-    ],
-    tags = ["manual"],
-)
-
-write_file(
-    name = "toolchains_build_bazel",
-    out = "toolchains_BUILD.bazel",
-    content = [
-        """load(":toolchains.bzl", "bzlparty_toolchains")""",
-        "bzlparty_toolchains()",
-    ],
-    tags = ["manual"],
-)
+dist_files()
 
 git_archive(
     name = "git_archive",
@@ -101,6 +31,7 @@ git_archive(
     sha = "//cmd/sha:sha_%s" % HOST_PLATFORM,
     tags = ["manual"],
     virtual_files = {
+        # these files come from `dist_files` macro
         ":root_BUILD.bazel": "BUILD.bazel",
         ":root_MODULE.bazel": "MODULE.bazel",
         ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
