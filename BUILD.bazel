@@ -1,7 +1,5 @@
-load("@buildifier_prebuilt//:rules.bzl", "buildifier_test")
 load("@rules_license//rules:license.bzl", "license")
 load("//lib:formatter.bzl", "formatter", "formatter_test")
-load("//lib:typos.bzl", "typos_test")
 
 package(
     default_applicable_licenses = [":license"],
@@ -26,9 +24,6 @@ exports_files([
 formatter(
     name = "format",
     config = ":formatter.json",
-    exclude = [
-        "vendor/dcomment/dcomment.cpp",
-    ],
     mode = "fix",
     tools = {
         "@biome": "biome",
@@ -54,24 +49,4 @@ formatter_test(
         "@typos": "typos",
         "@buildifier_prebuilt//:buildifier": "buildifier",
     },
-)
-
-typos_test(
-    name = "typos",
-    exclude = [
-        "**/assets.bzl",
-        "**/vendor/**",
-    ],
-)
-
-buildifier_test(
-    name = "lint",
-    size = "small",
-    exclude_patterns = [
-        "**/assets.bzl",
-    ],
-    lint_mode = "warn",
-    mode = "check",
-    no_sandbox = True,
-    workspace = ":MODULE.bazel",
 )
