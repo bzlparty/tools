@@ -1,5 +1,4 @@
 load("//lib:git_archive.bzl", "git_archive")
-load("//platforms:host.bzl", "HOST_PLATFORM")
 load(":defs.bzl", "dist_files")
 
 sh_binary(
@@ -28,7 +27,6 @@ dist_files()
 git_archive(
     name = "git_archive",
     package_name = "tools",
-    sha = "//cmd/sha:sha_%s" % HOST_PLATFORM,
     tags = ["manual"],
     virtual_files = {
         # these files come from `dist_files` macro

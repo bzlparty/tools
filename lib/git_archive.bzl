@@ -10,13 +10,14 @@ def _format_virtual_file_arg(file, path):
 
 def _git_archive_impl(ctx):
     launcher = ctx.actions.declare_file("{name}_/{name}.sh".format(name = ctx.attr.name))
+    sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
     ctx.actions.expand_template(
         template = ctx.file._launcher_template,
         output = launcher,
         is_executable = True,
         substitutions = {
             "%NAME%": ctx.attr.package_name,
-            "%SHA%": ctx.file.sha.path,
+            "%SHA%": sha.path,
             "%VIRTUAL_FILES%": " ".join([
                 _format_virtual_file_arg(file, path)
                 for (file, path) in ctx.attr.virtual_files.items()
@@ -24,7 +25,7 @@ def _git_archive_impl(ctx):
         },
     )
 
-    runfiles = ctx.runfiles(files = ctx.files.virtual_files + [ctx.file.sha])
+    runfiles = ctx.runfiles(files = ctx.files.virtual_files + [sha])
 
     return [
         DefaultInfo(
@@ -37,9 +38,9 @@ git_archive = rule(
     _git_archive_impl,
     attrs = {
         "package_name": attr.string(mandatory = True),
-        "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib:git_archive.sh"), allow_single_file = True),
         "virtual_files": attr.label_keyed_string_dict(default = {}, allow_files = True),
-        "sha": attr.label(default = "@sha", executable = True, cfg = "exec", allow_single_file = True),
+        "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib:git_archive.sh"), allow_single_file = True),
     },
+    toolchains = ["@bzlparty_tools//toolchains:sha_toolchain_type"],
     executable = True,
 )
