@@ -32,5 +32,6 @@ jobs:
           files: |
             dist/sha_*
             dist/tools-*.tar.gz
+            dist/tools-*.tar.gz.sha384
           body_path: release_notes.md
           fail_on_unmatched_files: true
