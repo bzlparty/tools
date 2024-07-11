@@ -1,4 +1,3 @@
-load("@bzlparty_tools//lib:jql.bzl", "jql_test")
 load(":goawk.bzl", "goawk")
 load(":ripgrep.bzl", "ripgrep")
 
@@ -16,9 +15,4 @@ ripgrep(
     srcs = [":files.txt"],
     out = "bazel_files.txt",
     pattern = "\\.bazel",
-)
-
-jql_test(
-    name = "json_validate",
-    srcs = ["test.json"],
 )

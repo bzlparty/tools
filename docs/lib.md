@@ -10,12 +10,12 @@ load("@bzlparty_tools//lib:defs.bzl", "...")
 
 
 
-<a id="jql_test"></a>
+<a id="formatter"></a>
 
-## jql_test
+## formatter
 
 <pre>
-jql_test(<a href="#jql_test-name">name</a>, <a href="#jql_test-srcs">srcs</a>)
+formatter(<a href="#formatter-name">name</a>, <a href="#formatter-config">config</a>, <a href="#formatter-exclude">exclude</a>, <a href="#formatter-mode">mode</a>, <a href="#formatter-tools">tools</a>, <a href="#formatter-workspace">workspace</a>)
 </pre>
 
 
@@ -25,8 +25,35 @@ jql_test(<a href="#jql_test-name">name</a>, <a href="#jql_test-srcs">srcs</a>)
 
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="jql_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="jql_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | required |  |
+| <a id="formatter-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="formatter-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="formatter-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
+| <a id="formatter-mode"></a>mode |  -   | String | optional | <code>"check"</code> |
+| <a id="formatter-tools"></a>tools |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | required |  |
+| <a id="formatter-workspace"></a>workspace |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>@@//:MODULE.bazel</code> |
+
+
+<a id="formatter_test"></a>
+
+## formatter_test
+
+<pre>
+formatter_test(<a href="#formatter_test-name">name</a>, <a href="#formatter_test-config">config</a>, <a href="#formatter_test-exclude">exclude</a>, <a href="#formatter_test-mode">mode</a>, <a href="#formatter_test-tools">tools</a>, <a href="#formatter_test-workspace">workspace</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="formatter_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="formatter_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="formatter_test-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
+| <a id="formatter_test-mode"></a>mode |  -   | String | optional | <code>"check"</code> |
+| <a id="formatter_test-tools"></a>tools |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | required |  |
+| <a id="formatter_test-workspace"></a>workspace |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>@@//:MODULE.bazel</code> |
 
 
 <a id="platform_asset"></a>
@@ -72,26 +99,6 @@ sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-ou
 | <a id="sha-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 
 
-<a id="shellcheck_test"></a>
-
-## shellcheck_test
-
-<pre>
-shellcheck_test(<a href="#shellcheck_test-name">name</a>, <a href="#shellcheck_test-format">format</a>, <a href="#shellcheck_test-srcs">srcs</a>)
-</pre>
-
-
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="shellcheck_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="shellcheck_test-format"></a>format |  -   | String | optional | <code>""</code> |
-| <a id="shellcheck_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
-
-
 <a id="shellspec_test"></a>
 
 ## shellspec_test
@@ -111,26 +118,6 @@ shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test
 | <a id="shellspec_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-spec"></a>spec |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
-
-
-<a id="topiary"></a>
-
-## topiary
-
-<pre>
-topiary(<a href="#topiary-name">name</a>, <a href="#topiary-exclude">exclude</a>, <a href="#topiary-extensions">extensions</a>)
-</pre>
-
-
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="topiary-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="topiary-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
-| <a id="topiary-extensions"></a>extensions |  -   | List of strings | optional | <code>["sh", "bash"]</code> |
 
 
 <a id="host_platform"></a>
@@ -266,23 +253,5 @@ multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#
 | <a id="multi_platform_assets-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="multi_platform_assets-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
 | <a id="multi_platform_assets-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
-
-
-<a id="typos_test"></a>
-
-## typos_test
-
-<pre>
-typos_test(<a href="#typos_test-kwargs">kwargs</a>)
-</pre>
-
-
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="typos_test-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 

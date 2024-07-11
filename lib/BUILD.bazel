@@ -13,14 +13,16 @@ bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     deps = [
-        ":jql",
+        ":formatter",
         ":platform_asset",
         ":sha",
-        ":shellcheck",
         ":shellspec",
-        ":topiary",
-        ":typos",
     ],
+)
+
+bzl_library(
+    name = "formatter",
+    srcs = ["formatter.bzl"],
 )
 
 bzl_library(
