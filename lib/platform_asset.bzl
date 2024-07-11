@@ -82,7 +82,17 @@ def _os(platform):
     return platform.split("_")[0]
 
 # buildifier: disable=function-docstring
-def multi_platform_assets(name, url, platforms, darwin_ext = "tar.gz", windows_ext = "zip", linux_ext = "tar.gz", binary = None, prefix = "", platforms_map = {}):
+def multi_platform_assets(
+        name,
+        url,
+        platforms,
+        assets_file = "assets.bzl",
+        darwin_ext = "tar.gz",
+        windows_ext = "zip",
+        linux_ext = "tar.gz",
+        binary = None,
+        prefix = "",
+        platforms_map = {}):
     binaries = []
     for platform in platforms:
         _name = "%s_%s" % (name, platform)
@@ -96,14 +106,16 @@ def multi_platform_assets(name, url, platforms, darwin_ext = "tar.gz", windows_e
         platform_asset(
             name = _name,
             platform = platform,
-            binary = prefix.format(platform = _platform) + (binary or name) + (".exe" if is_windows(platform) else ""),
+            binary = prefix.format(platform = _platform) +
+                     (binary or name) +
+                     (".exe" if is_windows(platform) else ""),
             url = url.format(
                 platform = _platform,
                 ext = ext,
             ),
         )
 
-    assets(name = "%s_assets" % name, srcs = binaries)
+    assets(name = "%s_assets" % name, out_file = assets_file, srcs = binaries)
 
 def _assets_impl(ctx):
     script = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
@@ -161,7 +173,7 @@ _assets = rule(
     ],
 )
 
-def assets(name = "assets", **kwargs):
+def assets(name = "assets", out_file = None, **kwargs):
     _assets(
         name = name,
         out = "%s_bzl" % name,
@@ -171,5 +183,5 @@ def assets(name = "assets", **kwargs):
     write_source_file(
         name = "update_%s" % name,
         in_file = "%s_bzl" % name,
-        out_file = ":assets.bzl",
+        out_file = out_file or ":%s.bzl" % name,
     )

@@ -233,8 +233,8 @@ is_windows(<a href="#is_windows-platform">platform</a>)
 ## multi_platform_assets
 
 <pre>
-multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#multi_platform_assets-url">url</a>, <a href="#multi_platform_assets-platforms">platforms</a>, <a href="#multi_platform_assets-darwin_ext">darwin_ext</a>, <a href="#multi_platform_assets-windows_ext">windows_ext</a>, <a href="#multi_platform_assets-linux_ext">linux_ext</a>, <a href="#multi_platform_assets-binary">binary</a>, <a href="#multi_platform_assets-prefix">prefix</a>,
-                      <a href="#multi_platform_assets-platforms_map">platforms_map</a>)
+multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#multi_platform_assets-url">url</a>, <a href="#multi_platform_assets-platforms">platforms</a>, <a href="#multi_platform_assets-assets_file">assets_file</a>, <a href="#multi_platform_assets-darwin_ext">darwin_ext</a>, <a href="#multi_platform_assets-windows_ext">windows_ext</a>, <a href="#multi_platform_assets-linux_ext">linux_ext</a>, <a href="#multi_platform_assets-binary">binary</a>,
+                      <a href="#multi_platform_assets-prefix">prefix</a>, <a href="#multi_platform_assets-platforms_map">platforms_map</a>)
 </pre>
 
 
@@ -247,6 +247,7 @@ multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#
 | <a id="multi_platform_assets-name"></a>name |  <p align="center"> - </p>   |  none |
 | <a id="multi_platform_assets-url"></a>url |  <p align="center"> - </p>   |  none |
 | <a id="multi_platform_assets-platforms"></a>platforms |  <p align="center"> - </p>   |  none |
+| <a id="multi_platform_assets-assets_file"></a>assets_file |  <p align="center"> - </p>   |  <code>"assets.bzl"</code> |
 | <a id="multi_platform_assets-darwin_ext"></a>darwin_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
 | <a id="multi_platform_assets-windows_ext"></a>windows_ext |  <p align="center"> - </p>   |  <code>"zip"</code> |
 | <a id="multi_platform_assets-linux_ext"></a>linux_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
