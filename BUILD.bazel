@@ -1,7 +1,6 @@
-load("@buildifier_prebuilt//:rules.bzl", "buildifier", "buildifier_test")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier_test")
 load("@rules_license//rules:license.bzl", "license")
-load("//lib:biome.bzl", "biome", "biome_test")
-load("//lib:topiary.bzl", "topiary")
+load("//lib:formatter.bzl", "formatter", "formatter_test")
 load("//lib:typos.bzl", "typos_test")
 
 package(
@@ -24,37 +23,45 @@ exports_files([
     "biome.json",
 ])
 
+formatter(
+    name = "format",
+    config = ":formatter.json",
+    exclude = [
+        "vendor/dcomment/dcomment.cpp",
+    ],
+    mode = "fix",
+    tools = {
+        "@biome": "biome",
+        "@buildifier_prebuilt//:buildifier": "buildifier",
+    },
+)
+
+formatter_test(
+    name = "check",
+    config = ":formatter.json",
+    exclude = [
+        "vendor/dcomment/dcomment.cpp",
+    ],
+    mode = "check",
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    tools = {
+        "@biome": "biome",
+        "@shellcheck": "shellcheck",
+        "@typos": "typos",
+        "@buildifier_prebuilt//:buildifier": "buildifier",
+    },
+)
+
 typos_test(
     name = "typos",
     exclude = [
         "**/assets.bzl",
         "**/vendor/**",
     ],
-)
-
-biome(
-    name = "check_write",
-    config = "//:biome.json",
-)
-
-biome_test(
-    name = "check",
-    config = "//:biome.json",
-)
-
-topiary(
-    name = "topiary",
-    extensions = ["json"],
-)
-
-buildifier(
-    name = "format",
-    exclude_patterns = [
-        "./.git/*",
-        "**/assets.bzl",
-    ],
-    lint_mode = "fix",
-    mode = "fix",
 )
 
 buildifier_test(
