@@ -17,7 +17,7 @@ def _git_archive_impl(ctx):
         is_executable = True,
         substitutions = {
             "%NAME%": ctx.attr.package_name,
-            "%SHA%": sha.path,
+            "%SHA%": sha.short_path,
             "%VIRTUAL_FILES%": " ".join([
                 _format_virtual_file_arg(file, path)
                 for (file, path) in ctx.attr.virtual_files.items()
