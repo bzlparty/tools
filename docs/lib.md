@@ -255,3 +255,25 @@ multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#
 | <a id="multi_platform_assets-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
 
 
+<a id="platform_from_constraints"></a>
+
+## platform_from_constraints
+
+<pre>
+platform_from_constraints(<a href="#platform_from_constraints-constraints">constraints</a>)
+</pre>
+
+Get platform from constraints
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="platform_from_constraints-constraints"></a>constraints |  list of platform constraints, e.g. <code>["@platforms//os:linux", "@platforms//cpu:x86_64"]</code>.   |  none |
+
+**RETURNS**
+
+platform string, e.g. `linux_amd64`.
+
+

@@ -26,6 +26,7 @@ load(
     _is_freebsd = "is_freebsd",
     _is_netbsd = "is_netbsd",
     _is_windows = "is_windows",
+    _platform_from_constraints = "platform_from_constraints",
 )
 load(":sha.bzl", _sha = "sha")
 load(":shellspec.bzl", _shellspec_test = "shellspec_test")
@@ -40,5 +41,6 @@ is_netbsd = _is_netbsd
 is_windows = _is_windows
 multi_platform_assets = _multi_platform_assets
 platform_asset = _platform_asset
+platform_from_constraints = _platform_from_constraints
 sha = _sha
 shellspec_test = _shellspec_test
