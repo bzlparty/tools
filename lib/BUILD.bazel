@@ -4,61 +4,47 @@ package(default_visibility = ["//visibility:public"])
 
 exports_files(glob([
     "*.bzl",
-    "*.awk",
-    "*.sh",
 ]))
 
 bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     deps = [
-        ":formatter",
-        ":platform_asset",
-        ":sha",
-        ":shellspec",
-    ],
-)
-
-bzl_library(
-    name = "formatter",
-    srcs = ["formatter.bzl"],
-)
-
-bzl_library(
-    name = "git_archive",
-    srcs = ["git_archive.bzl"],
-)
-
-bzl_library(
-    name = "platform_asset",
-    srcs = ["platform_asset.bzl"],
-    deps = [
-        ":platforms",
-        "@aspect_bazel_lib//lib:write_source_files",
+        "//lib/private:sha",
+        "//lib/private:shellspec",
     ],
 )
 
 bzl_library(
     name = "platforms",
     srcs = ["platforms.bzl"],
-)
-
-bzl_library(
-    name = "sha",
-    srcs = ["sha.bzl"],
-)
-
-bzl_library(
-    name = "shellspec",
-    srcs = ["shellspec.bzl"],
+    deps = ["//lib/private:platforms"],
 )
 
 bzl_library(
     name = "toolchains",
     srcs = ["toolchains.bzl"],
     deps = [
-        ":platforms",
-        "//platforms:host",
-        "@bazel_skylib//lib:types",
+        "//lib/private:assets",
+        "//lib/private:toolchains",
+    ],
+)
+
+bzl_library(
+    name = "utils",
+    srcs = ["utils.bzl"],
+    deps = [
+        "//lib/private:assets",
+        "//lib/private:toolchains",
+    ],
+)
+
+bzl_library(
+    name = "workspace",
+    srcs = ["workspace.bzl"],
+    deps = [
+        "//lib/private:create_module_bazel",
+        "//lib/private:formatter",
+        "//lib/private:git_archive",
     ],
 )

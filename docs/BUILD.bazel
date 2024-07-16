@@ -6,13 +6,28 @@ stardoc_with_diff_test(
 )
 
 stardoc_with_diff_test(
-    name = "sh",
-    bzl_library_target = "//sh:docs",
+    name = "platforms",
+    bzl_library_target = "//lib:platforms",
 )
 
 stardoc_with_diff_test(
     name = "toolchains",
     bzl_library_target = "//lib:toolchains",
+)
+
+stardoc_with_diff_test(
+    name = "utils",
+    bzl_library_target = "//lib:utils",
+)
+
+stardoc_with_diff_test(
+    name = "workspace",
+    bzl_library_target = "//lib:workspace",
+)
+
+stardoc_with_diff_test(
+    name = "sh",
+    bzl_library_target = "//sh:docs",
 )
 
 update_docs()

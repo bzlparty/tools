@@ -1,4 +1,4 @@
-load("//lib:platform_asset.bzl", "multi_platform_assets")
+load("//lib:toolchains.bzl", "multi_platform_assets")
 
 VERSION = "0.13.0"
 

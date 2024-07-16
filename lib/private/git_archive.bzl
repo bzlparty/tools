@@ -39,7 +39,7 @@ git_archive = rule(
     attrs = {
         "package_name": attr.string(mandatory = True),
         "virtual_files": attr.label_keyed_string_dict(default = {}, allow_files = True),
-        "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib:git_archive.sh"), allow_single_file = True),
+        "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib/private:git_archive.sh"), allow_single_file = True),
     },
     toolchains = ["@bzlparty_tools//toolchains:sha_toolchain_type"],
     executable = True,

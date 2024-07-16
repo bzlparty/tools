@@ -49,7 +49,7 @@ _ATTRS = {
     "mode": attr.string(default = "check", values = ["check", "fix"]),
     "workspace": attr.label(default = "@@//:MODULE.bazel", allow_single_file = True),
     "exclude": attr.string_list(default = []),
-    "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib:formatter.sh"), allow_single_file = True),
+    "_launcher_template": attr.label(default = Label("@bzlparty_tools//lib/private:formatter.sh"), allow_single_file = True),
 }
 
 _TOOLCHAINS = [

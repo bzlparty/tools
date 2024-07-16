@@ -1,5 +1,5 @@
 load("@rules_license//rules:license.bzl", "license")
-load("//lib:formatter.bzl", "formatter", "formatter_test")
+load("//lib:workspace.bzl", "formatter", "formatter_test")
 
 package(
     default_applicable_licenses = [":license"],

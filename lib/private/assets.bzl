@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load(":platforms.bzl", "is_windows")
+load(":utils.bzl", "is_windows")
 
 def _platform_asset_impl(ctx):
     launcher = ctx.actions.declare_file("%s_/%s" % (ctx.label.name, ctx.label.name))
@@ -164,7 +164,7 @@ _assets = rule(
     attrs = {
         "srcs": attr.label_list(allow_empty = False, allow_files = True, mandatory = True),
         "out": attr.output(mandatory = True),
-        "_assets_awk": attr.label(default = Label("@bzlparty_tools//lib:assets.awk"), allow_single_file = True),
+        "_assets_awk": attr.label(default = Label("@bzlparty_tools//lib/private:assets.awk"), allow_single_file = True),
     },
     toolchains = [
         "@bzlparty_tools//toolchains:xsv_toolchain_type",

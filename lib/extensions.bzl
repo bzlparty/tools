@@ -1,5 +1,4 @@
 # buildifier: disable=module-docstring
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//lib:toolchains.bzl", "register_platform_toolchains")
 load("//toolchains:toolchains.bzl", "TOOLS")
 
@@ -20,37 +19,6 @@ def _impl(ctx):
                     assets = assets,
                     toolchain_type = "@bzlparty_tools//toolchains:%s_toolchain_type" % name,
                 )
-
-def load_files(**kwargs):
-    build_file = """\
-filegroup(
-    name = "files",
-    srcs = glob({files}),
-    visibility = ["//visibility:public"],
-)
-""".format(files = kwargs.pop("files"))
-    http_archive(
-        build_file_content = build_file,
-        **kwargs
-    )
-
-def _files_impl(ctx):
-    for module in ctx.modules:
-        if _has_tag(module, "topiary_queries"):
-            load_files(
-                name = "topiary_queries",
-                url = "https://github.com/tweag/topiary/archive/refs/tags/v0.4.0.tar.gz",
-                integrity = "sha384-nwKyTRwfVVWvIybcmGf+/jxGFETvr71qAqbANbT24h3jt+7VEBuT45Fe9gmwGyI7",
-                strip_prefix = "topiary-0.4.0",
-                files = ["topiary-queries/queries/*.scm"],
-            )
-
-files_ext = struct(
-    impl = _files_impl,
-    tag_classes = {
-        "topiary_queries": tag_class(),
-    },
-)
 
 tools_ext = struct(
     impl = _impl,

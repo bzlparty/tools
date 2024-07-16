@@ -1,4 +1,4 @@
-load("//lib:shellspec.bzl", "shellspec_test")
+load("//lib:defs.bzl", "shellspec_test")
 
 shellspec_test(
     name = "shellspec",
