@@ -1,6 +1,0 @@
-load("@bzlparty_tools//lib:git_archive.bzl", "git_archive")
-
-git_archive(
-    name = "test_archive",
-    package_name = "bzlparty_tools_e2e",
-)

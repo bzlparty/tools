@@ -1,6 +1,8 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load(":utils.bzl", "is_windows")
+
+def _is_windows(platform):
+    return platform.startswith("windows")
 
 def _platform_asset_impl(ctx):
     launcher = ctx.actions.declare_file("%s_/%s" % (ctx.label.name, ctx.label.name))
@@ -108,7 +110,7 @@ def multi_platform_assets(
             platform = platform,
             binary = prefix.format(platform = _platform) +
                      (binary or name) +
-                     (".exe" if is_windows(platform) else ""),
+                     (".exe" if _is_windows(platform) else ""),
             url = url.format(
                 platform = _platform,
                 ext = ext,
