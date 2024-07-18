@@ -8,6 +8,15 @@ def get_binary_from_toolchain(ctx, toolchain):
         fail("%s is not included in toolchains")
     return ctx.toolchains[toolchain].binary_info.binary
 
+def write_executable_launcher_file(ctx, content):
+    launcher = declare_launcher_file(ctx)
+    ctx.actions.write(
+        output = launcher,
+        content = content,
+        is_executable = True,
+    )
+    return launcher
+
 def platform_from_constraints(constraints):
     """Get platform from constraints
 

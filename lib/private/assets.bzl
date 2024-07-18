@@ -1,31 +1,25 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
+load(":utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
 
 def _is_windows(platform):
     return platform.startswith("windows")
 
 def _platform_asset_impl(ctx):
-    launcher = ctx.actions.declare_file("%s_/%s" % (ctx.label.name, ctx.label.name))
     info = ctx.actions.declare_file("%s_/%s_info.csv" % (ctx.label.name, ctx.label.name))
-    sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
-    xsv = ctx.toolchains["@bzlparty_tools//toolchains:xsv_toolchain_type"].binary_info.binary
+    sha = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:sha_toolchain_type")
+    xsv = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:xsv_toolchain_type")
     out = ctx.actions.declare_file("%s.csv" % ctx.label.name)
+    content = ctx.actions.args()
+    content.add_joined(["Name", "Platform", "Url", "Binary"], join_with = ",")
+    content.add_joined([ctx.label.name, ctx.attr.platform, ctx.attr.url, ctx.attr.binary], join_with = ",")
     ctx.actions.write(
         output = info,
         is_executable = False,
-        content = """\
-Name,Platform,Url,Binary
-{name},{platform},{url},{binary}
-""".format(
-            binary = ctx.attr.binary,
-            name = ctx.label.name,
-            platform = ctx.attr.platform,
-            url = ctx.attr.url,
-        ),
+        content = content,
     )
-    ctx.actions.write(
-        output = launcher,
-        is_executable = True,
+    launcher = write_executable_launcher_file(
+        ctx,
         content = """
 integrity=$({sha} -a "{algo}" "{url}")
 integrity_csv=$(mktemp)
@@ -120,28 +114,25 @@ def multi_platform_assets(
     assets(name = "%s_assets" % name, out_file = assets_file, srcs = binaries)
 
 def _assets_impl(ctx):
-    script = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
-    xsv = ctx.toolchains["@bzlparty_tools//toolchains:xsv_toolchain_type"].binary_info.binary
-    goawk = ctx.toolchains["@bzlparty_tools//toolchains:goawk_toolchain_type"].binary_info.binary
-    utils = ctx.toolchains["@aspect_bazel_lib//lib:coreutils_toolchain_type"].coreutils_info.bin
     out = ctx.outputs.out
-
-    ctx.actions.write(
-        output = script,
+    xsv = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:xsv_toolchain_type")
+    goawk = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:goawk_toolchain_type")
+    utils = ctx.toolchains["@aspect_bazel_lib//lib:coreutils_toolchain_type"].coreutils_info.bin
+    script = write_executable_launcher_file(
+        ctx,
         content = """\
 #!/usr/bin/env bash
 
 {xsv} cat rows $@ |
 {utils} tail +2 |
 {goawk} -f {assets_awk} > {out}
-      """.format(
+""".format(
             xsv = xsv.path,
             goawk = goawk.path,
             utils = utils.path,
             out = out.path,
             assets_awk = ctx.file._assets_awk.path,
         ),
-        is_executable = True,
     )
 
     args = ctx.actions.args()
@@ -149,7 +140,7 @@ def _assets_impl(ctx):
 
     ctx.actions.run(
         inputs = ctx.files.srcs + [ctx.file._assets_awk],
-        outputs = [ctx.outputs.out],
+        outputs = [out],
         arguments = [args],
         tools = [xsv, goawk, utils],
         executable = script,

@@ -56,6 +56,7 @@ bzl_library(
     name = "shellspec",
     srcs = ["shellspec.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [":utils"],
 )
 
 bzl_library(

@@ -1,9 +1,12 @@
+"Shellspec test rule"
+
+load(":utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
+
 # buildifier: disable=module-docstring
 def _shellspec_impl(ctx):
-    launcher = ctx.actions.declare_file("%s_shellspec_launcher.sh" % ctx.attr.name)
-    shellspec = ctx.toolchains["@bzlparty_tools//toolchains:shellspec_toolchain_type"].binary_info.binary
-    ctx.actions.write(
-        output = launcher,
+    shellspec = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:shellspec_toolchain_type")
+    launcher = write_executable_launcher_file(
+        ctx,
         content = """\
 export HOME=$(mktemp -d);
 {shellspec_bin} {spec};
@@ -11,7 +14,6 @@ export HOME=$(mktemp -d);
             shellspec_bin = shellspec.path,
             spec = ctx.file.spec.path,
         ),
-        is_executable = True,
     )
 
     return [
