@@ -85,6 +85,7 @@ def multi_platform_assets(
         assets_file = "assets.bzl",
         darwin_ext = "tar.gz",
         windows_ext = "zip",
+        set_windows_binary_ext = True,
         linux_ext = "tar.gz",
         binary = None,
         prefix = "",
@@ -104,7 +105,7 @@ def multi_platform_assets(
             platform = platform,
             binary = prefix.format(platform = _platform) +
                      (binary or name) +
-                     (".exe" if _is_windows(platform) else ""),
+                     (".exe" if set_windows_binary_ext and _is_windows(platform) else ""),
             url = url.format(
                 platform = _platform,
                 ext = ext,

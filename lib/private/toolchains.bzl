@@ -97,7 +97,7 @@ alias(
   visibility = ["//visibility:public"],
 )
 """.format(
-        binary = ctx.attr.binary,
+        binary = ctx.attr.binary if ctx.attr.binary.startswith("@") else ":%s" % ctx.attr.binary,
         prefix = ctx.attr.prefix,
     ))
 
