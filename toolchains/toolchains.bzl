@@ -4,6 +4,7 @@ load("//toolchains/biome:assets.bzl", BIOME_ASSETS = "ASSETS")
 load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
 load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
+load("//toolchains/json_bash:assets.bzl", JSON_BASH_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
 load("//toolchains/sha:assets.bzl", SHA_ASSETS = "ASSETS")
 load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
@@ -17,6 +18,7 @@ TOOLS = {
     "fd": FD_ASSETS,
     "goawk": GOAWK_ASSETS,
     "jql": JQL_ASSETS,
+    "json_bash": JSON_BASH_ASSETS,
     "ripgrep": RIPGREP_ASSETS,
     "sha": SHA_ASSETS,
     "shellcheck": SHELLCHECK_ASSETS,
@@ -55,6 +57,14 @@ JQL_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:jql_toolchain_type"
 jql_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(JQL_TOOLCHAIN_TYPE),
     toolchains = [JQL_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
+
+JSON_BASH_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:json_bash_toolchain_type"
+
+json_bash_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(JSON_BASH_TOOLCHAIN_TYPE),
+    toolchains = [JSON_BASH_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -146,6 +156,14 @@ def bzlparty_toolchains(name = "toolchains"):
     )
     jql_resolved_toolchain(
         name = "jql",
+        visibility = ["//visibility:public"],
+    )
+    native.toolchain_type(
+        name = "json_bash_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    json_bash_resolved_toolchain(
+        name = "json_bash",
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(

@@ -20,6 +20,7 @@ tools.biome()
 tools.fd()
 tools.goawk()
 tools.jql()
+tools.json_bash()
 tools.ripgrep()
 tools.sha()
 tools.shellcheck()
@@ -33,6 +34,7 @@ use_repo(
     "fd",
     "goawk",
     "jql",
+    "json_bash",
     "ripgrep",
     "sha",
     "shellcheck",
@@ -47,6 +49,7 @@ register_toolchains(
     "@fd//:all",
     "@goawk//:all",
     "@jql//:all",
+    "@json_bash//:all",
     "@ripgrep//:all",
     "@sha//:all",
     "@shellcheck//:all",
@@ -55,7 +58,3 @@ register_toolchains(
     "@typos//:all",
     "@xsv//:all",
 )
-
-files = use_extension("//:extensions.bzl", "files")
-files.topiary_queries()
-use_repo(files, "topiary_queries")
