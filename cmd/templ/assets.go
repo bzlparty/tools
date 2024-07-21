@@ -15,6 +15,15 @@ type Assets []Asset
 var AssetsTemplate = `"Assets"
 
 ASSETS = {
-{{range .}}    "{{.Platform}}": struct(url = "{{.Url}}", binary = "{{.Binary}}", integrity = "sha{{.Algo}}-{{.Integrity}}"{{$length := len .Files}}{{if gt $length 0}}, files = [{{range $index, $element := .Files}}"{{.}}"{{if not (last $index $length)}}, {{end}}{{end}}]{{end}}),
+{{range .}}
+  "{{.Platform}}": struct(
+      url = "{{.Url}}",
+      binary = "{{.Binary}}",
+      integrity = "sha{{.Algo}}-{{.Integrity}}"
+      {{$length := len .Files}}
+        {{if gt $length 0}},
+        files = [{{range $index, $element := .Files}}"{{.}}"{{if not (last $index $length)}}, {{end}}{{end}}]
+        {{end}}
+  ),
 {{end}}}
 `
