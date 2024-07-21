@@ -33,7 +33,7 @@ binary_toolchain(<a href="#binary_toolchain-name">name</a>, <a href="#binary_too
 ## platform_assets
 
 <pre>
-platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_assets-algo">algo</a>, <a href="#platform_assets-binary">binary</a>, <a href="#platform_assets-platform">platform</a>, <a href="#platform_assets-url">url</a>)
+platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_assets-algo">algo</a>, <a href="#platform_assets-binary">binary</a>, <a href="#platform_assets-files">files</a>, <a href="#platform_assets-platform">platform</a>, <a href="#platform_assets-url">url</a>)
 </pre>
 
 
@@ -46,6 +46,7 @@ platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_ass
 | <a id="platform_assets-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
 | <a id="platform_assets-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
 | <a id="platform_assets-binary"></a>binary |  -   | String | optional | <code>""</code> |
+| <a id="platform_assets-files"></a>files |  -   | List of strings | optional | <code>[]</code> |
 | <a id="platform_assets-platform"></a>platform |  -   | String | optional | <code>""</code> |
 | <a id="platform_assets-url"></a>url |  -   | String | optional | <code>""</code> |
 
@@ -95,7 +96,7 @@ assets(<a href="#assets-name">name</a>, <a href="#assets-out_file">out_file</a>,
 
 <pre>
 multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#multi_platform_assets-url">url</a>, <a href="#multi_platform_assets-platforms">platforms</a>, <a href="#multi_platform_assets-assets_file">assets_file</a>, <a href="#multi_platform_assets-darwin_ext">darwin_ext</a>, <a href="#multi_platform_assets-windows_ext">windows_ext</a>,
-                      <a href="#multi_platform_assets-set_windows_binary_ext">set_windows_binary_ext</a>, <a href="#multi_platform_assets-linux_ext">linux_ext</a>, <a href="#multi_platform_assets-binary">binary</a>, <a href="#multi_platform_assets-prefix">prefix</a>, <a href="#multi_platform_assets-platforms_map">platforms_map</a>)
+                      <a href="#multi_platform_assets-set_windows_binary_ext">set_windows_binary_ext</a>, <a href="#multi_platform_assets-linux_ext">linux_ext</a>, <a href="#multi_platform_assets-binary">binary</a>, <a href="#multi_platform_assets-prefix">prefix</a>, <a href="#multi_platform_assets-files">files</a>, <a href="#multi_platform_assets-platforms_map">platforms_map</a>)
 </pre>
 
 
@@ -115,6 +116,7 @@ multi_platform_assets(<a href="#multi_platform_assets-name">name</a>, <a href="#
 | <a id="multi_platform_assets-linux_ext"></a>linux_ext |  <p align="center"> - </p>   |  <code>"tar.gz"</code> |
 | <a id="multi_platform_assets-binary"></a>binary |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="multi_platform_assets-prefix"></a>prefix |  <p align="center"> - </p>   |  <code>""</code> |
+| <a id="multi_platform_assets-files"></a>files |  <p align="center"> - </p>   |  <code>[]</code> |
 | <a id="multi_platform_assets-platforms_map"></a>platforms_map |  <p align="center"> - </p>   |  <code>{}</code> |
 
 

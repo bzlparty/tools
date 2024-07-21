@@ -21,6 +21,7 @@ def _platform_asset_impl(ctx):
             "_algo_": ctx.attr.algo,
             "_url_": ctx.attr.url,
             "_binary_": ctx.attr.binary,
+            "[]": "[\"%s\"]" % "\", \"".join(ctx.attr.files) if len(ctx.attr.files) > 0 else "[]",
         },
         is_executable = False,
     )
@@ -64,6 +65,7 @@ platform_asset = rule(
         "binary": attr.string(),
         "algo": attr.string(default = "384"),
         "platform": attr.string(),
+        "files": attr.string_list(default = []),
         "_json_template": attr.label(allow_single_file = True, default = "@bzlparty_tools//lib/private:assets.template.json"),
     },
     toolchains = [
@@ -94,6 +96,7 @@ def multi_platform_assets(
         linux_ext = "tar.gz",
         binary = None,
         prefix = "",
+        files = [],
         platforms_map = {}):
     binaries = []
     for platform in platforms:
@@ -108,6 +111,7 @@ def multi_platform_assets(
         platform_asset(
             name = _name,
             platform = platform,
+            files = files,
             binary = prefix.format(platform = _platform) +
                      (binary or name) +
                      (".exe" if set_windows_binary_ext and _is_windows(platform) else ""),

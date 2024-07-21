@@ -22,24 +22,32 @@ type Assets []Asset
 var AssetsTemplate = `"Assets"
 
 ASSETS = {
-{{range .}}    "{{.Platform}}": struct(url = "{{.Url}}", binary = "{{.Binary}}", integrity = "sha{{.Algo}}-{{.Integrity}}"),
+{{range .}}    "{{.Platform}}": struct(url = "{{.Url}}", binary = "{{.Binary}}", integrity = "sha{{.Algo}}-{{.Integrity}}"{{$length := len .Files}}{{if gt $length 0}}, files = [{{range $index, $element := .Files}}"{{.}}"{{if not (last $index $length)}}, {{end}}{{end}}]{{end}}),
 {{end}}}
 `
 
 func main() {
 	var assets Assets
+	var funcMap = template.FuncMap{
+		"last": func(index int, length int) bool {
+			if index == (length - 1) {
+				return true
+			}
+			return false
+		},
+	}
 
-  check(json.NewDecoder(os.Stdin).Decode(&assets))
+	check(json.NewDecoder(os.Stdin).Decode(&assets))
 
-	tmpl, err := template.New("assets").Parse(AssetsTemplate)
+	tmpl, err := template.New("assets").Funcs(funcMap).Parse(AssetsTemplate)
 
-  check(err)
+	check(err)
 
-  check(tmpl.Execute(os.Stdout, assets))
+	check(tmpl.Execute(os.Stdout, assets))
 }
 
 func check(err error) {
-  if err != nil {
-    log.Fatal(err)
-  }
+	if err != nil {
+		log.Fatal(err)
+	}
 }
