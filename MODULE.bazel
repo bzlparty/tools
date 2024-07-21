@@ -21,6 +21,7 @@ tools.fd()
 tools.goawk()
 tools.jql()
 tools.json_bash()
+tools.json_to_assets()
 tools.ripgrep()
 tools.sha()
 tools.shellcheck()
@@ -35,6 +36,7 @@ use_repo(
     "goawk",
     "jql",
     "json_bash",
+    "json_to_assets",
     "ripgrep",
     "sha",
     "shellcheck",
@@ -50,6 +52,7 @@ register_toolchains(
     "@goawk//:all",
     "@jql//:all",
     "@json_bash//:all",
+    "@json_to_assets//:all",
     "@ripgrep//:all",
     "@sha//:all",
     "@shellcheck//:all",

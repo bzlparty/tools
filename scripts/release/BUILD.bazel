@@ -7,8 +7,12 @@ sh_binary(
     args = [
         "$(rlocationpaths //cmd/sha:bins)",
         "$(rlocationpaths //cmd/sha:shasums)",
+        "$(rlocationpaths //cmd/json_to_assets:bins)",
+        "$(rlocationpaths //cmd/json_to_assets:shasums)",
     ],
     data = [
+        "//cmd/json_to_assets:bins",
+        "//cmd/json_to_assets:shasums",
         "//cmd/sha:bins",
         "//cmd/sha:shasums",
     ],
@@ -34,5 +38,6 @@ git_archive(
         ":root_MODULE.bazel": "MODULE.bazel",
         ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
         ":toolchains_sha_assets.bzl": "toolchains/sha/assets.bzl",
+        ":toolchains_json_to_assets_assets.bzl": "toolchains/json_to_assets/assets.bzl",
     },
 )

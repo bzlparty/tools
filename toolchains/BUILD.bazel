@@ -9,6 +9,7 @@ TOOLS = [
     "goawk",
     "jql",
     "json_bash",
+    "json_to_assets",
     "ripgrep",
     "sha",
     "shellcheck",

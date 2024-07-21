@@ -39,11 +39,21 @@ alias(
 )
 """
 
+# buildifier: disable=function-docstring
 def dist_files(name = "dist_files"):
     native.genrule(
-        name = "create_assets_bzl",
+        name = "create_sha_assets_bzl",
         srcs = ["//cmd/sha:shasums"],
         outs = ["toolchains_sha_assets.bzl"],
+        cmd = "./$(location :create_assets) $(SRCS) > $(OUTS)",
+        tags = ["manual"],
+        tools = [":create_assets"],
+    )
+
+    native.genrule(
+        name = "create_json_to_assets_assets_bzl",
+        srcs = ["//cmd/json_to_assets:shasums"],
+        outs = ["toolchains_json_to_assets_assets.bzl"],
         cmd = "./$(location :create_assets) $(SRCS) > $(OUTS)",
         tags = ["manual"],
         tools = [":create_assets"],

@@ -1,0 +1,54 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//lib:defs.bzl", "sha")
+load("//lib:platforms.bzl", "GO_PLATFORMS")
+
+go_library(
+    name = "json_to_assets_lib",
+    srcs = [
+        "main.go",
+    ],
+    importpath = "github.com/bzlparty/tools/cmd/json_to_assets",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "json_to_assets",
+    embed = [":json_to_assets_lib"],
+    visibility = ["//visibility:public"],
+)
+
+# Tagging all targets `manual` prevents `test //...` from building
+# for all platforms.
+
+[
+    (
+        go_binary(
+            name = "json_to_assets_%s_%s" % (os, arch),
+            embed = [":json_to_assets_lib"],
+            goarch = arch,
+            goos = os,
+            tags = ["manual"],
+            visibility = ["//visibility:public"],
+        ),
+        sha(
+            name = "json_to_assets_%s_%s_sha384" % (os, arch),
+            src = "json_to_assets_%s_%s" % (os, arch),
+            tags = ["manual"],
+        ),
+    )
+    for os, arch in GO_PLATFORMS
+]
+
+filegroup(
+    name = "bins",
+    srcs = ["json_to_assets_%s_%s" % (os, arch) for os, arch in GO_PLATFORMS],
+    tags = ["manual"],
+    visibility = ["//scripts/release:__pkg__"],
+)
+
+filegroup(
+    name = "shasums",
+    srcs = ["json_to_assets_%s_%s_sha384" % (os, arch) for os, arch in GO_PLATFORMS],
+    tags = ["manual"],
+    visibility = ["//scripts/release:__pkg__"],
+)
