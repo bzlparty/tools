@@ -5,7 +5,7 @@ def declare_launcher_file(ctx):
 
 def get_binary_from_toolchain(ctx, toolchain):
     if toolchain not in ctx.toolchains:
-        fail("%s is not included in toolchains")
+        fail("%s is not included in toolchains" % toolchain)
     return ctx.toolchains[toolchain].binary_info.binary
 
 def write_executable_launcher_file(ctx, content):
