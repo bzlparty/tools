@@ -61,3 +61,22 @@ Get platform from constraints
 platform string, e.g. `linux_amd64`.
 
 
+<a id="write_executable_launcher_file"></a>
+
+## write_executable_launcher_file
+
+<pre>
+write_executable_launcher_file(<a href="#write_executable_launcher_file-ctx">ctx</a>, <a href="#write_executable_launcher_file-content">content</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="write_executable_launcher_file-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
+| <a id="write_executable_launcher_file-content"></a>content |  <p align="center"> - </p>   |  none |
+
+
