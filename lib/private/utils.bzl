@@ -3,10 +3,16 @@
 def declare_launcher_file(ctx):
     return ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
 
+def _get_binary_info_from_toolchain(ctx, toolchain):
+    if toolchain in ctx.toolchains and hasattr(ctx.toolchains[toolchain], "binary_info"):
+        return ctx.toolchains[toolchain].binary_info
+    fail("%s is not included in toolchains" % toolchain)
+
 def get_binary_from_toolchain(ctx, toolchain):
-    if toolchain not in ctx.toolchains:
-        fail("%s is not included in toolchains" % toolchain)
-    return ctx.toolchains[toolchain].binary_info.binary
+    return _get_binary_info_from_toolchain(ctx, toolchain).binary
+
+def get_files_from_toolchain(ctx, toolchain):
+    return _get_binary_info_from_toolchain(ctx, toolchain).files
 
 def write_executable_launcher_file(ctx, content):
     launcher = declare_launcher_file(ctx)
