@@ -1,34 +1,6 @@
-# buildifier: disable=module-docstring
-load("//lib:toolchains.bzl", "resolved_toolchain_impl")
-load("//toolchains/biome:assets.bzl", BIOME_ASSETS = "ASSETS")
-load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
-load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
-load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
-load("//toolchains/json_bash:assets.bzl", JSON_BASH_ASSETS = "ASSETS")
-load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
-load("//toolchains/sha:assets.bzl", SHA_ASSETS = "ASSETS")
-load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
-load("//toolchains/shellspec:assets.bzl", SHELLSPEC_ASSETS = "ASSETS")
-load("//toolchains/templ:assets.bzl", TEMPL_ASSETS = "ASSETS")
-load("//toolchains/topiary:assets.bzl", TOPIARY_ASSETS = "ASSETS")
-load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
-load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
+"Toolchains"
 
-TOOLS = {
-    "biome": BIOME_ASSETS,
-    "fd": FD_ASSETS,
-    "goawk": GOAWK_ASSETS,
-    "jql": JQL_ASSETS,
-    "json_bash": JSON_BASH_ASSETS,
-    "ripgrep": RIPGREP_ASSETS,
-    "sha": SHA_ASSETS,
-    "shellcheck": SHELLCHECK_ASSETS,
-    "shellspec": SHELLSPEC_ASSETS,
-    "templ": TEMPL_ASSETS,
-    "topiary": TOPIARY_ASSETS,
-    "typos": TYPOS_ASSETS,
-    "xsv": XSV_ASSETS,
-}
+load("//lib:toolchains.bzl", "resolved_toolchain_impl")
 
 BIOME_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:biome_toolchain_type"
 
@@ -135,7 +107,7 @@ xsv_resolved_toolchain = rule(
 )
 
 # buildifier: disable=function-docstring
-def bzlparty_toolchains(name = "toolchains"):
+def bzlparty_toolchains(name = "bzlparty_toolchains"):
     native.toolchain_type(
         name = "biome_toolchain_type",
         visibility = ["//visibility:public"],
@@ -144,6 +116,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "biome",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "fd_toolchain_type",
         visibility = ["//visibility:public"],
@@ -152,6 +125,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "fd",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "goawk_toolchain_type",
         visibility = ["//visibility:public"],
@@ -160,6 +134,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "goawk",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "jql_toolchain_type",
         visibility = ["//visibility:public"],
@@ -168,6 +143,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "jql",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "json_bash_toolchain_type",
         visibility = ["//visibility:public"],
@@ -176,6 +152,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "json_bash",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "ripgrep_toolchain_type",
         visibility = ["//visibility:public"],
@@ -184,6 +161,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "ripgrep",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "sha_toolchain_type",
         visibility = ["//visibility:public"],
@@ -192,6 +170,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "sha",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "shellcheck_toolchain_type",
         visibility = ["//visibility:public"],
@@ -200,6 +179,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "shellcheck",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "shellspec_toolchain_type",
         visibility = ["//visibility:public"],
@@ -208,6 +188,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "shellspec",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "templ_toolchain_type",
         visibility = ["//visibility:public"],
@@ -216,6 +197,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "templ",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "topiary_toolchain_type",
         visibility = ["//visibility:public"],
@@ -224,6 +206,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "topiary",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "typos_toolchain_type",
         visibility = ["//visibility:public"],
@@ -232,6 +215,7 @@ def bzlparty_toolchains(name = "toolchains"):
         name = "typos",
         visibility = ["//visibility:public"],
     )
+
     native.toolchain_type(
         name = "xsv_toolchain_type",
         visibility = ["//visibility:public"],

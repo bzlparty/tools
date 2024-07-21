@@ -2,48 +2,49 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
+	"flag"
 	"log"
 	"os"
+	"strings"
 	"text/template"
 )
 
-type Asset struct {
-	Name      string   `json:"name"`
-	Binary    string   `json:"binary"`
-	Algo      string   `json:"algo"`
-	Platform  string   `json:"platform"`
-	Url       string   `json:"url"`
-	Integrity string   `json:"integrity"`
-	Files     []string `json:"files"`
+var templateId string
+var funcMap = template.FuncMap{
+  "last": func(index int, length int) bool {
+    if index == (length - 1) {
+      return true
+    }
+    return false
+  },
+  "ToUpper": strings.ToUpper,
 }
 
-type Assets []Asset
-
-var AssetsTemplate = `"Assets"
-
-ASSETS = {
-{{range .}}    "{{.Platform}}": struct(url = "{{.Url}}", binary = "{{.Binary}}", integrity = "sha{{.Algo}}-{{.Integrity}}"{{$length := len .Files}}{{if gt $length 0}}, files = [{{range $index, $element := .Files}}"{{.}}"{{if not (last $index $length)}}, {{end}}{{end}}]{{end}}),
-{{end}}}
-`
-
 func main() {
-	var assets Assets
-	var funcMap = template.FuncMap{
-		"last": func(index int, length int) bool {
-			if index == (length - 1) {
-				return true
-			}
-			return false
-		},
-	}
+  flag.StringVar(&templateId, "template", "", "Template id")
+  flag.Parse()
+  switch(templateId) {
+  case "assets":
+    execute[Assets](templateId, AssetsTemplate)
+  case "tools":
+    execute[[]string](templateId, ToolsTemplate)
+  case "toolchains":
+    execute[[]string](templateId, ToolchainsTemplate)
+  default:
+    log.Fatal(errors.New("Unknown template"))
+  }
+}
 
-	check(json.NewDecoder(os.Stdin).Decode(&assets))
+func execute[T []string | Assets](id string, templateString string) {
+  var records T
+	check(json.NewDecoder(os.Stdin).Decode(&records))
 
-	tmpl, err := template.New("assets").Funcs(funcMap).Parse(AssetsTemplate)
+	tmpl, err := template.New(id).Funcs(funcMap).Parse(templateString)
 
 	check(err)
 
-	check(tmpl.Execute(os.Stdout, assets))
+	check(tmpl.Execute(os.Stdout, records))
 }
 
 func check(err error) {

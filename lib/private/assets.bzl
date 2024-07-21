@@ -131,7 +131,7 @@ def _assets_impl(ctx):
         ctx,
         content = """\
 #!/usr/bin/env bash
-{jq} -s '.' $@ | {templ} > {out}
+{jq} -s '.' $@ | {templ} -template assets > {out}
 """.format(
             templ = templ.path,
             jq = jq.path,

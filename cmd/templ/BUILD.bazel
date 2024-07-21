@@ -5,7 +5,10 @@ load("//lib:platforms.bzl", "GO_PLATFORMS")
 go_library(
     name = "templ_lib",
     srcs = [
+        "assets.go",
         "main.go",
+        "toolchains.go",
+        "tools.go",
     ],
     importpath = "github.com/bzlparty/tools/cmd/templ",
     visibility = ["//visibility:private"],

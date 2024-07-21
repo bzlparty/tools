@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 load("//lib:toolchains.bzl", "register_platform_toolchains")
-load("//toolchains:toolchains.bzl", "TOOLS")
+load("//toolchains:tools.bzl", "TOOLS")
 
 TAG_CLASSES = {
     t: tag_class(attrs = {"name": attr.string(default = t)})
