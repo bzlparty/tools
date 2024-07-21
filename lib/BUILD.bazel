@@ -10,6 +10,7 @@ bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     deps = [
+        "//lib/private:assets",
         "//lib/private:sha",
         "//lib/private:shellspec",
     ],
@@ -25,8 +26,8 @@ bzl_library(
     name = "toolchains",
     srcs = ["toolchains.bzl"],
     deps = [
-        "//lib/private:assets",
         "//lib/private:toolchains",
+        "@bazel_skylib//lib:types",
     ],
 )
 

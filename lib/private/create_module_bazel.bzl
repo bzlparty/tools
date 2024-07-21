@@ -1,7 +1,9 @@
 "Create a `MODULE.bazel` for release"
 
+load(":utils.bzl", "declare_launcher_file")
+
 def _create_module_bazel_impl(ctx):
-    launcher = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
+    launcher = declare_launcher_file(ctx)
     ctx.actions.expand_template(
         output = launcher,
         template = ctx.file._launcher_template,
@@ -29,7 +31,13 @@ create_module_bazel = rule(
             default = Label("//:MODULE.bazel"),
             allow_single_file = True,
         ),
-        "_launcher_template": attr.label(default = "@bzlparty_tools//lib/private:create_module_bazel.sh", allow_single_file = True),
-        "_dcomment": attr.label(default = "@bzlparty_tools//vendor/dcomment", allow_single_file = True),
+        "_launcher_template": attr.label(
+            default = "@bzlparty_tools//lib/private:create_module_bazel.sh",
+            allow_single_file = True,
+        ),
+        "_dcomment": attr.label(
+            default = "@bzlparty_tools//vendor/dcomment",
+            allow_single_file = True,
+        ),
     },
 )

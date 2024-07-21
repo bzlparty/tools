@@ -1,23 +1,28 @@
 "Sha"
 
-def _sha_impl(ctx):
-    sha = ctx.toolchains["@bzlparty_tools//toolchains:sha_toolchain_type"].binary_info.binary
-    sha_launcher = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
-    if ctx.outputs.out:
-        out = ctx.outputs.out
-    else:
-        out = ctx.actions.declare_file("%s.sha%s" % (ctx.file.src.basename, ctx.attr.algo))
+load("//toolchains:toolchains.bzl", "SHA_TOOLCHAIN_TYPE")
+load(
+    ":utils.bzl",
+    "get_binary_from_toolchain",
+    "write_executable_launcher_file",
+)
 
-    ctx.actions.write(
-        output = sha_launcher,
+def _sha_impl(ctx):
+    sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)
+    launcher = write_executable_launcher_file(
+        ctx,
         content = """
 ./{sha} $@ < {src}
 """.format(
             sha = sha.path,
             src = ctx.file.src.path,
         ),
-        is_executable = True,
     )
+
+    if ctx.outputs.out:
+        out = ctx.outputs.out
+    else:
+        out = ctx.actions.declare_file("%s.sha%s" % (ctx.file.src.basename, ctx.attr.algo))
 
     args = ctx.actions.args()
     args.add("-algo", ctx.attr.algo)
@@ -26,7 +31,7 @@ def _sha_impl(ctx):
     ctx.actions.run(
         outputs = [out],
         inputs = [ctx.file.src],
-        executable = sha_launcher,
+        executable = launcher,
         arguments = [args],
         tools = [sha],
     )
@@ -44,5 +49,5 @@ sha = rule(
         "out": attr.output(mandatory = False),
         "src": attr.label(mandatory = False, allow_single_file = True),
     },
-    toolchains = ["@bzlparty_tools//toolchains:sha_toolchain_type"],
+    toolchains = [SHA_TOOLCHAIN_TYPE],
 )

@@ -1,8 +1,12 @@
 "Shellspec test rule"
 
-load(":utils.bzl", "get_binary_from_toolchain", "get_files_from_toolchain", "write_executable_launcher_file")
-
-SHELLSPEC_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:shellspec_toolchain_type"
+load("//toolchains:toolchains.bzl", "SHELLSPEC_TOOLCHAIN_TYPE")
+load(
+    ":utils.bzl",
+    "get_binary_from_toolchain",
+    "get_files_from_toolchain",
+    "write_executable_launcher_file",
+)
 
 # buildifier: disable=module-docstring
 def _shellspec_impl(ctx):
@@ -22,7 +26,11 @@ export HOME=$(mktemp -d);
     return [
         DefaultInfo(
             files = depset([launcher]),
-            runfiles = ctx.runfiles(files = [shellspec, ctx.file.spec, ctx.file.config] + ctx.files.srcs + shellspec_files),
+            runfiles = ctx.runfiles(
+                files = [shellspec, ctx.file.spec, ctx.file.config] +
+                        ctx.files.srcs +
+                        shellspec_files,
+            ),
             executable = launcher,
         ),
     ]
@@ -34,6 +42,6 @@ shellspec_test = rule(
         "spec": attr.label(allow_single_file = True),
         "config": attr.label(allow_single_file = True),
     },
-    toolchains = ["@bzlparty_tools//toolchains:shellspec_toolchain_type"],
+    toolchains = [SHELLSPEC_TOOLCHAIN_TYPE],
     test = True,
 )

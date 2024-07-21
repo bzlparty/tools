@@ -1,14 +1,24 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load(":utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
+load(
+    "//toolchains:toolchains.bzl",
+    "JSON_BASH_TOOLCHAIN_TYPE",
+    "SHA_TOOLCHAIN_TYPE",
+    "TEMPL_TOOLCHAIN_TYPE",
+)
+load(
+    ":utils.bzl",
+    "get_binary_from_toolchain",
+    "write_executable_launcher_file",
+)
 
 def _is_windows(platform):
     return platform.startswith("windows")
 
 def _platform_asset_impl(ctx):
     info = ctx.actions.declare_file("%s_/%s_info.json" % (ctx.label.name, ctx.label.name))
-    sha = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:sha_toolchain_type")
-    json_bash = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:json_bash_toolchain_type")
+    sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)
+    json_bash = get_binary_from_toolchain(ctx, JSON_BASH_TOOLCHAIN_TYPE)
     jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
     out = ctx.actions.declare_file("%s.json" % ctx.label.name)
     json_template = ctx.file._json_template
@@ -21,7 +31,7 @@ def _platform_asset_impl(ctx):
             "_algo_": ctx.attr.algo,
             "_url_": ctx.attr.url,
             "_binary_": ctx.attr.binary,
-            "[]": "[\"%s\"]" % "\", \"".join(ctx.attr.files) if len(ctx.attr.files) > 0 else "[]",
+            "[]": json.encode(ctx.attr.files),
         },
         is_executable = False,
     )
@@ -66,11 +76,14 @@ platform_asset = rule(
         "algo": attr.string(default = "384"),
         "platform": attr.string(),
         "files": attr.string_list(default = []),
-        "_json_template": attr.label(allow_single_file = True, default = "@bzlparty_tools//lib/private:assets.template.json"),
+        "_json_template": attr.label(
+            allow_single_file = True,
+            default = "@bzlparty_tools//lib/private:assets.template.json",
+        ),
     },
     toolchains = [
-        "@bzlparty_tools//toolchains:sha_toolchain_type",
-        "@bzlparty_tools//toolchains:json_bash_toolchain_type",
+        SHA_TOOLCHAIN_TYPE,
+        JSON_BASH_TOOLCHAIN_TYPE,
         "@aspect_bazel_lib//lib:jq_toolchain_type",
     ],
 )
@@ -126,16 +139,20 @@ def multi_platform_assets(
 def _assets_impl(ctx):
     out = ctx.outputs.out
     jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
-    templ = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:templ_toolchain_type")
+    buildifier = ctx.toolchains["@buildifier_prebuilt//buildifier:toolchain"]._tool
+    templ = get_binary_from_toolchain(ctx, TEMPL_TOOLCHAIN_TYPE)
     script = write_executable_launcher_file(
         ctx,
         content = """\
 #!/usr/bin/env bash
-{jq} -s '.' $@ | {templ} -template assets > {out}
+{jq} -s '.' $@ |
+{templ} -template assets |
+{buildifier} -mode fix -lint fix > {out}
 """.format(
             templ = templ.path,
             jq = jq.path,
             out = out.path,
+            buildifier = buildifier.path,
         ),
     )
 
@@ -146,7 +163,7 @@ def _assets_impl(ctx):
         inputs = ctx.files.srcs,
         outputs = [out],
         arguments = [args],
-        tools = [jq, templ],
+        tools = [jq, templ, buildifier],
         executable = script,
     )
 
@@ -159,12 +176,17 @@ def _assets_impl(ctx):
 _assets = rule(
     _assets_impl,
     attrs = {
-        "srcs": attr.label_list(allow_empty = False, allow_files = True, mandatory = True),
+        "srcs": attr.label_list(
+            allow_empty = False,
+            allow_files = True,
+            mandatory = True,
+        ),
         "out": attr.output(mandatory = True),
     },
     toolchains = [
-        "@bzlparty_tools//toolchains:templ_toolchain_type",
+        TEMPL_TOOLCHAIN_TYPE,
         "@aspect_bazel_lib//lib:jq_toolchain_type",
+        "@buildifier_prebuilt//buildifier:toolchain",
     ],
 )
 

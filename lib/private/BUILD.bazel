@@ -14,6 +14,7 @@ bzl_library(
     visibility = ["//lib:__pkg__"],
     deps = [
         ":utils",
+        "//toolchains",
         "@aspect_bazel_lib//lib:write_source_files",
     ],
 )
@@ -22,18 +23,29 @@ bzl_library(
     name = "create_module_bazel",
     srcs = ["create_module_bazel.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [
+        ":utils",
+    ],
 )
 
 bzl_library(
     name = "formatter",
     srcs = ["formatter.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [
+        ":utils",
+        "//toolchains",
+    ],
 )
 
 bzl_library(
     name = "git_archive",
     srcs = ["git_archive.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [
+        ":utils",
+        "//toolchains",
+    ],
 )
 
 bzl_library(
@@ -50,13 +62,20 @@ bzl_library(
     name = "sha",
     srcs = ["sha.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [
+        ":utils",
+        "//toolchains",
+    ],
 )
 
 bzl_library(
     name = "shellspec",
     srcs = ["shellspec.bzl"],
     visibility = ["//lib:__pkg__"],
-    deps = [":utils"],
+    deps = [
+        ":utils",
+        "//toolchains",
+    ],
 )
 
 bzl_library(
