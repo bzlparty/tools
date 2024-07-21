@@ -1,11 +1,13 @@
 "Shellspec test rule"
 
-load(":utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
+load(":utils.bzl", "get_binary_from_toolchain", "get_files_from_toolchain", "write_executable_launcher_file")
+
+SHELLSPEC_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:shellspec_toolchain_type"
 
 # buildifier: disable=module-docstring
 def _shellspec_impl(ctx):
-    shellspec = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:shellspec_toolchain_type")
-    shellspec_files = ctx.toolchains["@bzlparty_tools//toolchains:shellspec_toolchain_type"].binary_info.files
+    shellspec = get_binary_from_toolchain(ctx, SHELLSPEC_TOOLCHAIN_TYPE)
+    shellspec_files = get_files_from_toolchain(ctx, SHELLSPEC_TOOLCHAIN_TYPE)
     launcher = write_executable_launcher_file(
         ctx,
         content = """\
