@@ -2,7 +2,6 @@
 
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("//lib:workspace.bzl", "create_module_bazel")
-load("//toolchains:toolchains.bzl", "TOOLS")
 
 _ROOT_BUILD_FILE = """\
 load("@rules_license//rules:license.bzl", "license")
@@ -25,18 +24,6 @@ exports_files([
     "MODULE.bazel",
     "extensions.bzl",
 ])
-"""
-
-_TOOLCHAIN_ALIAS = """\
-alias(
-  name = "{name}",
-  actual = "@bzlparty_tools//toolchains:{name}",
-)
-
-alias(
-  name = "{name}_toolchain_type",
-  actual = "@bzlparty_tools//toolchains:{name}_toolchain_type",
-)
 """
 
 # buildifier: disable=function-docstring
@@ -68,10 +55,7 @@ def dist_files(name = "dist_files"):
     write_file(
         name = "root_build_bazel",
         out = "root_BUILD.bazel",
-        content = [_ROOT_BUILD_FILE] + [
-            _TOOLCHAIN_ALIAS.format(name = name)
-            for name in TOOLS.keys()
-        ],
+        content = [_ROOT_BUILD_FILE],
         tags = ["manual"],
     )
 
