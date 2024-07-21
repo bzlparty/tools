@@ -126,14 +126,14 @@ def multi_platform_assets(
 def _assets_impl(ctx):
     out = ctx.outputs.out
     jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
-    json_to_assets = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:json_to_assets_toolchain_type")
+    templ = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:templ_toolchain_type")
     script = write_executable_launcher_file(
         ctx,
         content = """\
 #!/usr/bin/env bash
-{jq} -s '.' $@ | {json_to_assets} > {out}
+{jq} -s '.' $@ | {templ} > {out}
 """.format(
-            json_to_assets = json_to_assets.path,
+            templ = templ.path,
             jq = jq.path,
             out = out.path,
         ),
@@ -146,7 +146,7 @@ def _assets_impl(ctx):
         inputs = ctx.files.srcs,
         outputs = [out],
         arguments = [args],
-        tools = [jq, json_to_assets],
+        tools = [jq, templ],
         executable = script,
     )
 
@@ -163,7 +163,7 @@ _assets = rule(
         "out": attr.output(mandatory = True),
     },
     toolchains = [
-        "@bzlparty_tools//toolchains:json_to_assets_toolchain_type",
+        "@bzlparty_tools//toolchains:templ_toolchain_type",
         "@aspect_bazel_lib//lib:jq_toolchain_type",
     ],
 )

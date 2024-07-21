@@ -5,11 +5,11 @@ load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
 load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
 load("//toolchains/jql:assets.bzl", JQL_ASSETS = "ASSETS")
 load("//toolchains/json_bash:assets.bzl", JSON_BASH_ASSETS = "ASSETS")
-load("//toolchains/json_to_assets:assets.bzl", JSON_TO_ASSETS_ASSETS = "ASSETS")
 load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
 load("//toolchains/sha:assets.bzl", SHA_ASSETS = "ASSETS")
 load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
 load("//toolchains/shellspec:assets.bzl", SHELLSPEC_ASSETS = "ASSETS")
+load("//toolchains/templ:assets.bzl", TEMPL_ASSETS = "ASSETS")
 load("//toolchains/topiary:assets.bzl", TOPIARY_ASSETS = "ASSETS")
 load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
 load("//toolchains/xsv:assets.bzl", XSV_ASSETS = "ASSETS")
@@ -20,11 +20,11 @@ TOOLS = {
     "goawk": GOAWK_ASSETS,
     "jql": JQL_ASSETS,
     "json_bash": JSON_BASH_ASSETS,
-    "json_to_assets": JSON_TO_ASSETS_ASSETS,
     "ripgrep": RIPGREP_ASSETS,
     "sha": SHA_ASSETS,
     "shellcheck": SHELLCHECK_ASSETS,
     "shellspec": SHELLSPEC_ASSETS,
+    "templ": TEMPL_ASSETS,
     "topiary": TOPIARY_ASSETS,
     "typos": TYPOS_ASSETS,
     "xsv": XSV_ASSETS,
@@ -70,14 +70,6 @@ json_bash_resolved_toolchain = rule(
     incompatible_use_toolchain_transition = True,
 )
 
-JSON_TO_ASSETS_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:json_to_assets_toolchain_type"
-
-json_to_assets_resolved_toolchain = rule(
-    implementation = resolved_toolchain_impl(JSON_TO_ASSETS_TOOLCHAIN_TYPE),
-    toolchains = [JSON_TO_ASSETS_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
 RIPGREP_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:ripgrep_toolchain_type"
 
 ripgrep_resolved_toolchain = rule(
@@ -107,6 +99,14 @@ SHELLSPEC_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:shellspec_toolchain_type
 shellspec_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(SHELLSPEC_TOOLCHAIN_TYPE),
     toolchains = [SHELLSPEC_TOOLCHAIN_TYPE],
+    incompatible_use_toolchain_transition = True,
+)
+
+TEMPL_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:templ_toolchain_type"
+
+templ_resolved_toolchain = rule(
+    implementation = resolved_toolchain_impl(TEMPL_TOOLCHAIN_TYPE),
+    toolchains = [TEMPL_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -177,14 +177,6 @@ def bzlparty_toolchains(name = "toolchains"):
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(
-        name = "json_to_assets_toolchain_type",
-        visibility = ["//visibility:public"],
-    )
-    json_to_assets_resolved_toolchain(
-        name = "json_to_assets",
-        visibility = ["//visibility:public"],
-    )
-    native.toolchain_type(
         name = "ripgrep_toolchain_type",
         visibility = ["//visibility:public"],
     )
@@ -214,6 +206,14 @@ def bzlparty_toolchains(name = "toolchains"):
     )
     shellspec_resolved_toolchain(
         name = "shellspec",
+        visibility = ["//visibility:public"],
+    )
+    native.toolchain_type(
+        name = "templ_toolchain_type",
+        visibility = ["//visibility:public"],
+    )
+    templ_resolved_toolchain(
+        name = "templ",
         visibility = ["//visibility:public"],
     )
     native.toolchain_type(

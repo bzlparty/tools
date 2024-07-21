@@ -38,9 +38,9 @@ def dist_files(name = "dist_files"):
     )
 
     native.genrule(
-        name = "create_json_to_assets_assets_bzl",
-        srcs = ["//cmd/json_to_assets:shasums"],
-        outs = ["toolchains_json_to_assets_assets.bzl"],
+        name = "create_templ_assets_bzl",
+        srcs = ["//cmd/templ:shasums"],
+        outs = ["toolchains_templ_assets.bzl"],
         cmd = "./$(location :create_assets) $(SRCS) > $(OUTS)",
         tags = ["manual"],
         tools = [":create_assets"],
