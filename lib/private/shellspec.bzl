@@ -5,6 +5,7 @@ load(":utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file"
 # buildifier: disable=module-docstring
 def _shellspec_impl(ctx):
     shellspec = get_binary_from_toolchain(ctx, "@bzlparty_tools//toolchains:shellspec_toolchain_type")
+    shellspec_files = ctx.toolchains["@bzlparty_tools//toolchains:shellspec_toolchain_type"].binary_info.files
     launcher = write_executable_launcher_file(
         ctx,
         content = """\
@@ -19,7 +20,7 @@ export HOME=$(mktemp -d);
     return [
         DefaultInfo(
             files = depset([launcher]),
-            runfiles = ctx.runfiles(files = [shellspec, ctx.file.spec, ctx.file.config] + ctx.files.srcs),
+            runfiles = ctx.runfiles(files = [shellspec, ctx.file.spec, ctx.file.config] + ctx.files.srcs + shellspec_files),
             executable = launcher,
         ),
     ]

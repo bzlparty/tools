@@ -89,6 +89,7 @@ binary_toolchain(
     name = "{prefix}_binary_toolchain",
     prefix = "{prefix}",
     binary = "{binary}",
+    files = {files},
 )
 
 alias(
@@ -99,6 +100,7 @@ alias(
 """.format(
         binary = ctx.attr.binary if ctx.attr.binary.startswith("@") else ":%s" % ctx.attr.binary,
         prefix = ctx.attr.prefix,
+        files = "glob([\"" + "\", \"".join(ctx.attr.files) + "\"])" if len(ctx.attr.files) > 0 else "[]",
     ))
 
 platform_toolchain = repository_rule(
@@ -108,6 +110,7 @@ platform_toolchain = repository_rule(
         "binary": attr.string(),
         "prefix": attr.string(),
         "integrity": attr.string(),
+        "files": attr.string_list(),
     },
 )
 
@@ -144,6 +147,7 @@ def register_platform_toolchains(name, assets, toolchain_type):
                 url = config.url,
                 integrity = config.integrity,
                 binary = config.binary,
+                files = config.files if hasattr(config, "files") else [],
             )
             toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
                 name = name,
