@@ -30,8 +30,6 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            dist/sha_*
-            dist/tools-*.tar.gz
-            dist/tools-*.tar.gz.sha384
+            dist/*
           body_path: release_notes.md
           fail_on_unmatched_files: true
