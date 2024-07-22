@@ -26,14 +26,6 @@ goawk_resolved_toolchain = rule(
     incompatible_use_toolchain_transition = True,
 )
 
-JQL_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:jql_toolchain_type"
-
-jql_resolved_toolchain = rule(
-    implementation = resolved_toolchain_impl(JQL_TOOLCHAIN_TYPE),
-    toolchains = [JQL_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
 JSON_BASH_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:json_bash_toolchain_type"
 
 json_bash_resolved_toolchain = rule(
@@ -82,27 +74,11 @@ templ_resolved_toolchain = rule(
     incompatible_use_toolchain_transition = True,
 )
 
-TOPIARY_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:topiary_toolchain_type"
-
-topiary_resolved_toolchain = rule(
-    implementation = resolved_toolchain_impl(TOPIARY_TOOLCHAIN_TYPE),
-    toolchains = [TOPIARY_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
 TYPOS_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:typos_toolchain_type"
 
 typos_resolved_toolchain = rule(
     implementation = resolved_toolchain_impl(TYPOS_TOOLCHAIN_TYPE),
     toolchains = [TYPOS_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
-XSV_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:xsv_toolchain_type"
-
-xsv_resolved_toolchain = rule(
-    implementation = resolved_toolchain_impl(XSV_TOOLCHAIN_TYPE),
-    toolchains = [XSV_TOOLCHAIN_TYPE],
     incompatible_use_toolchain_transition = True,
 )
 
@@ -132,15 +108,6 @@ def bzlparty_toolchains(name = "bzlparty_toolchains"):
     )
     goawk_resolved_toolchain(
         name = "goawk",
-        visibility = ["//visibility:public"],
-    )
-
-    native.toolchain_type(
-        name = "jql_toolchain_type",
-        visibility = ["//visibility:public"],
-    )
-    jql_resolved_toolchain(
-        name = "jql",
         visibility = ["//visibility:public"],
     )
 
@@ -199,28 +166,10 @@ def bzlparty_toolchains(name = "bzlparty_toolchains"):
     )
 
     native.toolchain_type(
-        name = "topiary_toolchain_type",
-        visibility = ["//visibility:public"],
-    )
-    topiary_resolved_toolchain(
-        name = "topiary",
-        visibility = ["//visibility:public"],
-    )
-
-    native.toolchain_type(
         name = "typos_toolchain_type",
         visibility = ["//visibility:public"],
     )
     typos_resolved_toolchain(
         name = "typos",
-        visibility = ["//visibility:public"],
-    )
-
-    native.toolchain_type(
-        name = "xsv_toolchain_type",
-        visibility = ["//visibility:public"],
-    )
-    xsv_resolved_toolchain(
-        name = "xsv",
         visibility = ["//visibility:public"],
     )

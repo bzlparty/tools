@@ -8,16 +8,13 @@ TOOLS = [
     "biome",
     "fd",
     "goawk",
-    "jql",
     "json_bash",
     "ripgrep",
     "sha",
     "shellcheck",
     "shellspec",
     "templ",
-    "topiary",
     "typos",
-    "xsv",
 ]
 
 create_bzl_file(
