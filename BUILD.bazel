@@ -28,6 +28,7 @@ formatter(
     tools = {
         "@biome": "biome",
         "@buildifier_prebuilt//:buildifier": "buildifier",
+        "@go_default_sdk//:bin/gofmt": "gofmt",
     },
 )
 

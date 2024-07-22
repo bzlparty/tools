@@ -9,6 +9,10 @@
     "check": "-mode=check -lint=warn",
     "fix": "-mode=fix -lint=fix"
   },
+  "gofmt": {
+    "files": ["**/*.go"],
+    "fix": "-w"
+  },
   "shellcheck": {
     "files": ["**/*.sh", "**/*.bash"],
     "check": "--severity=warning"
