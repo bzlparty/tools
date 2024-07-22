@@ -1,7 +1,16 @@
 "Formatter"
 
-load("//toolchains:toolchains.bzl", "FD_TOOLCHAIN_TYPE", "GOAWK_TOOLCHAIN_TYPE")
-load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain", "get_target_file")
+load(
+    "//toolchains:toolchains.bzl",
+    "FD_TOOLCHAIN_TYPE",
+    "GOAWK_TOOLCHAIN_TYPE",
+)
+load(
+    ":utils.bzl",
+    "declare_launcher_file",
+    "get_binary_from_toolchain",
+    "get_target_file",
+)
 
 def _join_exclude_args(items):
     return " ".join(["--exclude \\\"%s\\\"" % i for i in items])
