@@ -14,7 +14,7 @@ bazel_dep(name = "buildifier_prebuilt", version = "6.4.0")
 bazel_dep(name = "rules_go", version = "0.48.0")
 #endif
 
-tools = use_extension("//:extensions.bzl", "tools")
+tools = use_extension("@bzlparty_tools//:extensions.bzl", "tools")
 tools.biome()
 tools.fd()
 tools.goawk()
