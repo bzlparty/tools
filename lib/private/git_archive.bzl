@@ -1,17 +1,12 @@
 "Create a tarball with `git archive`"
 
 load("//toolchains:toolchains.bzl", "SHA_TOOLCHAIN_TYPE")
-load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain")
-
-def _get_target_file_path(target):
-    if DefaultInfo in target:
-        return target[DefaultInfo].files.to_list().pop().path
-    fail("Cannot get file path")
+load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain", "get_target_file")
 
 def _format_virtual_file_arg(target, path):
     return """--add-virtual-file="$PREFIX/{path}":"$(< "{source}")" """.format(
         path = path,
-        source = _get_target_file_path(target),
+        source = get_target_file(target).path,
     )
 
 def _git_archive_impl(ctx):

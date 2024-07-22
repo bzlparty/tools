@@ -3,6 +3,11 @@
 def declare_launcher_file(ctx):
     return ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
 
+def get_target_file(target):
+    if DefaultInfo in target:
+        return target[DefaultInfo].files.to_list().pop()
+    fail("Cannot get file path")
+
 def _get_binary_info_from_toolchain(ctx, toolchain):
     if toolchain in ctx.toolchains and hasattr(ctx.toolchains[toolchain], "binary_info"):
         return ctx.toolchains[toolchain].binary_info

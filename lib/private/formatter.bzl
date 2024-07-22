@@ -1,13 +1,7 @@
 "Formatter"
 
 load("//toolchains:toolchains.bzl", "FD_TOOLCHAIN_TYPE", "GOAWK_TOOLCHAIN_TYPE")
-load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain")
-
-def _get_target_file_path(target):
-    if DefaultInfo in target:
-        f = target[DefaultInfo].files.to_list().pop()
-        return f.short_path
-    fail("Cannot get file path")
+load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain", "get_target_file")
 
 def _join_exclude_args(items):
     return " ".join(["--exclude \\\"%s\\\"" % i for i in items])
@@ -21,7 +15,7 @@ def _parallel_run_impl(ctx):
 
     args = ctx.actions.args()
     for k, v in ctx.attr.tools.items():
-        args.add("%s:%s" % (v, _get_target_file_path(k)))
+        args.add("%s:%s" % (v, get_target_file(k).short_path))
 
     ctx.actions.write(
         output = args_file,
