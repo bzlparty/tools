@@ -39,7 +39,7 @@ def _parallel_run_impl(ctx):
             "_jq_": jq.path,
             "_config_": ctx.file.config.path,
             "_args_file_": args_file.short_path,
-            "_jobs_": "4",
+            "_jobs_": "%s" % ctx.attr.jobs,
             "_mode_": ctx.attr.mode,
             "_workspace_": ctx.file.workspace.path,
         },
@@ -68,6 +68,7 @@ _ATTRS = {
         allow_single_file = True,
         mandatory = True,
     ),
+    "jobs": attr.int(default = 0),
     "tools": attr.label_keyed_string_dict(
         allow_empty = False,
         allow_files = True,
