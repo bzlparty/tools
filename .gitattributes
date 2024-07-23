@@ -4,7 +4,6 @@
 .pre-commit-config.yaml       export-ignore
 .prettierignore               export-ignore
 cmd                           export-ignore
-docs/BUILD.bazel              export-ignore
 e2e                           export-ignore
 examples                      export-ignore
 go.mod                        export-ignore

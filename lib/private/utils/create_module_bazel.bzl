@@ -1,6 +1,6 @@
 "Create a `MODULE.bazel` for release"
 
-load(":utils.bzl", "declare_launcher_file")
+load("//lib/private:helpers.bzl", "declare_launcher_file")
 
 def _create_module_bazel_impl(ctx):
     launcher = declare_launcher_file(ctx)
@@ -23,21 +23,23 @@ def _create_module_bazel_impl(ctx):
         tools = [ctx.file._dcomment],
     )
 
+_ATTRS = {
+    "out": attr.output(mandatory = True),
+    "module_file": attr.label(
+        default = Label("//:MODULE.bazel"),
+        allow_single_file = True,
+    ),
+    "_launcher_template": attr.label(
+        default = "@bzlparty_tools//lib/private/utils:create_module_bazel.sh",
+        allow_single_file = True,
+    ),
+    "_dcomment": attr.label(
+        default = "@bzlparty_tools//vendor/dcomment",
+        allow_single_file = True,
+    ),
+}
+
 create_module_bazel = rule(
     _create_module_bazel_impl,
-    attrs = {
-        "out": attr.output(mandatory = True),
-        "module_file": attr.label(
-            default = Label("//:MODULE.bazel"),
-            allow_single_file = True,
-        ),
-        "_launcher_template": attr.label(
-            default = "@bzlparty_tools//lib/private:create_module_bazel.sh",
-            allow_single_file = True,
-        ),
-        "_dcomment": attr.label(
-            default = "@bzlparty_tools//vendor/dcomment",
-            allow_single_file = True,
-        ),
-    },
+    attrs = _ATTRS,
 )

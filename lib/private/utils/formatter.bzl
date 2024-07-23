@@ -1,15 +1,15 @@
 "Formatter"
 
 load(
-    "//toolchains:toolchains.bzl",
-    "FD_TOOLCHAIN_TYPE",
-    "GOAWK_TOOLCHAIN_TYPE",
-)
-load(
-    ":utils.bzl",
+    "//lib/private:helpers.bzl",
     "declare_launcher_file",
     "get_binary_from_toolchain",
     "get_target_file",
+)
+load(
+    "//toolchains:toolchains.bzl",
+    "FD_TOOLCHAIN_TYPE",
+    "GOAWK_TOOLCHAIN_TYPE",
 )
 
 def _join_exclude_args(items):
@@ -87,7 +87,7 @@ _ATTRS = {
     ),
     "exclude": attr.string_list(default = []),
     "_launcher_template": attr.label(
-        default = Label("@bzlparty_tools//lib/private:formatter.sh"),
+        default = Label("@bzlparty_tools//lib/private/utils:formatter.sh"),
         allow_single_file = True,
     ),
 }

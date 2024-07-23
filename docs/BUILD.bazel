@@ -1,28 +1,15 @@
 load("@aspect_bazel_lib//lib:docs.bzl", "stardoc_with_diff_test", "update_docs")
 
-stardoc_with_diff_test(
-    name = "lib",
-    bzl_library_target = "//lib:defs",
-)
+package(default_visibility = ["//visibility:public"])
 
 stardoc_with_diff_test(
-    name = "platforms",
-    bzl_library_target = "//lib:platforms",
+    name = "utils",
+    bzl_library_target = "//docs/bzl:utils",
 )
 
 stardoc_with_diff_test(
     name = "toolchains",
-    bzl_library_target = "//lib:toolchains",
-)
-
-stardoc_with_diff_test(
-    name = "utils",
-    bzl_library_target = "//lib:utils",
-)
-
-stardoc_with_diff_test(
-    name = "workspace",
-    bzl_library_target = "//lib:workspace",
+    bzl_library_target = "//docs/bzl:toolchains",
 )
 
 stardoc_with_diff_test(

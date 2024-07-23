@@ -10,42 +10,23 @@ bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
     deps = [
-        "//lib/private:assets",
-        "//lib/private:sha",
-        "//lib/private:shellspec",
+        ":resolved_toolchains",
+        "//lib/private:helpers",
+        "//lib/private:platforms",
+        "//lib/private/toolchains:assets",
+        "//lib/private/toolchains:repositories",
+        "//lib/private/utils:create_module_bazel",
+        "//lib/private/utils:formatter",
+        "//lib/private/utils:git_archive",
+        "//lib/private/utils:sha",
+        "//lib/private/utils:shellspec",
     ],
 )
 
 bzl_library(
-    name = "platforms",
-    srcs = ["platforms.bzl"],
-    deps = ["//lib/private:platforms"],
-)
-
-bzl_library(
-    name = "toolchains",
-    srcs = ["toolchains.bzl"],
-    deps = [
-        "//lib/private:toolchains",
-        "@bazel_skylib//lib:types",
-    ],
-)
-
-bzl_library(
-    name = "utils",
-    srcs = ["utils.bzl"],
-    deps = [
-        "//lib/private:assets",
-        "//lib/private:toolchains",
-    ],
-)
-
-bzl_library(
-    name = "workspace",
-    srcs = ["workspace.bzl"],
-    deps = [
-        "//lib/private:create_module_bazel",
-        "//lib/private:formatter",
-        "//lib/private:git_archive",
+    name = "resolved_toolchains",
+    srcs = ["resolved_toolchains.bzl"],
+    visibility = [
+        "//toolchains:__pkg__",
     ],
 )

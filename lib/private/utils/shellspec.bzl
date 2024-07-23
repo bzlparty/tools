@@ -1,12 +1,12 @@
 "Shellspec test rule"
 
-load("//toolchains:toolchains.bzl", "SHELLSPEC_TOOLCHAIN_TYPE")
 load(
-    ":utils.bzl",
+    "//lib/private:helpers.bzl",
     "get_binary_from_toolchain",
     "get_files_from_toolchain",
     "write_executable_launcher_file",
 )
+load("//toolchains:toolchains.bzl", "SHELLSPEC_TOOLCHAIN_TYPE")
 
 # buildifier: disable=module-docstring
 def _shellspec_impl(ctx):

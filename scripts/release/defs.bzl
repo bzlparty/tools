@@ -1,7 +1,7 @@
 "Release helpers"
 
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("//lib:workspace.bzl", "create_module_bazel")
+load("//lib:defs.bzl", "create_module_bazel")
 
 _ROOT_BUILD_FILE = """\
 load("@rules_license//rules:license.bzl", "license")

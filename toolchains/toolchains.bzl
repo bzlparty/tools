@@ -1,6 +1,6 @@
 "Toolchains"
 
-load("//lib:toolchains.bzl", "resolved_toolchain_impl")
+load("//lib:resolved_toolchains.bzl", "resolved_toolchain_impl")
 
 BIOME_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:biome_toolchain_type"
 

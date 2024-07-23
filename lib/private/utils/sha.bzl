@@ -1,11 +1,11 @@
 "Sha"
 
-load("//toolchains:toolchains.bzl", "SHA_TOOLCHAIN_TYPE")
 load(
-    ":utils.bzl",
+    "//lib/private:helpers.bzl",
     "get_binary_from_toolchain",
     "write_executable_launcher_file",
 )
+load("//toolchains:toolchains.bzl", "SHA_TOOLCHAIN_TYPE")
 
 def _sha_impl(ctx):
     sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)

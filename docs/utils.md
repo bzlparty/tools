@@ -1,82 +1,138 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
-# Utils
 
-<a id="declare_launcher_file"></a>
 
-## declare_launcher_file
+# Rules
+
+
+
+<a id="create_module_bazel"></a>
+
+## create_module_bazel
 
 <pre>
-declare_launcher_file(<a href="#declare_launcher_file-ctx">ctx</a>)
+create_module_bazel(<a href="#create_module_bazel-name">name</a>, <a href="#create_module_bazel-module_file">module_file</a>, <a href="#create_module_bazel-out">out</a>)
 </pre>
 
 
 
-**PARAMETERS**
+**ATTRIBUTES**
 
 
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="declare_launcher_file-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="create_module_bazel-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="create_module_bazel-module_file"></a>module_file |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>//:MODULE.bazel</code> |
+| <a id="create_module_bazel-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 
 
-<a id="get_binary_from_toolchain"></a>
+<a id="formatter"></a>
 
-## get_binary_from_toolchain
+## formatter
 
 <pre>
-get_binary_from_toolchain(<a href="#get_binary_from_toolchain-ctx">ctx</a>, <a href="#get_binary_from_toolchain-toolchain">toolchain</a>)
+formatter(<a href="#formatter-name">name</a>, <a href="#formatter-config">config</a>, <a href="#formatter-exclude">exclude</a>, <a href="#formatter-jobs">jobs</a>, <a href="#formatter-mode">mode</a>, <a href="#formatter-tools">tools</a>, <a href="#formatter-workspace">workspace</a>)
 </pre>
 
 
 
-**PARAMETERS**
+**ATTRIBUTES**
 
 
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="get_binary_from_toolchain-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
-| <a id="get_binary_from_toolchain-toolchain"></a>toolchain |  <p align="center"> - </p>   |  none |
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="formatter-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="formatter-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="formatter-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
+| <a id="formatter-jobs"></a>jobs |  -   | Integer | optional | <code>0</code> |
+| <a id="formatter-mode"></a>mode |  -   | String | optional | <code>"check"</code> |
+| <a id="formatter-tools"></a>tools |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | required |  |
+| <a id="formatter-workspace"></a>workspace |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>@@//:MODULE.bazel</code> |
 
 
-<a id="platform_from_constraints"></a>
+<a id="formatter_test"></a>
 
-## platform_from_constraints
-
-<pre>
-platform_from_constraints(<a href="#platform_from_constraints-constraints">constraints</a>)
-</pre>
-
-Get platform from constraints
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="platform_from_constraints-constraints"></a>constraints |  list of platform constraints, e.g. <code>["@platforms//os:linux", "@platforms//cpu:x86_64"]</code>.   |  none |
-
-**RETURNS**
-
-platform string, e.g. `linux_amd64`.
-
-
-<a id="write_executable_launcher_file"></a>
-
-## write_executable_launcher_file
+## formatter_test
 
 <pre>
-write_executable_launcher_file(<a href="#write_executable_launcher_file-ctx">ctx</a>, <a href="#write_executable_launcher_file-content">content</a>)
+formatter_test(<a href="#formatter_test-name">name</a>, <a href="#formatter_test-config">config</a>, <a href="#formatter_test-exclude">exclude</a>, <a href="#formatter_test-jobs">jobs</a>, <a href="#formatter_test-mode">mode</a>, <a href="#formatter_test-tools">tools</a>, <a href="#formatter_test-workspace">workspace</a>)
 </pre>
 
 
 
-**PARAMETERS**
+**ATTRIBUTES**
 
 
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="write_executable_launcher_file-ctx"></a>ctx |  <p align="center"> - </p>   |  none |
-| <a id="write_executable_launcher_file-content"></a>content |  <p align="center"> - </p>   |  none |
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="formatter_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="formatter_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="formatter_test-exclude"></a>exclude |  -   | List of strings | optional | <code>[]</code> |
+| <a id="formatter_test-jobs"></a>jobs |  -   | Integer | optional | <code>0</code> |
+| <a id="formatter_test-mode"></a>mode |  -   | String | optional | <code>"check"</code> |
+| <a id="formatter_test-tools"></a>tools |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | required |  |
+| <a id="formatter_test-workspace"></a>workspace |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>@@//:MODULE.bazel</code> |
+
+
+<a id="git_archive"></a>
+
+## git_archive
+
+<pre>
+git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-package_name">package_name</a>, <a href="#git_archive-virtual_files">virtual_files</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="git_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="git_archive-package_name"></a>package_name |  -   | String | required |  |
+| <a id="git_archive-virtual_files"></a>virtual_files |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional | <code>{}</code> |
+
+
+<a id="sha"></a>
+
+## sha
+
+<pre>
+sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-out">out</a>, <a href="#sha-src">src</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="sha-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="sha-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
+| <a id="sha-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  |
+| <a id="sha-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+
+
+<a id="shellspec_test"></a>
+
+## shellspec_test
+
+<pre>
+shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test-config">config</a>, <a href="#shellspec_test-spec">spec</a>, <a href="#shellspec_test-srcs">srcs</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="shellspec_test-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="shellspec_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="shellspec_test-spec"></a>spec |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
 
 

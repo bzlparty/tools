@@ -2,7 +2,7 @@ package main
 
 var ToolchainsTemplate = `"Toolchains"
 
-load("//lib:toolchains.bzl", "resolved_toolchain_impl")
+load("//lib:resolved_toolchains.bzl", "resolved_toolchain_impl")
 
 {{range .}}
 {{. | ToUpper}}_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:{{.}}_toolchain_type"

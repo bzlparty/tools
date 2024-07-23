@@ -1,94 +1,23 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
-exports_files(
-    glob([
-        "*.sh",
-        "*.json",
-    ]),
-    visibility = ["//visibility:public"],
-)
-
-bzl_library(
-    name = "assets",
-    srcs = ["assets.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-        "//toolchains",
-        "@aspect_bazel_lib//lib:write_source_files",
-    ],
-)
-
-bzl_library(
-    name = "create_module_bazel",
-    srcs = ["create_module_bazel.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-    ],
-)
-
-bzl_library(
-    name = "formatter",
-    srcs = ["formatter.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-        "//toolchains",
-    ],
-)
-
-bzl_library(
-    name = "git_archive",
-    srcs = ["git_archive.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-        "//toolchains",
-    ],
-)
-
 bzl_library(
     name = "platforms",
     srcs = ["platforms.bzl"],
-    visibility = ["//lib:__pkg__"],
+    visibility = [
+        "//lib:__pkg__",
+        "//lib/private:__subpackages__",
+    ],
     deps = [
-        ":utils",
+        ":helpers",
         "@platforms//host:constraints_lib",
     ],
 )
 
 bzl_library(
-    name = "sha",
-    srcs = ["sha.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-        "//toolchains",
+    name = "helpers",
+    srcs = ["helpers.bzl"],
+    visibility = [
+        "//lib:__pkg__",
+        "//lib/private:__subpackages__",
     ],
-)
-
-bzl_library(
-    name = "shellspec",
-    srcs = ["shellspec.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        ":utils",
-        "//toolchains",
-    ],
-)
-
-bzl_library(
-    name = "toolchains",
-    srcs = ["toolchains.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        "//lib:platforms",
-        "@bazel_skylib//lib:types",
-    ],
-)
-
-bzl_library(
-    name = "utils",
-    srcs = ["utils.bzl"],
 )

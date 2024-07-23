@@ -1,4 +1,4 @@
-load("//lib:workspace.bzl", "git_archive")
+load("//lib:defs.bzl", "git_archive")
 load(":defs.bzl", "dist_files")
 
 sh_binary(

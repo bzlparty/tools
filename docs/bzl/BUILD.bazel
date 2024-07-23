@@ -1,0 +1,19 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//visibility:public"])
+
+bzl_library(
+    name = "utils",
+    srcs = ["utils.bzl"],
+    deps = [
+        "//lib:defs",
+    ],
+)
+
+bzl_library(
+    name = "toolchains",
+    srcs = ["toolchains.bzl"],
+    deps = [
+        "//lib:defs",
+    ],
+)

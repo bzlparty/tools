@@ -1,6 +1,6 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load("//lib:utils.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
+load("//lib:defs.bzl", "get_binary_from_toolchain", "write_executable_launcher_file")
 load("//toolchains:toolchains.bzl", "TEMPL_TOOLCHAIN_TYPE")
 
 def _create_bzl_file_impl(ctx):

@@ -1,7 +1,12 @@
-"# Toolchains"
+"# Toolchain Repositories"
 
 load("@bazel_skylib//lib:types.bzl", "types")
-load("//lib:platforms.bzl", "HOST_CONSTRAINTS", "HOST_PLATFORM", "PLATFORMS")
+load(
+    "//lib/private:platforms.bzl",
+    "HOST_CONSTRAINTS",
+    "HOST_PLATFORM",
+    "PLATFORMS",
+)
 
 def _binary_toolchain_impl(ctx):
     binary = ctx.file.binary
@@ -84,7 +89,7 @@ def _platform_toolchain_impl(ctx):
         _create_repository_from_remote(ctx)
 
     ctx.file("BUILD.bazel", """\
-load("@bzlparty_tools//lib:toolchains.bzl", "binary_toolchain")
+load("@bzlparty_tools//lib:defs.bzl", "binary_toolchain")
 binary_toolchain(
     name = "{prefix}_binary_toolchain",
     prefix = "{prefix}",
@@ -115,7 +120,7 @@ platform_toolchain = repository_rule(
 )
 
 _TOOLCHAINS_BUILD_FILE_BEGIN = """\
-load("@bzlparty_tools//lib:platforms.bzl", "HOST_PLATFORM")
+load("@bzlparty_tools//lib:defs.bzl", "HOST_PLATFORM")
 
 alias(
     name = "{name}",
@@ -179,15 +184,3 @@ platform_toolchains = repository_rule(
         "build_file": attr.string(mandatory = True),
     },
 )
-
-def resolved_toolchain_impl(toolchain):
-    def _impl(ctx):
-        toolchain_info = ctx.toolchains[toolchain]
-        return [
-            toolchain_info,
-            toolchain_info.default,
-            toolchain_info.binary_info,
-            toolchain_info.template_variables,
-        ]
-
-    return _impl

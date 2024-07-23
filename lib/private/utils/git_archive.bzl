@@ -1,7 +1,12 @@
 "Create a tarball with `git archive`"
 
+load(
+    "//lib/private:helpers.bzl",
+    "declare_launcher_file",
+    "get_binary_from_toolchain",
+    "get_target_file",
+)
 load("//toolchains:toolchains.bzl", "SHA_TOOLCHAIN_TYPE")
-load(":utils.bzl", "declare_launcher_file", "get_binary_from_toolchain", "get_target_file")
 
 def _format_virtual_file_arg(target, path):
     return """--add-virtual-file="$PREFIX/{path}":"$(< "{source}")" """.format(
@@ -35,19 +40,21 @@ def _git_archive_impl(ctx):
         ),
     ]
 
+_ATTRS = {
+    "package_name": attr.string(mandatory = True),
+    "virtual_files": attr.label_keyed_string_dict(
+        default = {},
+        allow_files = True,
+    ),
+    "_launcher_template": attr.label(
+        default = Label("@bzlparty_tools//lib/private/utils:git_archive.sh"),
+        allow_single_file = True,
+    ),
+}
+
 git_archive = rule(
     _git_archive_impl,
-    attrs = {
-        "package_name": attr.string(mandatory = True),
-        "virtual_files": attr.label_keyed_string_dict(
-            default = {},
-            allow_files = True,
-        ),
-        "_launcher_template": attr.label(
-            default = Label("@bzlparty_tools//lib/private:git_archive.sh"),
-            allow_single_file = True,
-        ),
-    },
+    attrs = _ATTRS,
     toolchains = [SHA_TOOLCHAIN_TYPE],
     executable = True,
 )

@@ -1,15 +1,15 @@
 # buildifier: disable=module-docstring
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load(
+    "//lib/private:helpers.bzl",
+    "get_binary_from_toolchain",
+    "write_executable_launcher_file",
+)
+load(
     "//toolchains:toolchains.bzl",
     "JSON_BASH_TOOLCHAIN_TYPE",
     "SHA_TOOLCHAIN_TYPE",
     "TEMPL_TOOLCHAIN_TYPE",
-)
-load(
-    ":utils.bzl",
-    "get_binary_from_toolchain",
-    "write_executable_launcher_file",
 )
 
 def _is_windows(platform):
@@ -78,7 +78,7 @@ platform_asset = rule(
         "files": attr.string_list(default = []),
         "_json_template": attr.label(
             allow_single_file = True,
-            default = "@bzlparty_tools//lib/private:assets.template.json",
+            default = "@bzlparty_tools//lib/private/toolchains:assets.template.json",
         ),
     },
     toolchains = [
