@@ -14,6 +14,7 @@ bzl_library(
         "//lib/private:helpers",
         "//lib/private:platforms",
         "//lib/private/toolchains:assets",
+        "//lib/private/toolchains:assets_bundle",
         "//lib/private/toolchains:repositories",
         "//lib/private/utils:create_module_bazel",
         "//lib/private/utils:formatter",

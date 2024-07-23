@@ -97,12 +97,12 @@ platform_toolchains(<a href="#platform_toolchains-name">name</a>, <a href="#plat
 | <a id="platform_toolchains-repo_mapping"></a>repo_mapping |  A dictionary from local repository name to global repository name. This allows controls over workspace dependency resolution for dependencies of this repository.&lt;p&gt;For example, an entry <code>"@foo": "@bar"</code> declares that, for any time this repository depends on <code>@foo</code> (such as a dependency on <code>@foo//some:target</code>, it should actually resolve that dependency within globally-declared <code>@bar</code> (<code>@bar//some:target</code>).   | <a href="https://bazel.build/rules/lib/dict">Dictionary: String -> String</a> | required |  |
 
 
-<a id="assets"></a>
+<a id="assets_bundle"></a>
 
-## assets
+## assets_bundle
 
 <pre>
-assets(<a href="#assets-name">name</a>, <a href="#assets-out_file">out_file</a>, <a href="#assets-kwargs">kwargs</a>)
+assets_bundle(<a href="#assets_bundle-name">name</a>, <a href="#assets_bundle-out_file">out_file</a>, <a href="#assets_bundle-kwargs">kwargs</a>)
 </pre>
 
 
@@ -112,9 +112,9 @@ assets(<a href="#assets-name">name</a>, <a href="#assets-out_file">out_file</a>,
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="assets-name"></a>name |  <p align="center"> - </p>   |  <code>"assets"</code> |
-| <a id="assets-out_file"></a>out_file |  <p align="center"> - </p>   |  <code>None</code> |
-| <a id="assets-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+| <a id="assets_bundle-name"></a>name |  <p align="center"> - </p>   |  <code>"assets"</code> |
+| <a id="assets_bundle-out_file"></a>out_file |  <p align="center"> - </p>   |  <code>None</code> |
+| <a id="assets_bundle-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 
 <a id="multi_platform_assets"></a>

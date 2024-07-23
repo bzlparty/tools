@@ -8,7 +8,7 @@ Rules and helpers to create platform-specific toolchains and use them in module 
 
 load(
     "//lib:defs.bzl",
-    _assets = "assets",
+    _assets_bundle = "assets_bundle",
     _binary_toolchain = "binary_toolchain",
     _multi_platform_assets = "multi_platform_assets",
     _platform_asset = "platform_asset",
@@ -18,7 +18,7 @@ load(
     _resolved_toolchain_impl = "resolved_toolchain_impl",
 )
 
-assets = _assets
+assets_bundle = _assets_bundle
 multi_platform_assets = _multi_platform_assets
 platform_assets = _platform_asset
 

@@ -25,9 +25,12 @@ load(
 )
 load(
     "//lib/private/toolchains:assets.bzl",
-    _assets = "assets",
     _multi_platform_assets = "multi_platform_assets",
     _platform_asset = "platform_asset",
+)
+load(
+    "//lib/private/toolchains:assets_bundle.bzl",
+    _assets_bundle = "assets_bundle",
 )
 load(
     "//lib/private/toolchains:repositories.bzl",
@@ -57,9 +60,11 @@ load(
 )
 
 # //lib/private/toolchains:assets
-assets = _assets
 multi_platform_assets = _multi_platform_assets
 platform_asset = _platform_asset
+
+# //lib/private/toolchains:assets_bundle
+assets_bundle = _assets_bundle
 
 # //lib/private/toolchains:repositories.bzl
 binary_toolchain = _binary_toolchain

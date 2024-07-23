@@ -9,13 +9,24 @@ exports_files(
 )
 
 bzl_library(
-    name = "assets",
-    srcs = ["assets.bzl"],
+    name = "assets_bundle",
+    srcs = ["assets_bundle.bzl"],
     visibility = ["//lib:__pkg__"],
     deps = [
         "//lib/private:helpers",
         "//toolchains",
         "@aspect_bazel_lib//lib:write_source_files",
+    ],
+)
+
+bzl_library(
+    name = "assets",
+    srcs = ["assets.bzl"],
+    visibility = ["//lib:__pkg__"],
+    deps = [
+        ":assets_bundle",
+        "//lib/private:helpers",
+        "//toolchains",
     ],
 )
 

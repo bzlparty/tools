@@ -1,20 +1,23 @@
-# buildifier: disable=module-docstring
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
-load(
-    "//lib/private:helpers.bzl",
-    "get_binary_from_toolchain",
-    "write_executable_launcher_file",
-)
+"Platform Asset"
+
 load("//lib/private/utils:sha.bzl", "sha")
 load(
     "//toolchains:toolchains.bzl",
-    "JSON_BASH_TOOLCHAIN_TYPE",
     "SHA_TOOLCHAIN_TYPE",
-    "TEMPL_TOOLCHAIN_TYPE",
 )
+load(":assets_bundle.bzl", "assets_bundle")
 
 def _is_windows(platform):
     return platform.startswith("windows")
+
+def _os(platform):
+    return platform.split("_")[0]
+
+def _switch(val, arms, default = None):
+    for k, v in arms.items():
+        if k == val:
+            return v
+    return default
 
 def _platform_asset_impl(ctx):
     source = ctx.actions.declare_file("%s_/%s_info.json" % (ctx.label.name, ctx.label.name))
@@ -81,19 +84,14 @@ platform_asset = rule(
     },
     toolchains = [
         SHA_TOOLCHAIN_TYPE,
-        JSON_BASH_TOOLCHAIN_TYPE,
         "@aspect_bazel_lib//lib:jq_toolchain_type",
     ],
 )
 
-def _switch(val, arms, default = None):
-    for k, v in arms.items():
-        if k == val:
-            return v
-    return default
-
-def _os(platform):
-    return platform.split("_")[0]
+# def cmd_assets(name, integrity_map):
+#     for target, platform in integrity_map.items():
+#         platform_asset(
+#         )
 
 # buildifier: disable=function-docstring
 def multi_platform_assets(
@@ -109,7 +107,7 @@ def multi_platform_assets(
         prefix = "",
         files = [],
         platforms_map = {}):
-    binaries = []
+    assets = []
     for platform in platforms:
         _name = "%s_%s" % (name, platform)
         _platform = platforms_map.get(platform, platform)
@@ -118,7 +116,6 @@ def multi_platform_assets(
             "linux": linux_ext,
             "windows": windows_ext,
         }, "tar.gz")
-        binaries.append(_name)
         sha(
             name = "%s_sha" % _name,
             url = url.format(
@@ -139,72 +136,10 @@ def multi_platform_assets(
                 ext = ext,
             ),
         )
+        assets.append(_name)
 
-    assets(name = "%s_assets" % name, out_file = assets_file, srcs = binaries)
-
-def _assets_impl(ctx):
-    out = ctx.outputs.out
-    jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
-    buildifier = ctx.toolchains["@buildifier_prebuilt//buildifier:toolchain"]._tool
-    templ = get_binary_from_toolchain(ctx, TEMPL_TOOLCHAIN_TYPE)
-    script = write_executable_launcher_file(
-        ctx,
-        content = """\
-#!/usr/bin/env bash
-{jq} -s '.' $@ |
-{templ} -template assets |
-{buildifier} -mode fix -lint fix > {out}
-""".format(
-            templ = templ.path,
-            jq = jq.path,
-            out = out.path,
-            buildifier = buildifier.path,
-        ),
-    )
-
-    args = ctx.actions.args()
-    args.add_all(ctx.files.srcs)
-
-    ctx.actions.run(
-        inputs = ctx.files.srcs,
-        outputs = [out],
-        arguments = [args],
-        tools = [jq, templ, buildifier],
-        executable = script,
-    )
-
-    return [
-        DefaultInfo(
-            files = depset([out]),
-        ),
-    ]
-
-_assets = rule(
-    _assets_impl,
-    attrs = {
-        "srcs": attr.label_list(
-            allow_empty = False,
-            allow_files = True,
-            mandatory = True,
-        ),
-        "out": attr.output(mandatory = True),
-    },
-    toolchains = [
-        TEMPL_TOOLCHAIN_TYPE,
-        "@aspect_bazel_lib//lib:jq_toolchain_type",
-        "@buildifier_prebuilt//buildifier:toolchain",
-    ],
-)
-
-def assets(name = "assets", out_file = None, **kwargs):
-    _assets(
-        name = name,
-        out = "%s_bzl" % name,
-        **kwargs
-    )
-
-    write_source_file(
-        name = "update_%s" % name,
-        in_file = "%s_bzl" % name,
-        out_file = out_file or ":%s.bzl" % name,
+    assets_bundle(
+        name = "%s_assets" % name,
+        out_file = assets_file,
+        srcs = assets,
     )
