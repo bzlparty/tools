@@ -5,6 +5,7 @@ load(
     "get_binary_from_toolchain",
     "write_executable_launcher_file",
 )
+load("//lib/private/utils:sha.bzl", "sha")
 load(
     "//toolchains:toolchains.bzl",
     "JSON_BASH_TOOLCHAIN_TYPE",
@@ -16,50 +17,42 @@ def _is_windows(platform):
     return platform.startswith("windows")
 
 def _platform_asset_impl(ctx):
-    info = ctx.actions.declare_file("%s_/%s_info.json" % (ctx.label.name, ctx.label.name))
-    sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)
-    json_bash = get_binary_from_toolchain(ctx, JSON_BASH_TOOLCHAIN_TYPE)
+    source = ctx.actions.declare_file("%s_/%s_info.json" % (ctx.label.name, ctx.label.name))
+    merger = ctx.actions.declare_file("%s_/%s_merger.sh" % (ctx.label.name, ctx.label.name))
     jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
     out = ctx.actions.declare_file("%s.json" % ctx.label.name)
     json_template = ctx.file._json_template
     ctx.actions.expand_template(
-        output = info,
+        output = source,
         template = json_template,
         substitutions = {
             "_name_": ctx.label.name,
             "_platform_": ctx.attr.platform,
-            "_algo_": ctx.attr.algo,
             "_url_": ctx.attr.url,
             "_binary_": ctx.attr.binary,
             "[]": json.encode(ctx.attr.files),
         },
         is_executable = False,
     )
-    launcher = write_executable_launcher_file(
-        ctx,
-        content = """
-integrity=$(mktemp)
-integrity_json=$(mktemp)
-{sha} -a "{algo}" "{url}" > "$integrity"
-{json} integrity@"$integrity" > "$integrity_json"
-{jq} -s '.[0] * .[1]' {info} $integrity_json > {out}
-      """.format(
-            algo = ctx.attr.algo,
-            info = info.path,
-            out = out.path,
-            sha = sha.path,
-            url = ctx.attr.url,
-            json = json_bash.path,
-            jq = jq.path,
-        ),
+    ctx.actions.expand_template(
+        output = merger,
+        template = ctx.file._merger_template,
+        substitutions = {
+            "%ALGO%": ctx.attr.algo,
+            "%SOURCE%": source.path,
+            "%OUT%": out.path,
+            "%JQ%": jq.path,
+            "%INTEGRITY%": ctx.file.integrity.path,
+        },
+        is_executable = True,
     )
 
     ctx.actions.run(
         outputs = [out],
-        inputs = [launcher, info],
-        executable = launcher,
-        tools = [sha, json_bash, jq],
-        mnemonic = "AssetInfo",
+        inputs = [source, ctx.file.integrity],
+        executable = merger,
+        tools = [jq],
+        mnemonic = "PlatformAsset",
     )
 
     return [
@@ -76,9 +69,14 @@ platform_asset = rule(
         "algo": attr.string(default = "384"),
         "platform": attr.string(),
         "files": attr.string_list(default = []),
+        "integrity": attr.label(allow_single_file = True),
         "_json_template": attr.label(
             allow_single_file = True,
-            default = "@bzlparty_tools//lib/private/toolchains:assets.template.json",
+            default = "@bzlparty_tools//lib/private/toolchains:asset.template.json",
+        ),
+        "_merger_template": attr.label(
+            allow_single_file = True,
+            default = "@bzlparty_tools//lib/private/toolchains:merger.template.sh",
         ),
     },
     toolchains = [
@@ -121,10 +119,18 @@ def multi_platform_assets(
             "windows": windows_ext,
         }, "tar.gz")
         binaries.append(_name)
+        sha(
+            name = "%s_sha" % _name,
+            url = url.format(
+                platform = _platform,
+                ext = ext,
+            ),
+        )
         platform_asset(
             name = _name,
             platform = platform,
             files = files,
+            integrity = ":%s_sha" % _name,
             binary = prefix.format(platform = _platform) +
                      (binary or name) +
                      (".exe" if set_windows_binary_ext and _is_windows(platform) else ""),

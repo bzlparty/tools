@@ -34,7 +34,7 @@ binary_toolchain(<a href="#binary_toolchain-name">name</a>, <a href="#binary_too
 ## platform_assets
 
 <pre>
-platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_assets-algo">algo</a>, <a href="#platform_assets-binary">binary</a>, <a href="#platform_assets-files">files</a>, <a href="#platform_assets-platform">platform</a>, <a href="#platform_assets-url">url</a>)
+platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_assets-algo">algo</a>, <a href="#platform_assets-binary">binary</a>, <a href="#platform_assets-files">files</a>, <a href="#platform_assets-integrity">integrity</a>, <a href="#platform_assets-platform">platform</a>, <a href="#platform_assets-url">url</a>)
 </pre>
 
 
@@ -48,6 +48,7 @@ platform_assets(<a href="#platform_assets-name">name</a>, <a href="#platform_ass
 | <a id="platform_assets-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
 | <a id="platform_assets-binary"></a>binary |  -   | String | optional | <code>""</code> |
 | <a id="platform_assets-files"></a>files |  -   | List of strings | optional | <code>[]</code> |
+| <a id="platform_assets-integrity"></a>integrity |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="platform_assets-platform"></a>platform |  -   | String | optional | <code>""</code> |
 | <a id="platform_assets-url"></a>url |  -   | String | optional | <code>""</code> |
 

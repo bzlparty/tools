@@ -99,7 +99,7 @@ git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-package_
 ## sha
 
 <pre>
-sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-out">out</a>, <a href="#sha-src">src</a>)
+sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-out">out</a>, <a href="#sha-src">src</a>, <a href="#sha-url">url</a>)
 </pre>
 
 
@@ -113,6 +113,7 @@ sha(<a href="#sha-name">name</a>, <a href="#sha-algo">algo</a>, <a href="#sha-ou
 | <a id="sha-algo"></a>algo |  -   | String | optional | <code>"384"</code> |
 | <a id="sha-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  |
 | <a id="sha-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
+| <a id="sha-url"></a>url |  -   | String | optional | <code>""</code> |
 
 
 <a id="shellspec_test"></a>
