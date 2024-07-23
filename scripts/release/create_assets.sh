@@ -17,7 +17,7 @@ echo "ASSETS = {"
 for f in "$@"; do
   target_file=$(basename "$f")
   bin_file=${target_file%.*}
-  platform=$(echo "$bin_file" | cut -c 5- | sed "s/\.exe//")
+  platform=$(echo "$bin_file" | awk -F_ '{print $2 "_" $3}' | sed "s/\.exe//")
   echo "    \"$platform\": struct(binary = \"$bin_file\", url = \"$url/$bin_file\", integrity = \"sha384-$(< "$f")\"),"
 done
 echo "}"
