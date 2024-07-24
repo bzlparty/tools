@@ -7,6 +7,8 @@ load(
 )
 load(":assets_bundle.bzl", "assets_bundle")
 
+UrlInfo = provider(doc = "", fields = ["url"])
+
 def _is_windows(platform):
     return platform.startswith("windows")
 
@@ -25,13 +27,17 @@ def _platform_asset_impl(ctx):
     jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
     out = ctx.actions.declare_file("%s.json" % ctx.label.name)
     json_template = ctx.file._json_template
+    if ctx.attr.url:
+        url = ctx.attr.url
+    else:
+        url = "{}/{}".format(ctx.attr.url_flag[UrlInfo].url, ctx.attr.binary)
     ctx.actions.expand_template(
         output = source,
         template = json_template,
         substitutions = {
             "_name_": ctx.label.name,
             "_platform_": ctx.attr.platform,
-            "_url_": ctx.attr.url,
+            "_url_": url,
             "_binary_": ctx.attr.binary,
             "[]": json.encode(ctx.attr.files),
         },
@@ -64,34 +70,32 @@ def _platform_asset_impl(ctx):
         ),
     ]
 
+_ATTRS = {
+    "url": attr.string(),
+    "url_flag": attr.label(mandatory = False),
+    "binary": attr.string(),
+    "algo": attr.string(default = "384"),
+    "platform": attr.string(),
+    "files": attr.string_list(default = []),
+    "integrity": attr.label(allow_single_file = True),
+    "_json_template": attr.label(
+        allow_single_file = True,
+        default = "@bzlparty_tools//lib/private/toolchains:asset.template.json",
+    ),
+    "_merger_template": attr.label(
+        allow_single_file = True,
+        default = "@bzlparty_tools//lib/private/toolchains:merger.template.sh",
+    ),
+}
+
 platform_asset = rule(
     _platform_asset_impl,
-    attrs = {
-        "url": attr.string(),
-        "binary": attr.string(),
-        "algo": attr.string(default = "384"),
-        "platform": attr.string(),
-        "files": attr.string_list(default = []),
-        "integrity": attr.label(allow_single_file = True),
-        "_json_template": attr.label(
-            allow_single_file = True,
-            default = "@bzlparty_tools//lib/private/toolchains:asset.template.json",
-        ),
-        "_merger_template": attr.label(
-            allow_single_file = True,
-            default = "@bzlparty_tools//lib/private/toolchains:merger.template.sh",
-        ),
-    },
+    attrs = _ATTRS,
     toolchains = [
         SHA_TOOLCHAIN_TYPE,
         "@aspect_bazel_lib//lib:jq_toolchain_type",
     ],
 )
-
-# def cmd_assets(name, integrity_map):
-#     for target, platform in integrity_map.items():
-#         platform_asset(
-#         )
 
 # buildifier: disable=function-docstring
 def multi_platform_assets(
@@ -142,4 +146,35 @@ def multi_platform_assets(
         name = "%s_assets" % name,
         out_file = assets_file,
         srcs = assets,
+    )
+
+def _url_imp(ctx):
+    _REMOTE = "https://github.com/bzlparty/tools/releases/download"
+    url = "{}/{}".format(_REMOTE, ctx.build_setting_value)
+    return UrlInfo(url = url)
+
+url_flag = rule(
+    implementation = _url_imp,
+    build_setting = config.string(flag = True),
+)
+
+# buildifier: disable=function-docstring
+def cmd_assets(name, binary, integrity_map, **kwargs):
+    assets = []
+    for target, platform in integrity_map.items():
+        _name = "%s_%s" % (name, platform)
+        _ext = ".exe" if _is_windows(platform) else ""
+        platform_asset(
+            name = _name,
+            binary = "{}_{}{}".format(binary, platform, _ext),
+            platform = platform,
+            integrity = target,
+            **kwargs
+        )
+        assets.append(_name)
+
+    assets_bundle(
+        name = name,
+        srcs = assets,
+        write_file = False,
     )

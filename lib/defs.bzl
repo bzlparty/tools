@@ -25,8 +25,10 @@ load(
 )
 load(
     "//lib/private/toolchains:assets.bzl",
+    _cmd_assets = "cmd_assets",
     _multi_platform_assets = "multi_platform_assets",
     _platform_asset = "platform_asset",
+    _url_flag = "url_flag",
 )
 load(
     "//lib/private/toolchains:assets_bundle.bzl",
@@ -60,8 +62,10 @@ load(
 )
 
 # //lib/private/toolchains:assets
+cmd_assets = _cmd_assets
 multi_platform_assets = _multi_platform_assets
 platform_asset = _platform_asset
+url_flag = _url_flag
 
 # //lib/private/toolchains:assets_bundle
 assets_bundle = _assets_bundle

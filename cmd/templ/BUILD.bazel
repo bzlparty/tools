@@ -36,6 +36,7 @@ go_binary(
             name = "templ_%s_%s_sha384" % (os, arch),
             src = "templ_%s_%s" % (os, arch),
             tags = ["manual"],
+            visibility = ["//visibility:public"],
         ),
     )
     for os, arch in GO_PLATFORMS

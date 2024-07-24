@@ -33,6 +33,7 @@ go_binary(
             name = "sha_%s_%s_sha384" % (os, arch),
             src = "sha_%s_%s" % (os, arch),
             tags = ["manual"],
+            visibility = ["//visibility:public"],
         ),
     )
     for os, arch in GO_PLATFORMS

@@ -6,6 +6,7 @@ import (
 	_ "crypto/sha256"
 	_ "crypto/sha512"
 	"encoding/base64"
+	"errors"
 	"flag"
 	"fmt"
 	"hash"
@@ -17,9 +18,11 @@ import (
 )
 
 var (
-	algo    int
-	write   string
-	content []byte
+	algo        int
+	source_file string
+	source_url  string
+	write       string
+	content     []byte
 )
 
 var algos = AlgoList{[]int{1, 256, 384, 512}}
@@ -94,6 +97,10 @@ func generateShaSum(content []byte, algo int) (string, error) {
 func init() {
 	flag.IntVar(&algo, "algo", 384, "shasum algorithm")
 	flag.IntVar(&algo, "a", 384, "shasum algorithm (shorthand)")
+	flag.StringVar(&source_file, "f", "", "Output file path (optional)")
+	flag.StringVar(&source_file, "file", "", "Output file path (shorthand)")
+	flag.StringVar(&source_url, "u", "", "Output file path (optional)")
+	flag.StringVar(&source_url, "url", "", "Output file path (shorthand)")
 	flag.StringVar(&write, "w", "", "Output file path (optional)")
 	flag.StringVar(&write, "write", "", "Output file path (shorthand)")
 	flag.Usage = func() {
@@ -108,32 +115,31 @@ Description:
 
 Options:
 
-      -a, --algo        algorithm for integrity, supported: %s (optional, default: 384)
-      -w, --write       file to write (optional, default: stdout)
-      -h, --help
+      -a/-algo        algorithm for integrity, supported: %s (optional, default: 384)
+      -f/-file        file to read from (optional, default: stdin)
+      -w/-write       file to write (optional, default: stdout)
+      -u/-url         url to fetch file from (optional, default: stdin)
+      -h/-help
 `, os.Args[0], algos.String())
 	}
 	flag.Parse()
-	var input = flag.Arg(0)
 	var err error
 
-	if input == "" {
-		content, err = io.ReadAll(os.Stdin)
+	if source_file != "" {
+		content, err = os.ReadFile(source_file)
 		handleInitError(err)
-	} else {
-		// Try to read input as file
-		content, err = os.ReadFile(input)
-		if err != nil {
-			// Try to get input as request
-			response, err := http.Get(input)
-			handleInitError(err)
-			defer response.Body.Close()
-			if response.StatusCode == http.StatusOK {
-				content, err = io.ReadAll(response.Body)
-				handleInitError(err)
-			}
-		}
+	}
 
+	if source_url != "" {
+		response, err := http.Get(source_url)
+		handleInitError(err)
+		defer response.Body.Close()
+		if response.StatusCode == http.StatusOK {
+			content, err = io.ReadAll(response.Body)
+			handleInitError(err)
+		} else {
+			handleInitError(errors.New("Bad Request"))
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
-load("//lib:defs.bzl", "git_archive")
-load(":defs.bzl", "dist_files")
+load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "create_module_bazel", "git_archive", "url_flag")
+load(":defs.bzl", "root_build_file", "toolchains_build_file")
 
 sh_binary(
     name = "copy_assets",
@@ -20,13 +20,40 @@ sh_binary(
     deps = ["@bazel_tools//tools/bash/runfiles"],
 )
 
-sh_binary(
-    name = "create_assets",
-    srcs = ["create_assets.sh"],
+url_flag(
+    name = "tag",
+    build_setting_default = "main",
+)
+
+cmd_assets(
+    name = "sha_assets",
+    binary = "sha",
+    integrity_map = {
+        "//cmd/sha:sha_%s_sha384" % p: p
+        for p in PLATFORMS.keys()
+    },
+    url_flag = "//scripts/release:tag",
+)
+
+cmd_assets(
+    name = "templ_assets",
+    binary = "templ",
+    integrity_map = {
+        "//cmd/templ:templ_%s_sha384" % p: p
+        for p in PLATFORMS.keys()
+    },
+    url_flag = "//scripts/release:tag",
+)
+
+create_module_bazel(
+    name = "root_module_bazel",
+    out = "root_MODULE.bazel",
     tags = ["manual"],
 )
 
-dist_files()
+root_build_file(name = "root_BUILD")
+
+toolchains_build_file(name = "toolchains_BUILD")
 
 git_archive(
     name = "git_archive",
@@ -37,7 +64,7 @@ git_archive(
         ":root_BUILD.bazel": "BUILD.bazel",
         ":root_MODULE.bazel": "MODULE.bazel",
         ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
-        ":toolchains_sha_assets.bzl": "toolchains/sha/assets.bzl",
-        ":toolchains_templ_assets.bzl": "toolchains/templ/assets.bzl",
+        ":sha_assets": "toolchains/sha/assets.bzl",
+        ":templ_assets": "toolchains/templ/assets.bzl",
     },
 )

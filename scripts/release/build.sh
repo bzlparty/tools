@@ -7,4 +7,4 @@ rm -rf "$DEST"
 mkdir "$DEST"
 
 bazel run --action_env=TAG="$TAG" //scripts/release:copy_assets
-bazel run --action_env=TAG="$TAG" //scripts/release:git_archive
+bazel run --//scripts/release:tag="$TAG" --action_env=TAG="$TAG" //scripts/release:git_archive

@@ -62,15 +62,16 @@ _assets_bundle = rule(
     ],
 )
 
-def assets_bundle(name = "assets", out_file = None, **kwargs):
+def assets_bundle(name = "assets", out_file = None, write_file = True, **kwargs):
     _assets_bundle(
         name = name,
         out = "%s_bzl" % name,
         **kwargs
     )
 
-    write_source_file(
-        name = "update_%s" % name,
-        in_file = "%s_bzl" % name,
-        out_file = out_file or ":%s.bzl" % name,
-    )
+    if write_file:
+        write_source_file(
+            name = "update_%s" % name,
+            in_file = "%s_bzl" % name,
+            out_file = out_file or ":%s.bzl" % name,
+        )
