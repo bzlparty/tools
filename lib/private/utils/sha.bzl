@@ -11,8 +11,10 @@ def _sha_impl(ctx):
     args = ctx.actions.args()
     args.add("-algo", ctx.attr.algo)
     if ctx.attr.url:
+        mid = "Url"
         args.add("-url", ctx.attr.url)
     else:
+        mid = "File"
         args.add("-file", ctx.file.src)
 
     if ctx.outputs.out:
@@ -27,6 +29,7 @@ def _sha_impl(ctx):
         inputs = [ctx.file.src] if ctx.file.src else [],
         executable = sha,
         arguments = [args],
+        mnemonic = "ShaFrom%s" % mid,
         tools = [sha],
     )
 

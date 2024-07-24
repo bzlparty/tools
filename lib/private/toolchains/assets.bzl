@@ -149,8 +149,10 @@ def multi_platform_assets(
     )
 
 def _url_imp(ctx):
-    _REMOTE = "https://github.com/bzlparty/tools/releases/download"
-    url = "{}/{}".format(_REMOTE, ctx.build_setting_value)
+    if ctx.build_setting_value == "default":
+        url = "no-url"
+    else:
+        url = ctx.build_setting_value
     return UrlInfo(url = url)
 
 url_flag = rule(

@@ -21,8 +21,8 @@ sh_binary(
 )
 
 url_flag(
-    name = "tag",
-    build_setting_default = "main",
+    name = "asset_url",
+    build_setting_default = "default",
 )
 
 cmd_assets(
@@ -32,7 +32,7 @@ cmd_assets(
         "//cmd/sha:sha_%s_sha384" % p: p
         for p in PLATFORMS.keys()
     },
-    url_flag = "//scripts/release:tag",
+    url_flag = "//scripts/release:asset_url",
 )
 
 cmd_assets(
@@ -42,7 +42,7 @@ cmd_assets(
         "//cmd/templ:templ_%s_sha384" % p: p
         for p in PLATFORMS.keys()
     },
-    url_flag = "//scripts/release:tag",
+    url_flag = "//scripts/release:asset_url",
 )
 
 create_module_bazel(
