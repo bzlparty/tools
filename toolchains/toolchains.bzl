@@ -26,14 +26,6 @@ goawk_resolved_toolchain = rule(
     incompatible_use_toolchain_transition = True,
 )
 
-JSON_BASH_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:json_bash_toolchain_type"
-
-json_bash_resolved_toolchain = rule(
-    implementation = resolved_toolchain_impl(JSON_BASH_TOOLCHAIN_TYPE),
-    toolchains = [JSON_BASH_TOOLCHAIN_TYPE],
-    incompatible_use_toolchain_transition = True,
-)
-
 RIPGREP_TOOLCHAIN_TYPE = "@bzlparty_tools//toolchains:ripgrep_toolchain_type"
 
 ripgrep_resolved_toolchain = rule(
@@ -108,15 +100,6 @@ def bzlparty_toolchains(name = "bzlparty_toolchains"):
     )
     goawk_resolved_toolchain(
         name = "goawk",
-        visibility = ["//visibility:public"],
-    )
-
-    native.toolchain_type(
-        name = "json_bash_toolchain_type",
-        visibility = ["//visibility:public"],
-    )
-    json_bash_resolved_toolchain(
-        name = "json_bash",
         visibility = ["//visibility:public"],
     )
 

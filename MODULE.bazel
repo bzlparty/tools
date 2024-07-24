@@ -21,7 +21,6 @@ tools = use_extension("@bzlparty_tools//:extensions.bzl", "tools")
 tools.biome()
 tools.fd()
 tools.goawk()
-tools.json_bash()
 tools.templ()
 tools.ripgrep()
 tools.sha()
@@ -33,7 +32,6 @@ use_repo(
     "biome",
     "fd",
     "goawk",
-    "json_bash",
     "ripgrep",
     "sha",
     "shellcheck",
@@ -46,7 +44,6 @@ register_toolchains(
     "@biome//:all",
     "@fd//:all",
     "@goawk//:all",
-    "@json_bash//:all",
     "@templ//:all",
     "@ripgrep//:all",
     "@sha//:all",

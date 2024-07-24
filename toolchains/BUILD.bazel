@@ -8,7 +8,6 @@ TOOLS = [
     "biome",
     "fd",
     "goawk",
-    "json_bash",
     "ripgrep",
     "sha",
     "shellcheck",
