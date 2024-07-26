@@ -47,16 +47,23 @@ bzl_library(
 )
 """
 
-def root_build_file(name):
+def _write_build_file(name, prefix, content):
     write_file(
-        name = "%s_bazel" % name.lower(),
-        out = "%s.bazel" % name,
+        name = name,
+        out = "%s_BUILD.bazel" % prefix,
+        content = content,
+    )
+
+def root_build_file(name):
+    _write_build_file(
+        name = name,
+        prefix = "root",
         content = [_ROOT_BUILD_FILE],
     )
 
 def toolchains_build_file(name):
-    write_file(
-        name = "%s_bazel" % name.lower(),
-        out = "%s.bazel" % name,
+    _write_build_file(
+        name = name,
+        prefix = "toolchains",
         content = [_TOOLCHAINS_BUILD_FILE],
     )

@@ -52,7 +52,7 @@ versioned_module_bazel(
 )
 
 dcomment(
-    name = "uncomment_module_bazel",
+    name = "root_module_bazel",
     src = ":versioned_module_bazel",
     out = "root_MODULE.bazel",
     defines = "_BZLPARTY_RELEASE_",
@@ -67,20 +67,18 @@ dcomment(
     tags = ["manual"],
 )
 
-root_build_file(name = "root_BUILD")
+root_build_file(name = "root_build_bazel")
 
-toolchains_build_file(name = "toolchains_BUILD")
+toolchains_build_file(name = "toolchains_build_bazel")
 
 git_archive(
     name = "git_archive",
     package_name = "tools",
-    tags = ["manual"],
     virtual_files = {
-        # these files come from `dist_files` macro
-        ":root_BUILD.bazel": "BUILD.bazel",
-        ":root_MODULE.bazel": "MODULE.bazel",
-        ":docs_BUILD.bazel": "docs/BUILD.bazel",
-        ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
+        ":root_build_bazel": "BUILD.bazel",
+        ":root_module_bazel": "MODULE.bazel",
+        ":docs_build_bazel": "docs/BUILD.bazel",
+        ":toolchains_build_bazel": "toolchains/BUILD.bazel",
         ":sha_assets": "toolchains/sha/assets.bzl",
         ":templ_assets": "toolchains/templ/assets.bzl",
     },
