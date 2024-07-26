@@ -55,6 +55,15 @@ dcomment(
     name = "uncomment_module_bazel",
     src = ":versioned_module_bazel",
     out = "root_MODULE.bazel",
+    defines = "_BZLPARTY_RELEASE_",
+    tags = ["manual"],
+)
+
+dcomment(
+    name = "docs_build_bazel",
+    src = "//docs:BUILD.bazel",
+    out = "docs_BUILD.bazel",
+    defines = "_BZLPARTY_RELEASE_",
     tags = ["manual"],
 )
 
@@ -70,6 +79,7 @@ git_archive(
         # these files come from `dist_files` macro
         ":root_BUILD.bazel": "BUILD.bazel",
         ":root_MODULE.bazel": "MODULE.bazel",
+        ":docs_BUILD.bazel": "docs/BUILD.bazel",
         ":toolchains_BUILD.bazel": "toolchains/BUILD.bazel",
         ":sha_assets": "toolchains/sha/assets.bzl",
         ":templ_assets": "toolchains/templ/assets.bzl",

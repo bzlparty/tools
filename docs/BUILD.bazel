@@ -4,6 +4,7 @@ package(default_visibility = ["//visibility:public"])
 
 exports_files(glob(["*.md"]))
 
+#ifndef _BZLPARTY_RELEASE_
 stardoc_with_diff_test(
     name = "utils",
     bzl_library_target = "//docs/private:utils",
@@ -20,3 +21,4 @@ stardoc_with_diff_test(
 )
 
 update_docs()
+#endif

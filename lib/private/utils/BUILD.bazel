@@ -8,6 +8,9 @@ bzl_library(
     name = "dcomment",
     srcs = ["dcomment.bzl"],
     visibility = ["//lib:__pkg__"],
+    deps = [
+        "//toolchains:external",
+    ],
 )
 
 bzl_library(

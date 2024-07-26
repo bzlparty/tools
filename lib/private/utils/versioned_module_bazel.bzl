@@ -1,22 +1,13 @@
 "Create a `MODULE.bazel` for release"
 
 load("//lib/private:helpers.bzl", "declare_launcher_file")
-load(
-    "//toolchains:external.bzl",
-    "BUILDIFIER_TOOLCHAIN_TYPE",
-    "COREUTILS_TOOLCHAIN_TYPE",
-)
 
 def _versioned_module_bazel_impl(ctx):
-    coreutils = ctx.toolchains[COREUTILS_TOOLCHAIN_TYPE].coreutils_info.bin
-    buildifier = ctx.toolchains[BUILDIFIER_TOOLCHAIN_TYPE]._tool
     launcher = declare_launcher_file(ctx)
     ctx.actions.expand_template(
         output = launcher,
         template = ctx.file._launcher_template,
         substitutions = {
-            "%COREUTILS%": coreutils.path,
-            "%BUILDIFIER%": buildifier.path,
             "%SRC%": ctx.file.module_file.path,
             "%OUT%": ctx.outputs.out.path,
         },
@@ -28,7 +19,6 @@ def _versioned_module_bazel_impl(ctx):
         outputs = [ctx.outputs.out],
         executable = launcher,
         use_default_shell_env = True,
-        tools = [buildifier, coreutils],
     )
 
 _ATTRS = {
@@ -46,10 +36,6 @@ _ATTRS = {
 _versioned_module_bazel = rule(
     _versioned_module_bazel_impl,
     attrs = _ATTRS,
-    toolchains = [
-        BUILDIFIER_TOOLCHAIN_TYPE,
-        COREUTILS_TOOLCHAIN_TYPE,
-    ],
 )
 
 def versioned_module_bazel(name, **kwargs):

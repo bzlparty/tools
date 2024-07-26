@@ -9,4 +9,4 @@ VERSION=$TAG
 [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] && VERSION=${TAG:1}
 
 # shellcheck disable=SC2288
-%COREUTILS% sed "s/0.0.0/$VERSION/" "%SRC%" | %BUILDIFIER% -mode=fix -lint=fix > "%OUT%"
+sed "s/0.0.0/$VERSION/" "%SRC%" > "%OUT%"
