@@ -15,8 +15,8 @@ def _versioned_module_bazel_impl(ctx):
         output = launcher,
         template = ctx.file._launcher_template,
         substitutions = {
-            "%COREUTILS%": coreutils,
-            "%BUILDIFIER%": buildifier,
+            "%COREUTILS%": coreutils.path,
+            "%BUILDIFIER%": buildifier.path,
             "%SRC%": ctx.file.module_file.path,
             "%OUT%": ctx.outputs.out.path,
         },
@@ -28,7 +28,7 @@ def _versioned_module_bazel_impl(ctx):
         outputs = [ctx.outputs.out],
         executable = launcher,
         use_default_shell_env = True,
-        tools = [ctx.file._dcomment],
+        tools = [buildifier, coreutils],
     )
 
 _ATTRS = {
