@@ -1,8 +1,8 @@
 {
-  "name": "_name_",
-  "platform": "_platform_",
-  "url": "_url_",
-  "binary": "_binary_",
+  "name": "%NAME%",
+  "platform": "%PLATFORM%",
+  "url": "%URL%",
+  "binary": "%BINARY%",
   "integrity": null,
   "files": []
 }

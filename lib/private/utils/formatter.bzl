@@ -6,6 +6,7 @@ load(
     "get_binary_from_toolchain",
     "get_target_file",
 )
+load("//toolchains:external.bzl", "JQ_TOOLCHAIN_TYPE")
 load(
     "//toolchains:toolchains.bzl",
     "FD_TOOLCHAIN_TYPE",
@@ -18,7 +19,7 @@ def _join_exclude_args(items):
 def _parallel_run_impl(ctx):
     fd = get_binary_from_toolchain(ctx, FD_TOOLCHAIN_TYPE)
     goawk = get_binary_from_toolchain(ctx, GOAWK_TOOLCHAIN_TYPE)
-    jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
+    jq = ctx.toolchains[JQ_TOOLCHAIN_TYPE].jqinfo.bin
     launcher = declare_launcher_file(ctx)
     args_file = ctx.actions.declare_file("{}_/{}_args".format(ctx.label.name, ctx.label.name))
 
@@ -95,7 +96,7 @@ _ATTRS = {
 _TOOLCHAINS = [
     FD_TOOLCHAIN_TYPE,
     GOAWK_TOOLCHAIN_TYPE,
-    "@aspect_bazel_lib//lib:jq_toolchain_type",
+    JQ_TOOLCHAIN_TYPE,
 ]
 
 formatter = rule(

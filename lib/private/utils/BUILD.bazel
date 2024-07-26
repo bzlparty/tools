@@ -20,6 +20,7 @@ bzl_library(
     deps = [
         "//lib/private:helpers",
         "//toolchains",
+        "//toolchains:external",
     ],
 )
 

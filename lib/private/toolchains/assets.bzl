@@ -1,6 +1,7 @@
 "Platform Asset"
 
 load("//lib/private/utils:sha.bzl", "sha")
+load("//toolchains:external.bzl", "JQ_TOOLCHAIN_TYPE")
 load(
     "//toolchains:toolchains.bzl",
     "SHA_TOOLCHAIN_TYPE",
@@ -24,7 +25,7 @@ def _switch(val, arms, default = None):
 def _platform_asset_impl(ctx):
     source = ctx.actions.declare_file("%s_/%s_info.json" % (ctx.label.name, ctx.label.name))
     merger = ctx.actions.declare_file("%s_/%s_merger.sh" % (ctx.label.name, ctx.label.name))
-    jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
+    jq = ctx.toolchains[JQ_TOOLCHAIN_TYPE].jqinfo.bin
     out = ctx.actions.declare_file("%s.json" % ctx.label.name)
     json_template = ctx.file._json_template
     if ctx.attr.url:
@@ -35,10 +36,10 @@ def _platform_asset_impl(ctx):
         output = source,
         template = json_template,
         substitutions = {
-            "_name_": ctx.label.name,
-            "_platform_": ctx.attr.platform,
-            "_url_": url,
-            "_binary_": ctx.attr.binary,
+            "%NAME%": ctx.label.name,
+            "%PLATFORM%": ctx.attr.platform,
+            "%URL%": url,
+            "%BINARY%": ctx.attr.binary,
             "[]": json.encode(ctx.attr.files),
         },
         is_executable = False,
@@ -92,8 +93,8 @@ platform_asset = rule(
     _platform_asset_impl,
     attrs = _ATTRS,
     toolchains = [
+        JQ_TOOLCHAIN_TYPE,
         SHA_TOOLCHAIN_TYPE,
-        "@aspect_bazel_lib//lib:jq_toolchain_type",
     ],
 )
 

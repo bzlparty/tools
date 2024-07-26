@@ -15,6 +15,7 @@ bzl_library(
     deps = [
         "//lib/private:helpers",
         "//toolchains",
+        "//toolchains:external",
         "@aspect_bazel_lib//lib:write_source_files",
     ],
 )
@@ -27,6 +28,7 @@ bzl_library(
         ":assets_bundle",
         "//lib/private:helpers",
         "//toolchains",
+        "//toolchains:external",
         "@aspect_bazel_lib//lib:write_source_files",
     ],
 )

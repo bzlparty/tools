@@ -6,12 +6,13 @@ load(
     "get_binary_from_toolchain",
     "write_executable_launcher_file",
 )
+load("//toolchains:external.bzl", "BUILDIFIER_TOOLCHAIN_TYPE", "JQ_TOOLCHAIN_TYPE")
 load("//toolchains:toolchains.bzl", "TEMPL_TOOLCHAIN_TYPE")
 
 def _assets_bundle_impl(ctx):
     out = ctx.outputs.out
-    jq = ctx.toolchains["@aspect_bazel_lib//lib:jq_toolchain_type"].jqinfo.bin
-    buildifier = ctx.toolchains["@buildifier_prebuilt//buildifier:toolchain"]._tool
+    jq = ctx.toolchains[JQ_TOOLCHAIN_TYPE].jqinfo.bin
+    buildifier = ctx.toolchains[BUILDIFIER_TOOLCHAIN_TYPE]._tool
     templ = get_binary_from_toolchain(ctx, TEMPL_TOOLCHAIN_TYPE)
     script = write_executable_launcher_file(
         ctx,
@@ -56,9 +57,9 @@ _assets_bundle = rule(
         "out": attr.output(mandatory = True),
     },
     toolchains = [
+        BUILDIFIER_TOOLCHAIN_TYPE,
+        JQ_TOOLCHAIN_TYPE,
         TEMPL_TOOLCHAIN_TYPE,
-        "@aspect_bazel_lib//lib:jq_toolchain_type",
-        "@buildifier_prebuilt//buildifier:toolchain",
     ],
 )
 
