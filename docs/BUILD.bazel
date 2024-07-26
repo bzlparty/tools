@@ -2,14 +2,16 @@ load("@aspect_bazel_lib//lib:docs.bzl", "stardoc_with_diff_test", "update_docs")
 
 package(default_visibility = ["//visibility:public"])
 
+exports_files(glob(["*.md"]))
+
 stardoc_with_diff_test(
     name = "utils",
-    bzl_library_target = "//docs/bzl:utils",
+    bzl_library_target = "//docs/private:utils",
 )
 
 stardoc_with_diff_test(
     name = "toolchains",
-    bzl_library_target = "//docs/bzl:toolchains",
+    bzl_library_target = "//docs/private:toolchains",
 )
 
 stardoc_with_diff_test(
