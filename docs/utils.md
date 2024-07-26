@@ -6,6 +6,27 @@
 
 
 
+<a id="dcomment"></a>
+
+## dcomment
+
+<pre>
+dcomment(<a href="#dcomment-name">name</a>, <a href="#dcomment-defines">defines</a>, <a href="#dcomment-out">out</a>, <a href="#dcomment-src">src</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="dcomment-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="dcomment-defines"></a>defines |  -   | String | optional | <code>""</code> |
+| <a id="dcomment-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+| <a id="dcomment-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
+
+
 <a id="formatter"></a>
 
 ## formatter

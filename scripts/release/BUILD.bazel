@@ -1,5 +1,4 @@
-load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "git_archive", "url_flag", "versioned_module_bazel")
-load("//vendor/dcomment:dcomment.bzl", "dcomment")
+load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "dcomment", "git_archive", "url_flag", "versioned_module_bazel")
 load(":defs.bzl", "root_build_file", "toolchains_build_file")
 
 sh_binary(

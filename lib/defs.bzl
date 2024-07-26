@@ -42,6 +42,10 @@ load(
     _register_platform_toolchains = "register_platform_toolchains",
 )
 load(
+    "//lib/private/utils:dcomment.bzl",
+    _dcomment = "dcomment",
+)
+load(
     "//lib/private/utils:formatter.bzl",
     _formatter = "formatter",
     _formatter_test = "formatter_test",
@@ -90,6 +94,9 @@ versioned_module_bazel = _versioned_module_bazel
 
 # //lib/private/utils:git_archive
 git_archive = _git_archive
+
+# //lib/private/utils:dcomment
+dcomment = _dcomment
 
 # //lib/private/utils:formatter
 formatter = _formatter

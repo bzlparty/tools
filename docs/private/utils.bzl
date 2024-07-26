@@ -6,6 +6,7 @@
 
 load(
     "//lib:defs.bzl",
+    _dcomment = "dcomment",
     _formatter = "formatter",
     _formatter_test = "formatter_test",
     _git_archive = "git_archive",
@@ -21,3 +22,4 @@ versioned_module_bazel = _versioned_module_bazel
 
 sha = _sha
 shellspec_test = _shellspec_test
+dcomment = _dcomment

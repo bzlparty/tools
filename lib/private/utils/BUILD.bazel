@@ -5,6 +5,12 @@ exports_files(glob([
 ]))
 
 bzl_library(
+    name = "dcomment",
+    srcs = ["dcomment.bzl"],
+    visibility = ["//lib:__pkg__"],
+)
+
+bzl_library(
     name = "formatter",
     srcs = ["formatter.bzl"],
     visibility = ["//lib:__pkg__"],
