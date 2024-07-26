@@ -25,21 +25,38 @@ exports_files([
 ])
 """
 
+_TOOLCHAINS_BUILD_FILE = """\
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load(":toolchains.bzl", "bzlparty_toolchains")
+
+package(default_visibility = ["//visibility:public"])
+
+bzlparty_toolchains()
+
+bzl_library(
+    name = "external",
+    srcs = ["external.bzl"],
+)
+
+bzl_library(
+    name = "toolchains",
+    srcs = ["toolchains.bzl"],
+    deps = [
+        "//lib:resolved_toolchains",
+    ],
+)
+"""
+
 def root_build_file(name):
     write_file(
         name = "%s_bazel" % name.lower(),
         out = "%s.bazel" % name,
         content = [_ROOT_BUILD_FILE],
-        tags = ["manual"],
     )
 
 def toolchains_build_file(name):
     write_file(
         name = "%s_bazel" % name.lower(),
         out = "%s.bazel" % name,
-        content = [
-            """load(":toolchains.bzl", "bzlparty_toolchains")""",
-            "bzlparty_toolchains()",
-        ],
-        tags = ["manual"],
+        content = [_TOOLCHAINS_BUILD_FILE],
     )
