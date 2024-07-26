@@ -32,10 +32,16 @@ bzl_library(
 )
 
 bzl_library(
+    name = "constants",
+    srcs = ["constants.bzl"],
+)
+
+bzl_library(
     name = "repositories",
     srcs = ["repositories.bzl"],
     visibility = ["//lib:__pkg__"],
     deps = [
+        ":constants",
         "//lib/private:platforms",
         "@bazel_skylib//lib:types",
     ],

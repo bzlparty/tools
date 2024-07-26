@@ -7,6 +7,13 @@ load(
     "HOST_PLATFORM",
     "PLATFORMS",
 )
+load(
+    ":constants.bzl",
+    "EXTENSIONS",
+    "TOOLCHAINS_BUILD_FILE_BEGIN",
+    "TOOLCHAINS_BUILD_FILE_PARTIAL",
+    "TOOLCHAIN_BUILD_FILE",
+)
 
 def _binary_toolchain_impl(ctx):
     binary = ctx.file.binary
@@ -46,24 +53,6 @@ binary_toolchain = rule(
     },
 )
 
-EXTENSIONS = [
-    "zip",
-    "jar",
-    "war",
-    "aar",
-    "tar",
-    "tar.gz",
-    "tgz",
-    "tar.xz",
-    "txz",
-    ".tar.zst",
-    ".tzst",
-    "tar.bz2",
-    ".tbz",
-    ".ar",
-    ".deb",
-]
-
 def _is_archive(url):
     for e in EXTENSIONS:
         if url.endswith(e):
@@ -88,21 +77,7 @@ def _platform_toolchain_impl(ctx):
     if ctx.attr.url != "":
         _create_repository_from_remote(ctx)
 
-    ctx.file("BUILD.bazel", """\
-load("@bzlparty_tools//lib:defs.bzl", "binary_toolchain")
-binary_toolchain(
-    name = "{prefix}_binary_toolchain",
-    prefix = "{prefix}",
-    binary = "{binary}",
-    files = {files},
-)
-
-alias(
-  name = "bin",
-  actual = "{binary}",
-  visibility = ["//visibility:public"],
-)
-""".format(
+    ctx.file("BUILD.bazel", TOOLCHAIN_BUILD_FILE.format(
         binary = ctx.attr.binary if ctx.attr.binary.startswith("@") else ":%s" % ctx.attr.binary,
         prefix = ctx.attr.prefix,
         files = "glob([\"" + "\", \"".join(ctx.attr.files) + "\"])" if len(ctx.attr.files) > 0 else "[]",
@@ -119,29 +94,9 @@ platform_toolchain = repository_rule(
     },
 )
 
-_TOOLCHAINS_BUILD_FILE_BEGIN = """\
-load("@bzlparty_tools//lib:defs.bzl", "HOST_PLATFORM")
-
-alias(
-    name = "{name}",
-    actual = "@{name}_%s//:bin" % HOST_PLATFORM,
-    visibility = ["//visibility:public"],
-)
-"""
-
-_TOOLCHAINS_BUILD_FILE_PARTIAL = """\
-toolchain(
-    name = "{name}_{platform}_toolchain",
-    toolchain = "@{name}_{platform}//:{name}_binary_toolchain",
-    exec_compatible_with = {compatible_with},
-    toolchain_type = "{toolchain_type}",
-    visibility = ["//visibility:public"],
-)
-"""
-
 # buildifier: disable=function-docstring
 def register_platform_toolchains(name, assets, toolchain_type):
-    toolchains_build_file = _TOOLCHAINS_BUILD_FILE_BEGIN.format(name = name)
+    toolchains_build_file = TOOLCHAINS_BUILD_FILE_BEGIN.format(name = name)
     if types.is_dict(assets):
         for (platform, config) in assets.items():
             _platform = HOST_PLATFORM if platform == "host" else platform
@@ -154,7 +109,7 @@ def register_platform_toolchains(name, assets, toolchain_type):
                 binary = config.binary,
                 files = config.files if hasattr(config, "files") else [],
             )
-            toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
+            toolchains_build_file += TOOLCHAINS_BUILD_FILE_PARTIAL.format(
                 name = name,
                 platform = _platform,
                 toolchain_type = toolchain_type,
@@ -167,7 +122,7 @@ def register_platform_toolchains(name, assets, toolchain_type):
             prefix = name,
             binary = assets,
         )
-        toolchains_build_file += _TOOLCHAINS_BUILD_FILE_PARTIAL.format(
+        toolchains_build_file += TOOLCHAINS_BUILD_FILE_PARTIAL.format(
             name = name,
             platform = HOST_PLATFORM,
             toolchain_type = toolchain_type,
