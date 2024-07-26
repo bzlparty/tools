@@ -42,10 +42,6 @@ load(
     _register_platform_toolchains = "register_platform_toolchains",
 )
 load(
-    "//lib/private/utils:create_module_bazel.bzl",
-    _create_module_bazel = "create_module_bazel",
-)
-load(
     "//lib/private/utils:formatter.bzl",
     _formatter = "formatter",
     _formatter_test = "formatter_test",
@@ -56,6 +52,10 @@ load(
 )
 load("//lib/private/utils:sha.bzl", _sha = "sha")
 load("//lib/private/utils:shellspec.bzl", _shellspec_test = "shellspec_test")
+load(
+    "//lib/private/utils:versioned_module_bazel.bzl",
+    _versioned_module_bazel = "versioned_module_bazel",
+)
 load(
     ":resolved_toolchains.bzl",
     _resolved_toolchain_impl = "resolved_toolchain_impl",
@@ -85,8 +85,8 @@ sha = _sha
 # //lib/private/utils:shellspec
 shellspec_test = _shellspec_test
 
-# //lib/private/utils:create_module_bazel
-create_module_bazel = _create_module_bazel
+# //lib/private/utils:versioned_module_bazel
+versioned_module_bazel = _versioned_module_bazel
 
 # //lib/private/utils:git_archive
 git_archive = _git_archive

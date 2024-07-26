@@ -16,11 +16,11 @@ bzl_library(
         "//lib/private/toolchains:assets",
         "//lib/private/toolchains:assets_bundle",
         "//lib/private/toolchains:repositories",
-        "//lib/private/utils:create_module_bazel",
         "//lib/private/utils:formatter",
         "//lib/private/utils:git_archive",
         "//lib/private/utils:sha",
         "//lib/private/utils:shellspec",
+        "//lib/private/utils:versioned_module_bazel",
     ],
 )
 

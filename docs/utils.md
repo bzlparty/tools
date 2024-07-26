@@ -117,12 +117,12 @@ shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test
 | <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
 
 
-<a id="create_module_bazel"></a>
+<a id="versioned_module_bazel"></a>
 
-## create_module_bazel
+## versioned_module_bazel
 
 <pre>
-create_module_bazel(<a href="#create_module_bazel-name">name</a>, <a href="#create_module_bazel-kwargs">kwargs</a>)
+versioned_module_bazel(<a href="#versioned_module_bazel-name">name</a>, <a href="#versioned_module_bazel-kwargs">kwargs</a>)
 </pre>
 
 
@@ -132,7 +132,7 @@ create_module_bazel(<a href="#create_module_bazel-name">name</a>, <a href="#crea
 
 | Name  | Description | Default Value |
 | :------------- | :------------- | :------------- |
-| <a id="create_module_bazel-name"></a>name |  <p align="center"> - </p>   |  none |
-| <a id="create_module_bazel-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+| <a id="versioned_module_bazel-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a id="versioned_module_bazel-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 

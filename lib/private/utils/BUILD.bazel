@@ -5,15 +5,6 @@ exports_files(glob([
 ]))
 
 bzl_library(
-    name = "create_module_bazel",
-    srcs = ["create_module_bazel.bzl"],
-    visibility = ["//lib:__pkg__"],
-    deps = [
-        "//lib/private:helpers",
-    ],
-)
-
-bzl_library(
     name = "formatter",
     srcs = ["formatter.bzl"],
     visibility = ["//lib:__pkg__"],
@@ -51,5 +42,14 @@ bzl_library(
     deps = [
         "//lib/private:helpers",
         "//toolchains",
+    ],
+)
+
+bzl_library(
+    name = "versioned_module_bazel",
+    srcs = ["versioned_module_bazel.bzl"],
+    visibility = ["//lib:__pkg__"],
+    deps = [
+        "//lib/private:helpers",
     ],
 )

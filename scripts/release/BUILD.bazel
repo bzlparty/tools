@@ -1,4 +1,5 @@
-load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "create_module_bazel", "git_archive", "url_flag")
+load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "git_archive", "url_flag", "versioned_module_bazel")
+load("//vendor/dcomment:dcomment.bzl", "dcomment")
 load(":defs.bzl", "root_build_file", "toolchains_build_file")
 
 sh_binary(
@@ -45,8 +46,15 @@ cmd_assets(
     url_flag = "//scripts/release:asset_url",
 )
 
-create_module_bazel(
-    name = "root_module_bazel",
+versioned_module_bazel(
+    name = "versioned_module_bazel",
+    out = "versioned_MODULE.bazel",
+    tags = ["manual"],
+)
+
+dcomment(
+    name = "uncomment_module_bazel",
+    src = ":versioned_module_bazel",
     out = "root_MODULE.bazel",
     tags = ["manual"],
 )

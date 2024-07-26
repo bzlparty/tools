@@ -7,8 +7,6 @@ fi
 
 VERSION=$TAG
 [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]] && VERSION=${TAG:1}
-module_file=$(mktemp)
+
 # shellcheck disable=SC2288
-%DCOMMENT_BIN% -d _BZLPARTY_RELEASE_ %SRC% "$module_file"
-sed "s/0.0.0/$VERSION/" "$module_file" > "%OUT%"
-rm -rf "$module_file"
+%COREUTILS% sed "s/0.0.0/$VERSION/" "%SRC%" | %BUILDIFIER% -mode=fix -lint=fix > "%OUT%"
