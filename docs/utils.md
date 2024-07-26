@@ -6,26 +6,6 @@
 
 
 
-<a id="create_module_bazel"></a>
-
-## create_module_bazel
-
-<pre>
-create_module_bazel(<a href="#create_module_bazel-name">name</a>, <a href="#create_module_bazel-module_file">module_file</a>, <a href="#create_module_bazel-out">out</a>)
-</pre>
-
-
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="create_module_bazel-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="create_module_bazel-module_file"></a>module_file |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>//:MODULE.bazel</code> |
-| <a id="create_module_bazel-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
-
-
 <a id="formatter"></a>
 
 ## formatter
@@ -135,5 +115,24 @@ shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test
 | <a id="shellspec_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-spec"></a>spec |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
+
+
+<a id="create_module_bazel"></a>
+
+## create_module_bazel
+
+<pre>
+create_module_bazel(<a href="#create_module_bazel-name">name</a>, <a href="#create_module_bazel-kwargs">kwargs</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="create_module_bazel-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a id="create_module_bazel-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 

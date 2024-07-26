@@ -26,7 +26,7 @@ def _create_module_bazel_impl(ctx):
 _ATTRS = {
     "out": attr.output(mandatory = True),
     "module_file": attr.label(
-        default = Label("//:MODULE.bazel"),
+        mandatory = True,
         allow_single_file = True,
     ),
     "_launcher_template": attr.label(
@@ -39,7 +39,14 @@ _ATTRS = {
     ),
 }
 
-create_module_bazel = rule(
+_create_module_bazel = rule(
     _create_module_bazel_impl,
     attrs = _ATTRS,
 )
+
+def create_module_bazel(name, **kwargs):
+    _create_module_bazel(
+        name = name,
+        module_file = "//:MODULE.bazel",
+        **kwargs
+    )
