@@ -16,4 +16,4 @@ SHA_BIN=$(realpath "%SHA%")
 cd "$BUILD_WORKING_DIRECTORY" || exit 1
 
 git archive --format=tar.gz --prefix="$PREFIX/" %VIRTUAL_FILES% -o "$RULES_ARCHIVE" "$TAG"
-eval "$SHA_BIN $RULES_ARCHIVE" > "$RULES_ARCHIVE".sha384
+eval "$SHA_BIN -file $RULES_ARCHIVE" > "$RULES_ARCHIVE".sha384
