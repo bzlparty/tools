@@ -1,15 +1,19 @@
 "Create a `MODULE.bazel` for release"
 
-load("//lib/private:helpers.bzl", "declare_launcher_file")
+load("//lib/private:helpers.bzl", "TagInfo", "declare_launcher_file")
 
 def _versioned_module_bazel_impl(ctx):
     launcher = declare_launcher_file(ctx)
+    version = ctx.attr.version[TagInfo].value
+    if version.startswith("v"):
+        version = version[1:]
     ctx.actions.expand_template(
         output = launcher,
         template = ctx.file._launcher_template,
         substitutions = {
             "%SRC%": ctx.file.module_file.path,
             "%OUT%": ctx.outputs.out.path,
+            "%VERSION%": version,
         },
         is_executable = True,
     )
@@ -27,6 +31,7 @@ _ATTRS = {
         mandatory = True,
         allow_single_file = True,
     ),
+    "version": attr.label(),
     "_launcher_template": attr.label(
         default = "@bzlparty_tools//lib/private/utils:versioned_module_bazel.sh",
         allow_single_file = True,

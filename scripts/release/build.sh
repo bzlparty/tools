@@ -11,5 +11,8 @@ fi
 rm -rf "$DEST"
 mkdir "$DEST"
 
-bazel run --action_env=TAG="$TAG" //scripts/release:copy_assets
-bazel run --//scripts/release:asset_url="$URL" --action_env=TAG="$TAG" //scripts/release:git_archive
+bazel run //scripts/release:copy_assets
+bazel run \
+  --//scripts/release:asset_url="$URL" \
+  --//scripts/release:release_tag="$TAG" \
+  //scripts/release:git_archive

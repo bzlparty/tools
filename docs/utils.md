@@ -80,7 +80,7 @@ formatter_test(<a href="#formatter_test-name">name</a>, <a href="#formatter_test
 ## git_archive
 
 <pre>
-git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-package_name">package_name</a>, <a href="#git_archive-virtual_files">virtual_files</a>)
+git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-commit">commit</a>, <a href="#git_archive-package_name">package_name</a>, <a href="#git_archive-virtual_files">virtual_files</a>)
 </pre>
 
 
@@ -91,6 +91,7 @@ git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-package_
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="git_archive-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+| <a id="git_archive-commit"></a>commit |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="git_archive-package_name"></a>package_name |  -   | String | required |  |
 | <a id="git_archive-virtual_files"></a>virtual_files |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional | <code>{}</code> |
 

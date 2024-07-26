@@ -1,4 +1,13 @@
-load("//lib:defs.bzl", "PLATFORMS", "cmd_assets", "dcomment", "git_archive", "url_flag", "versioned_module_bazel")
+load(
+    "//lib:defs.bzl",
+    "PLATFORMS",
+    "cmd_assets",
+    "dcomment",
+    "git_archive",
+    "release_tag",
+    "url_flag",
+    "versioned_module_bazel",
+)
 load(":defs.bzl", "root_build_file", "toolchains_build_file")
 
 sh_binary(
@@ -25,6 +34,11 @@ url_flag(
     build_setting_default = "default",
 )
 
+release_tag(
+    name = "release_tag",
+    build_setting_default = "main",
+)
+
 cmd_assets(
     name = "sha_assets",
     binary = "sha",
@@ -49,6 +63,7 @@ versioned_module_bazel(
     name = "versioned_module_bazel",
     out = "versioned_MODULE.bazel",
     tags = ["manual"],
+    version = ":release_tag",
 )
 
 dcomment(
@@ -74,6 +89,7 @@ toolchains_build_file(name = "toolchains_build_bazel")
 git_archive(
     name = "git_archive",
     package_name = "tools",
+    commit = ":release_tag",
     virtual_files = {
         ":root_build_bazel": "BUILD.bazel",
         ":root_module_bazel": "MODULE.bazel",
