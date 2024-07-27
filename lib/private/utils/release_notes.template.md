@@ -8,13 +8,13 @@ Choose from the options below and put as dependency in your `MODULE.bazel`.
 ### Install from BCR
 
 ```starlark
-bazel_dep(name = "%NAME%", version = "%VERSION%")
+bazel_dep(name = "bzlparty_%NAME%", version = "%VERSION%")
 ```
 
 ### Install from Archive
 
 ```starlark
-bazel_dep(name = "%NAME%")
+bazel_dep(name = "bzlparty_%NAME%")
 
 archive_override(
     module_name = "%NAME%",
