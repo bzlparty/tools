@@ -21,6 +21,7 @@ exports_files([
     "biome.json",
 ])
 
+#ifndef _BZLPARTY_RELEASE_
 formatter(
     name = "format",
     config = ":formatter.json",
@@ -51,3 +52,4 @@ formatter_test(
         "@buildifier_prebuilt//:buildifier": "buildifier",
     },
 )
+#endif

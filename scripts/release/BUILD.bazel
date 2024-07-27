@@ -8,7 +8,6 @@ load(
     "url_flag",
     "versioned_module_bazel",
 )
-load(":defs.bzl", "root_build_file", "toolchains_build_file")
 
 sh_binary(
     name = "copy_assets",
@@ -39,30 +38,22 @@ release_tag(
     build_setting_default = "main",
 )
 
-cmd_assets(
-    name = "sha_assets",
-    binary = "sha",
+[cmd_assets(
+    name = "%s_assets" % cmd,
+    binary = cmd,
     integrity_map = {
-        "//cmd/sha:sha_%s_sha384" % p: p
+        "//cmd/%s:%s_%s_sha384" % (cmd, cmd, p): p
         for p in PLATFORMS.keys()
     },
     url_flag = "//scripts/release:asset_url",
-)
-
-cmd_assets(
-    name = "templ_assets",
-    binary = "templ",
-    integrity_map = {
-        "//cmd/templ:templ_%s_sha384" % p: p
-        for p in PLATFORMS.keys()
-    },
-    url_flag = "//scripts/release:asset_url",
-)
+) for cmd in [
+    "sha",
+    "templ",
+]]
 
 versioned_module_bazel(
     name = "versioned_module_bazel",
     out = "versioned_MODULE.bazel",
-    tags = ["manual"],
     version = ":release_tag",
 )
 
@@ -71,7 +62,6 @@ dcomment(
     src = ":versioned_module_bazel",
     out = "root_MODULE.bazel",
     defines = "_BZLPARTY_RELEASE_",
-    tags = ["manual"],
 )
 
 dcomment(
@@ -79,12 +69,21 @@ dcomment(
     src = "//docs:BUILD.bazel",
     out = "docs_BUILD.bazel",
     defines = "_BZLPARTY_RELEASE_",
-    tags = ["manual"],
 )
 
-root_build_file(name = "root_build_bazel")
+dcomment(
+    name = "root_build_bazel",
+    src = "//:BUILD.bazel",
+    out = "root_BUILD.bazel",
+    defines = "_BZLPARTY_RELEASE_",
+)
 
-toolchains_build_file(name = "toolchains_build_bazel")
+dcomment(
+    name = "toolchains_build_bazel",
+    src = "//toolchains:BUILD.bazel",
+    out = "toolchains_BUILD.bazel",
+    defines = "_BZLPARTY_RELEASE_",
+)
 
 git_archive(
     name = "git_archive",

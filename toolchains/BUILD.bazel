@@ -4,6 +4,9 @@ load(":toolchains.bzl", "bzlparty_toolchains")
 
 package(default_visibility = ["//visibility:public"])
 
+bzlparty_toolchains()
+
+#ifndef _BZLPARTY_RELEASE_
 TOOLS = [
     "biome",
     "fd",
@@ -29,6 +32,7 @@ create_bzl_file(
     template = "toolchains",
     tools = TOOLS,
 )
+#endif
 
 bzl_library(
     name = "external",
@@ -42,5 +46,3 @@ bzl_library(
         "//lib:resolved_toolchains",
     ],
 )
-
-bzlparty_toolchains()
