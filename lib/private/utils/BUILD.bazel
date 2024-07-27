@@ -2,6 +2,7 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 exports_files(glob([
     "*.sh",
+    "*.md",
 ]))
 
 bzl_library(
@@ -27,6 +28,16 @@ bzl_library(
 bzl_library(
     name = "git_archive",
     srcs = ["git_archive.bzl"],
+    visibility = ["//lib:__pkg__"],
+    deps = [
+        "//lib/private:helpers",
+        "//toolchains",
+    ],
+)
+
+bzl_library(
+    name = "release_notes",
+    srcs = ["release_notes.bzl"],
     visibility = ["//lib:__pkg__"],
     deps = [
         "//lib/private:helpers",

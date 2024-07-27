@@ -4,6 +4,7 @@ load(
     "cmd_assets",
     "dcomment",
     "git_archive",
+    "release_notes",
     "url_flag",
     "versioned_module_bazel",
 )
@@ -91,4 +92,9 @@ git_archive(
         ":sha_assets": "toolchains/sha/assets.bzl",
         ":templ_assets": "toolchains/templ/assets.bzl",
     },
+)
+
+release_notes(
+    name = "release_notes",
+    package = "tools",
 )

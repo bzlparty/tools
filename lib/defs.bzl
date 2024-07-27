@@ -56,6 +56,10 @@ load(
     "//lib/private/utils:git_archive.bzl",
     _git_archive = "git_archive",
 )
+load(
+    "//lib/private/utils:release_notes.bzl",
+    _release_notes = "release_notes",
+)
 load("//lib/private/utils:sha.bzl", _sha = "sha")
 load("//lib/private/utils:shellspec.bzl", _shellspec_test = "shellspec_test")
 load(
@@ -96,6 +100,9 @@ versioned_module_bazel = _versioned_module_bazel
 
 # //lib/private/utils:git_archive
 git_archive = _git_archive
+
+# //lib/private/utils:release_notes
+release_notes = _release_notes
 
 # //lib/private/utils:dcomment
 dcomment = _dcomment

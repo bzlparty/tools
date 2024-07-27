@@ -12,6 +12,11 @@ release_tag(
     build_setting_default = "main",
 )
 
+release_tag(
+    name = "release_dir",
+    build_setting_default = ".",
+)
+
 bzl_library(
     name = "defs",
     srcs = ["defs.bzl"],
@@ -25,6 +30,7 @@ bzl_library(
         "//lib/private/utils:dcomment",
         "//lib/private/utils:formatter",
         "//lib/private/utils:git_archive",
+        "//lib/private/utils:release_notes",
         "//lib/private/utils:sha",
         "//lib/private/utils:shellspec",
         "//lib/private/utils:versioned_module_bazel",
