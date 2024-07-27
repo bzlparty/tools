@@ -1,10 +1,10 @@
 "Create a `MODULE.bazel` for release"
 
-load("//lib/private:helpers.bzl", "TagInfo", "declare_launcher_file")
+load("//lib/private:helpers.bzl", "ReleaseInfo", "declare_launcher_file")
 
 def _versioned_module_bazel_impl(ctx):
     launcher = declare_launcher_file(ctx)
-    version = ctx.attr.version[TagInfo].value
+    version = ctx.attr.version[ReleaseInfo].value
     if version.startswith("v"):
         version = version[1:]
     ctx.actions.expand_template(

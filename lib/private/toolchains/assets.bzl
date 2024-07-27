@@ -1,5 +1,6 @@
 "Platform Asset"
 
+load("//lib/private:helpers.bzl", "ReleaseInfo")
 load("//lib/private/utils:sha.bzl", "sha")
 load("//toolchains:external.bzl", "JQ_TOOLCHAIN_TYPE")
 load(
@@ -7,8 +8,6 @@ load(
     "SHA_TOOLCHAIN_TYPE",
 )
 load(":assets_bundle.bzl", "assets_bundle")
-
-UrlInfo = provider(doc = "", fields = ["url"])
 
 def _is_windows(platform):
     return platform.startswith("windows")
@@ -31,7 +30,7 @@ def _platform_asset_impl(ctx):
     if ctx.attr.url:
         url = ctx.attr.url
     else:
-        url = "{}/{}".format(ctx.attr.url_flag[UrlInfo].url, ctx.attr.binary)
+        url = "{}/{}".format(ctx.attr.url_flag[ReleaseInfo].value, ctx.attr.binary)
     ctx.actions.expand_template(
         output = source,
         template = json_template,
@@ -148,18 +147,6 @@ def multi_platform_assets(
         out_file = assets_file,
         srcs = assets,
     )
-
-def _url_imp(ctx):
-    if ctx.build_setting_value == "default":
-        url = "no-url"
-    else:
-        url = ctx.build_setting_value
-    return UrlInfo(url = url)
-
-url_flag = rule(
-    implementation = _url_imp,
-    build_setting = config.string(flag = True),
-)
 
 # buildifier: disable=function-docstring
 def cmd_assets(name, binary, integrity_map, **kwargs):

@@ -2,13 +2,13 @@
 
 load(
     "//lib/private:helpers.bzl",
-    "TagInfo",
+    "ReleaseInfo",
     "write_executable_launcher_file",
 )
 
 def _release_notes(ctx):
-    tag = ctx.attr.tag[TagInfo].value
-    dir = ctx.attr.dir[TagInfo].value
+    tag = ctx.attr.tag[ReleaseInfo].value
+    dir = ctx.attr.dir[ReleaseInfo].value
     temp = ctx.actions.declare_file("{}_/{}_temp".format(ctx.label.name, ctx.label.name))
     version = tag
     if version.startswith("v"):

@@ -4,8 +4,8 @@ load(
     "cmd_assets",
     "dcomment",
     "git_archive",
+    "release_arg",
     "release_notes",
-    "url_flag",
     "versioned_module_bazel",
 )
 
@@ -28,9 +28,9 @@ sh_binary(
     deps = ["@bazel_tools//tools/bash/runfiles"],
 )
 
-url_flag(
-    name = "asset_url",
-    build_setting_default = "default",
+release_arg(
+    name = "assets_url",
+    build_setting_default = "https://bzl.party",
 )
 
 [cmd_assets(
@@ -40,7 +40,7 @@ url_flag(
         "//cmd/%s:%s_%s_sha384" % (cmd, cmd, p): p
         for p in PLATFORMS.keys()
     },
-    url_flag = "//scripts/release:asset_url",
+    url_flag = ":assets_url",
 ) for cmd in [
     "sha",
     "templ",

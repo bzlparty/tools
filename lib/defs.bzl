@@ -10,13 +10,13 @@ load("@bzlparty_tools//lib:defs.bzl", "...")
 
 load(
     "//lib/private:helpers.bzl",
-    _TagInfo = "TagInfo",
+    _ReleaseInfo = "ReleaseInfo",
     _declare_launcher_file = "declare_launcher_file",
     _get_binary_from_toolchain = "get_binary_from_toolchain",
     _get_files_from_toolchain = "get_files_from_toolchain",
     _get_target_file = "get_target_file",
     _platform_from_constraints = "platform_from_constraints",
-    _release_tag = "release_tag",
+    _release_arg = "release_arg",
     _write_executable_launcher_file = "write_executable_launcher_file",
 )
 load(
@@ -30,7 +30,6 @@ load(
     _cmd_assets = "cmd_assets",
     _multi_platform_assets = "multi_platform_assets",
     _platform_asset = "platform_asset",
-    _url_flag = "url_flag",
 )
 load(
     "//lib/private/toolchains:assets_bundle.bzl",
@@ -75,7 +74,6 @@ load(
 cmd_assets = _cmd_assets
 multi_platform_assets = _multi_platform_assets
 platform_asset = _platform_asset
-url_flag = _url_flag
 
 # //lib/private/toolchains:assets_bundle
 assets_bundle = _assets_bundle
@@ -112,14 +110,14 @@ formatter = _formatter
 formatter_test = _formatter_test
 
 # //lib/private:helpers.bzl
-TagInfo = _TagInfo
+ReleaseInfo = _ReleaseInfo
 declare_launcher_file = _declare_launcher_file
 get_binary_from_toolchain = _get_binary_from_toolchain
 get_files_from_toolchain = _get_files_from_toolchain
 get_target_file = _get_target_file
 platform_from_constraints = _platform_from_constraints
 write_executable_launcher_file = _write_executable_launcher_file
-release_tag = _release_tag
+release_arg = _release_arg
 
 # //lib/private:platforms.bzl
 PLATFORMS = _PLATFORMS

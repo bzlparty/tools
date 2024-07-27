@@ -2,7 +2,7 @@
 
 load(
     "//lib/private:helpers.bzl",
-    "TagInfo",
+    "ReleaseInfo",
     "declare_launcher_file",
     "get_binary_from_toolchain",
     "get_target_file",
@@ -19,7 +19,7 @@ def _format_virtual_file_arg(target, path, prefix):
 def _git_archive_impl(ctx):
     launcher = declare_launcher_file(ctx)
     sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)
-    commit = ctx.attr.commit[TagInfo].value
+    commit = ctx.attr.commit[ReleaseInfo].value
     version = commit if not commit.startswith("v") else commit[1:]
     prefix = "%s-%s" % (ctx.attr.package_name, version)
     ctx.actions.expand_template(

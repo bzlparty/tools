@@ -96,6 +96,24 @@ git_archive(<a href="#git_archive-name">name</a>, <a href="#git_archive-commit">
 | <a id="git_archive-virtual_files"></a>virtual_files |  -   | <a href="https://bazel.build/rules/lib/dict">Dictionary: Label -> String</a> | optional | <code>{}</code> |
 
 
+<a id="release_arg"></a>
+
+## release_arg
+
+<pre>
+release_arg(<a href="#release_arg-name">name</a>)
+</pre>
+
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="release_arg-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
+
+
 <a id="sha"></a>
 
 ## sha
@@ -137,6 +155,24 @@ shellspec_test(<a href="#shellspec_test-name">name</a>, <a href="#shellspec_test
 | <a id="shellspec_test-config"></a>config |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-spec"></a>spec |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | optional | <code>None</code> |
 | <a id="shellspec_test-srcs"></a>srcs |  -   | <a href="https://bazel.build/concepts/labels">List of labels</a> | optional | <code>[]</code> |
+
+
+<a id="ReleaseInfo"></a>
+
+## ReleaseInfo
+
+<pre>
+ReleaseInfo(<a href="#ReleaseInfo-value">value</a>)
+</pre>
+
+
+
+**FIELDS**
+
+
+| Name  | Description |
+| :------------- | :------------- |
+| <a id="ReleaseInfo-value"></a>value |  (Undocumented)    |
 
 
 <a id="versioned_module_bazel"></a>

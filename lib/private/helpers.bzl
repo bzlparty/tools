@@ -1,6 +1,6 @@
 "Utils for rules"
 
-TagInfo = provider(doc = "", fields = ["value"])
+ReleaseInfo = provider(doc = "", fields = ["value"])
 
 def declare_launcher_file(ctx):
     return ctx.actions.declare_file("{}_/{}".format(ctx.label.name, ctx.label.name))
@@ -65,10 +65,10 @@ def platform_from_constraints(constraints):
 
     return "%s_%s" % (os, arch)
 
-def _release_tag_impl(ctx):
-    return TagInfo(value = ctx.build_setting_value)
+def _release_arg_impl(ctx):
+    return ReleaseInfo(value = ctx.build_setting_value)
 
-release_tag = rule(
-    _release_tag_impl,
+release_arg = rule(
+    _release_arg_impl,
     build_setting = config.string(flag = True),
 )
