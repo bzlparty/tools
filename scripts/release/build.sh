@@ -14,5 +14,5 @@ mkdir "$DEST"
 bazel run //scripts/release:copy_assets
 bazel run \
   --//scripts/release:asset_url="$URL" \
-  --//scripts/release:release_tag="$TAG" \
+  --@bzlparty_tools//lib:release_tag="$TAG" \
   //scripts/release:git_archive

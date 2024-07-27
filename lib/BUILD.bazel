@@ -1,10 +1,16 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("//lib/private:helpers.bzl", "release_tag")
 
 package(default_visibility = ["//visibility:public"])
 
 exports_files(glob([
     "*.bzl",
 ]))
+
+release_tag(
+    name = "release_tag",
+    build_setting_default = "main",
+)
 
 bzl_library(
     name = "defs",

@@ -4,7 +4,6 @@ load(
     "cmd_assets",
     "dcomment",
     "git_archive",
-    "release_tag",
     "url_flag",
     "versioned_module_bazel",
 )
@@ -33,11 +32,6 @@ url_flag(
     build_setting_default = "default",
 )
 
-release_tag(
-    name = "release_tag",
-    build_setting_default = "main",
-)
-
 [cmd_assets(
     name = "%s_assets" % cmd,
     binary = cmd,
@@ -54,7 +48,7 @@ release_tag(
 versioned_module_bazel(
     name = "versioned_module_bazel",
     out = "versioned_MODULE.bazel",
-    version = ":release_tag",
+    version = "@bzlparty_tools//lib:release_tag",
 )
 
 dcomment(
@@ -88,7 +82,7 @@ dcomment(
 git_archive(
     name = "git_archive",
     package_name = "tools",
-    commit = ":release_tag",
+    commit = "@bzlparty_tools//lib:release_tag",
     virtual_files = {
         ":root_build_bazel": "BUILD.bazel",
         ":root_module_bazel": "MODULE.bazel",
