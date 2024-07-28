@@ -21,6 +21,9 @@ def get_binary_from_toolchain(ctx, toolchain):
 def get_files_from_toolchain(ctx, toolchain):
     return _get_binary_info_from_toolchain(ctx, toolchain).files
 
+def is_windows(platform):
+    return platform.startswith("windows")
+
 def write_executable_launcher_file(ctx, content):
     launcher = declare_launcher_file(ctx)
     ctx.actions.write(

@@ -26,14 +26,20 @@ load(
     _PLATFORMS = "PLATFORMS",
 )
 load(
-    "//lib/private/toolchains:assets.bzl",
-    _cmd_assets = "cmd_assets",
-    _multi_platform_assets = "multi_platform_assets",
-    _platform_asset = "platform_asset",
-)
-load(
     "//lib/private/toolchains:assets_bundle.bzl",
     _assets_bundle = "assets_bundle",
+)
+load(
+    "//lib/private/toolchains:cmd_assets.bzl",
+    _cmd_assets = "cmd_assets",
+)
+load(
+    "//lib/private/toolchains:multi_platform_assets.bzl",
+    _multi_platform_assets = "multi_platform_assets",
+)
+load(
+    "//lib/private/toolchains:platform_asset.bzl",
+    _platform_asset = "platform_asset",
 )
 load(
     "//lib/private/toolchains:repositories.bzl",
@@ -70,9 +76,13 @@ load(
     _resolved_toolchain_impl = "resolved_toolchain_impl",
 )
 
-# //lib/private/toolchains:assets
+# //lib/private/toolchains:cmd_assets
 cmd_assets = _cmd_assets
+
+# //lib/private/toolchains:multi_platform_assets
 multi_platform_assets = _multi_platform_assets
+
+# //lib/private/toolchains:platform_asset
 platform_asset = _platform_asset
 
 # //lib/private/toolchains:assets_bundle

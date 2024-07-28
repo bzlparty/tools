@@ -48,7 +48,7 @@ bzl_library(
 bzl_library(
     name = "sha",
     srcs = ["sha.bzl"],
-    visibility = ["//lib:__pkg__"],
+    visibility = ["//lib:__subpackages__"],
     deps = [
         "//lib/private:helpers",
         "//toolchains",

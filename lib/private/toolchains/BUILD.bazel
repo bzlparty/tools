@@ -21,15 +21,36 @@ bzl_library(
 )
 
 bzl_library(
-    name = "assets",
-    srcs = ["assets.bzl"],
+    name = "platform_asset",
+    srcs = ["platform_asset.bzl"],
     visibility = ["//lib:__pkg__"],
     deps = [
         ":assets_bundle",
         "//lib/private:helpers",
-        "//toolchains",
         "//toolchains:external",
-        "@aspect_bazel_lib//lib:write_source_files",
+    ],
+)
+
+bzl_library(
+    name = "multi_platform_assets",
+    srcs = ["multi_platform_assets.bzl"],
+    visibility = ["//lib:__pkg__"],
+    deps = [
+        ":assets_bundle",
+        ":platform_asset",
+        "//lib/private:helpers",
+        "//lib/private/utils:sha",
+    ],
+)
+
+bzl_library(
+    name = "cmd_assets",
+    srcs = ["cmd_assets.bzl"],
+    visibility = ["//lib:__pkg__"],
+    deps = [
+        ":assets_bundle",
+        ":platform_asset",
+        "//lib/private:helpers",
     ],
 )
 
