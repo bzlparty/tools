@@ -20,6 +20,7 @@ def _git_archive_impl(ctx):
     launcher = declare_launcher_file(ctx)
     sha = get_binary_from_toolchain(ctx, SHA_TOOLCHAIN_TYPE)
     commit = ctx.attr.commit[ReleaseInfo].value
+    dir = ctx.attr.dir[ReleaseInfo].value
     version = commit if not commit.startswith("v") else commit[1:]
     prefix = "%s-%s" % (ctx.attr.package_name, version)
     ctx.actions.expand_template(
@@ -30,6 +31,7 @@ def _git_archive_impl(ctx):
             "%NAME%": ctx.attr.package_name,
             "%SHA%": sha.short_path,
             "%COMMIT%": commit,
+            "%DEST%": dir,
             "%VERSION%": version,
             "%VIRTUAL_FILES%": " ".join([
                 _format_virtual_file_arg(file, path, prefix)
@@ -53,7 +55,8 @@ _ATTRS = {
         default = {},
         allow_files = True,
     ),
-    "commit": attr.label(mandatory = True),
+    "commit": attr.label(default = "@bzlparty_tools//lib:release_tag"),
+    "dir": attr.label(default = "@bzlparty_tools//lib:release_dir"),
     "_launcher_template": attr.label(
         default = Label("@bzlparty_tools//lib/private/utils:git_archive.sh"),
         allow_single_file = True,

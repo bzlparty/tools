@@ -49,7 +49,6 @@ release_arg(
 versioned_module_bazel(
     name = "versioned_module_bazel",
     out = "versioned_MODULE.bazel",
-    version = "@bzlparty_tools//lib:release_tag",
 )
 
 dcomment(
@@ -83,7 +82,6 @@ dcomment(
 git_archive(
     name = "git_archive",
     package_name = "tools",
-    commit = "@bzlparty_tools//lib:release_tag",
     virtual_files = {
         ":root_build_bazel": "BUILD.bazel",
         ":root_module_bazel": "MODULE.bazel",

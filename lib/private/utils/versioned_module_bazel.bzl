@@ -31,7 +31,7 @@ _ATTRS = {
         mandatory = True,
         allow_single_file = True,
     ),
-    "version": attr.label(),
+    "version": attr.label(default = "@bzlparty_tools//lib:release_tag"),
     "_launcher_template": attr.label(
         default = "@bzlparty_tools//lib/private/utils:versioned_module_bazel.sh",
         allow_single_file = True,

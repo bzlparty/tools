@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RULES_ARCHIVE="$DEST/%NAME%-%COMMIT%.tar.gz"
+RULES_ARCHIVE="%DEST%/%NAME%-%COMMIT%.tar.gz"
 SHA_BIN=$(realpath "%SHA%")
 
 cd "$BUILD_WORKING_DIRECTORY" || exit 1
