@@ -28,6 +28,9 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            dist/*
+            dist/sha_*
+            dist/templ_*
+            dist/*.tar.gz
+            dist/*.tar.gz.sha384
           body_path: dist/release_notes.md
           fail_on_unmatched_files: true
