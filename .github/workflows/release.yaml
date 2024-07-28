@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DEST: dist
     steps:
       - uses: actions/checkout@v4
       - run: ./scripts/release/build.sh
