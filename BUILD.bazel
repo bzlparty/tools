@@ -21,7 +21,7 @@ exports_files([
     "biome.json",
 ])
 
-#ifndef _BZLPARTY_RELEASE_
+#ifdef _BZLPARTY_RELEASE_PRIVATE_
 formatter(
     name = "format",
     config = ":formatter.json",

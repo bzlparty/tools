@@ -6,7 +6,7 @@ package(default_visibility = ["//visibility:public"])
 
 bzlparty_toolchains()
 
-#ifndef _BZLPARTY_RELEASE_
+#ifdef _BZLPARTY_RELEASE_PRIVATE_
 TOOLS = [
     "biome",
     "fd",

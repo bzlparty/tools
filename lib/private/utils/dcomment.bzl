@@ -5,7 +5,7 @@ load("//toolchains:external.bzl", "BUILDIFIER_TOOLCHAIN_TYPE")
 def _dcomment_impl(ctx):
     temp = ctx.actions.declare_file("{}_/{}.temp".format(ctx.label.name, ctx.label.name))
     dcomment_args = ctx.actions.args()
-    dcomment_args.add("-d", ctx.attr.defines)
+    dcomment_args.add_all(ctx.attr.defines, format_each = "-d %s")
     dcomment_args.add(ctx.file.src)
     dcomment_args.add(temp)
 
@@ -37,7 +37,7 @@ _ATTRS = {
         mandatory = True,
         allow_single_file = True,
     ),
-    "defines": attr.string(),
+    "defines": attr.string_list(default = []),
     "_dcomment": attr.label(
         default = "@bzlparty_tools//vendor/dcomment",
         allow_single_file = True,

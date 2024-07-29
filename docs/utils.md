@@ -22,7 +22,7 @@ dcomment(<a href="#dcomment-name">name</a>, <a href="#dcomment-defines">defines<
 | Name  | Description | Type | Mandatory | Default |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | <a id="dcomment-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/concepts/labels#target-names">Name</a> | required |  |
-| <a id="dcomment-defines"></a>defines |  -   | String | optional | <code>""</code> |
+| <a id="dcomment-defines"></a>defines |  -   | List of strings | optional | <code>[]</code> |
 | <a id="dcomment-out"></a>out |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 | <a id="dcomment-src"></a>src |  -   | <a href="https://bazel.build/concepts/labels">Label</a> | required |  |
 

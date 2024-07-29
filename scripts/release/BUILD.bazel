@@ -55,28 +55,28 @@ dcomment(
     name = "root_module_bazel",
     src = ":versioned_module_bazel",
     out = "root_MODULE.bazel",
-    defines = "_BZLPARTY_RELEASE_",
+    defines = ["_BZLPARTY_RELEASE_PUBLIC_"],
 )
 
 dcomment(
     name = "docs_build_bazel",
     src = "//docs:BUILD.bazel",
     out = "docs_BUILD.bazel",
-    defines = "_BZLPARTY_RELEASE_",
+    defines = ["_BZLPARTY_RELEASE_PUBLIC_"],
 )
 
 dcomment(
     name = "root_build_bazel",
     src = "//:BUILD.bazel",
     out = "root_BUILD.bazel",
-    defines = "_BZLPARTY_RELEASE_",
+    defines = ["_BZLPARTY_RELEASE_PUBLIC_"],
 )
 
 dcomment(
     name = "toolchains_build_bazel",
     src = "//toolchains:BUILD.bazel",
     out = "toolchains_BUILD.bazel",
-    defines = "_BZLPARTY_RELEASE_",
+    defines = ["_BZLPARTY_RELEASE_PUBLIC_"],
 )
 
 git_archive(
