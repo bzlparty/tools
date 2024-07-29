@@ -1,18 +1,13 @@
-# buildifier: disable=module-docstring
+"Extensions"
+
 load(
     "//lib/private/toolchains:repositories.bzl",
     "register_platform_toolchains",
 )
-load("//toolchains:tools.bzl", "TOOLS")
 load("//vendor/aspect_bazel_lib:extension_utils.bzl", "extension_utils")
 
-TAG_CLASSES = {
-    t: tag_class(attrs = {"name": attr.string(default = t)})
-    for t in TOOLS.keys()
-}
-
-def _impl(ctx):
-    for name, assets in TOOLS.items():
+def _impl(ctx, tools):
+    for name, assets in tools.items():
         extension_utils.toolchain_repos_bfs(
             mctx = ctx,
             get_version_fn = lambda _: "0.0.0",
@@ -21,7 +16,9 @@ def _impl(ctx):
             toolchain_repos_fn = lambda name, version: register_platform_toolchains(name = name, assets = assets, toolchain_type = "@bzlparty_tools//toolchains:%s_toolchain_type" % name),
         )
 
+def _impl_factory(tools):
+    return lambda ctx: _impl(ctx, tools)
+
 tools_ext = struct(
-    impl = _impl,
-    tag_classes = TAG_CLASSES,
+    impl = _impl_factory,
 )
