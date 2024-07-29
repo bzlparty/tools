@@ -28,7 +28,7 @@ jobs:
           path: |
             ~/.cache/bazel
             ~/.cache/bazel-repo
-          key: bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'WORKSPACE') }}
+          key: bazel-cache-${{ hashFiles('**/BUILD.bazel', '**/*.bzl', 'MODULE.bazel') }}
           restore-keys: bazel-cache-
       - name: bazel test //...
         working-directory: ${{ matrix.folder }}
