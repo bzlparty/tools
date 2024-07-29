@@ -37,7 +37,7 @@ formatter_test(
     name = "check",
     config = ":formatter.json",
     exclude = [
-        "vendor/dcomment/dcomment.cpp",
+        "vendor/",
     ],
     mode = "check",
     tags = [
