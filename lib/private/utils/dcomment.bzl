@@ -4,6 +4,15 @@ load("//toolchains:external.bzl", "BUILDIFIER_TOOLCHAIN_TYPE")
 
 def _dcomment_impl(ctx):
     temp = ctx.actions.declare_file("{}_/{}.temp".format(ctx.label.name, ctx.label.name))
+    dcomment_launcher = ctx.actions.declare_file("{}_/{}_dcomment_launcher.sh".format(ctx.label.name, ctx.label.name))
+    ctx.actions.expand_template(
+        template = ctx.file._dcomment_launcher_template,
+        output = dcomment_launcher,
+        substitutions = {
+            "%DCOMMENT%": ctx.file._dcomment.path,
+        },
+        is_executable = True,
+    )
     dcomment_args = ctx.actions.args()
     dcomment_args.add_all(ctx.attr.defines, format_each = "-d %s")
     dcomment_args.add(ctx.file.src)
@@ -13,7 +22,8 @@ def _dcomment_impl(ctx):
         inputs = [ctx.file.src],
         arguments = [dcomment_args],
         outputs = [temp],
-        executable = ctx.file._dcomment,
+        executable = dcomment_launcher,
+        tools = [ctx.file._dcomment],
         toolchain = None,
     )
 
@@ -38,6 +48,10 @@ _ATTRS = {
         allow_single_file = True,
     ),
     "defines": attr.string_list(default = []),
+    "_dcomment_launcher_template": attr.label(
+        default = "@bzlparty_tools//lib/private/utils:dcomment.sh",
+        allow_single_file = True,
+    ),
     "_dcomment": attr.label(
         default = "@bzlparty_tools//vendor/dcomment",
         allow_single_file = True,
