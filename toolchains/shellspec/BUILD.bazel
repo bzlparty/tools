@@ -1,6 +1,5 @@
 load("//lib:defs.bzl", "multi_platform_assets")
-
-VERSION = "0.28.1"
+load("//toolchains:tools.bzl", VERSION = "SHELLSPEC_VERSION")
 
 GITHUB_URL = "https://github.com/shellspec/shellspec/releases/download/%s/shellspec-dist.tar.gz" % VERSION
 

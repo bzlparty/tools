@@ -1,6 +1,5 @@
 load("//lib:defs.bzl", "multi_platform_assets")
-
-VERSION = "1.8.3"
+load("//toolchains:tools.bzl", VERSION = "BIOME_VERSION")
 
 SUPPORTED_PLATFORMS = [
     "darwin_amd64",

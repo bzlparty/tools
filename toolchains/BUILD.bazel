@@ -1,27 +1,16 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("//toolchains/private:defs.bzl", "create_bzl_file")
 load(":toolchains.bzl", "bzlparty_toolchains")
+load(":tools.bzl", "TOOLS")
 
 package(default_visibility = ["//visibility:public"])
 
 bzlparty_toolchains()
 
 #ifdef _BZLPARTY_RELEASE_PRIVATE_
-TOOLS = [
-    "biome",
-    "fd",
-    "goawk",
-    "ripgrep",
-    "sha",
-    "shellcheck",
-    "shellspec",
-    "templ",
-    "typos",
-]
-
 create_bzl_file(
     name = "tools_bzl",
-    out = "tools.bzl",
+    out = "tools_assets.bzl",
     template = "tools",
     tools = TOOLS,
 )
@@ -37,6 +26,11 @@ create_bzl_file(
 bzl_library(
     name = "external",
     srcs = ["external.bzl"],
+)
+
+bzl_library(
+    name = "tools",
+    srcs = ["tools.bzl"],
 )
 
 bzl_library(

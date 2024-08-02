@@ -44,6 +44,7 @@ bzl_library(
     srcs = ["extensions.bzl"],
     deps = [
         "//lib/private/toolchains:repositories",
+        "//toolchains:tools",
         "//vendor/aspect_bazel_lib:extension_utils",
     ],
 )

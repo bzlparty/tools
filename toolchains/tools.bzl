@@ -1,23 +1,23 @@
-"Tools"
+"Tools metadata"
 
-load("//toolchains/biome:assets.bzl", BIOME_ASSETS = "ASSETS")
-load("//toolchains/fd:assets.bzl", FD_ASSETS = "ASSETS")
-load("//toolchains/goawk:assets.bzl", GOAWK_ASSETS = "ASSETS")
-load("//toolchains/ripgrep:assets.bzl", RIPGREP_ASSETS = "ASSETS")
-load("//toolchains/sha:assets.bzl", SHA_ASSETS = "ASSETS")
-load("//toolchains/shellcheck:assets.bzl", SHELLCHECK_ASSETS = "ASSETS")
-load("//toolchains/shellspec:assets.bzl", SHELLSPEC_ASSETS = "ASSETS")
-load("//toolchains/templ:assets.bzl", TEMPL_ASSETS = "ASSETS")
-load("//toolchains/typos:assets.bzl", TYPOS_ASSETS = "ASSETS")
+BIOME_VERSION = "1.8.3"
+FD_VERSION = "10.1.0"
+GOAWK_VERSION = "1.27.0"
+RIPGREP_VERSION = "14.1.0"
+SHELLCHECK_VERSION = "0.10.0"
+SHELLSPEC_VERSION = "0.28.1"
+TYPOS_VERSION = "1.23.2"
 
-TOOLS = {
-    "biome": BIOME_ASSETS,
-    "fd": FD_ASSETS,
-    "goawk": GOAWK_ASSETS,
-    "ripgrep": RIPGREP_ASSETS,
-    "sha": SHA_ASSETS,
-    "shellcheck": SHELLCHECK_ASSETS,
-    "shellspec": SHELLSPEC_ASSETS,
-    "templ": TEMPL_ASSETS,
-    "typos": TYPOS_ASSETS,
+VERSIONS = {
+    "biome": BIOME_VERSION,
+    "fd": FD_VERSION,
+    "goawk": GOAWK_VERSION,
+    "ripgrep": RIPGREP_VERSION,
+    "sha": "host",
+    "shellcheck": SHELLCHECK_VERSION,
+    "shellspec": SHELLSPEC_VERSION,
+    "templ": "host",
+    "typos": TYPOS_VERSION,
 }
+
+TOOLS = VERSIONS.keys()

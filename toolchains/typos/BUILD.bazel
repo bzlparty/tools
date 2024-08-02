@@ -1,6 +1,5 @@
 load("//lib:defs.bzl", "multi_platform_assets")
-
-VERSION = "1.23.2"
+load("//toolchains:tools.bzl", VERSION = "TYPOS_VERSION")
 
 SUPPORTED_PLATFORMS = [
     "darwin_amd64",

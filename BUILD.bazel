@@ -18,7 +18,6 @@ exports_files([
     "LICENSE",
     "MODULE.bazel",
     "extensions.bzl",
-    "biome.json",
 ])
 
 #ifdef _BZLPARTY_RELEASE_PRIVATE_

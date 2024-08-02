@@ -1,6 +1,5 @@
 load("//lib:defs.bzl", "multi_platform_assets")
-
-VERSION = "v1.27.0"
+load("//toolchains:tools.bzl", VERSION = "GOAWK_VERSION")
 
 SUPPORTED_PLATFORMS = [
     "darwin_amd64",
@@ -10,10 +9,10 @@ SUPPORTED_PLATFORMS = [
     "windows_amd64",
 ]
 
-GITHUB_URL = "https://github.com/benhoyt/goawk/releases/download/%s" % VERSION
+GITHUB_URL = "https://github.com/benhoyt/goawk/releases/download/v%s" % VERSION
 
 multi_platform_assets(
     name = "goawk",
     platforms = SUPPORTED_PLATFORMS,
-    url = "%s/goawk_%s_{platform}.{ext}" % (GITHUB_URL, VERSION),
+    url = "%s/goawk_v%s_{platform}.{ext}" % (GITHUB_URL, VERSION),
 )
