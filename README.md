@@ -1,9 +1,27 @@
-# Bzlparty Tools
+# tools
 
 [![Test](https://github.com/bzlparty/tools/actions/workflows/test.yaml/badge.svg?branch=main&event=push)](https://github.com/bzlparty/tools/actions/workflows/test.yaml)
 [![Release](https://img.shields.io/github/v/release/bzlparty/tools?label=Release)](https://github.com/bzlparty/tools/releases/latest)
 
-Functionality and tooling used in bzlparty rulesets.
+Functionality and tooling used in bzlparty projects.
+
+## Overview
+
+This package provides several toolchains and rules that might be useful to set up bzlparty projects.
+
+### Toolchains
+
+The toolchains bundled into this module:
+
+- [biome](https://github.com/biomejs/biome)
+- [fd](https://github.com/sharkdp/fd)
+- [goawk](https://github.com/benhoyt/goawk)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [sha](/cmd/sha)
+- [shellcheck](https://github.com/koalaman/shellcheck)
+- [shellspec](https://github.com/shellspec/shellspec)
+- [templ](/cmd/templ)
+- [typos](https://github.com/crate-ci/typos)
 
 ## Installation
 
