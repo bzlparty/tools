@@ -17,7 +17,7 @@ bazel_dep(name = "bzlparty_%NAME%", version = "%VERSION%")
 bazel_dep(name = "bzlparty_%NAME%")
 
 archive_override(
-    module_name = "%NAME%",
+    module_name = "bzlparty_%NAME%",
     urls = "https://github.com/bzlparty/%PROJECT%/releases/download/%TAG%/%NAME%-%TAG%.tar.gz",
     strip_prefix = "%NAME%-%VERSION%",
     integrity = "sha384-%INTEGRITY%",
