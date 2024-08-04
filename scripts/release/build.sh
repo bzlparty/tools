@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 DEST="$(pwd)/dist"
-URL="https://github.com/bzlparty/tools/releases/download/$TAG"
 TAG=${GITHUB_REF_NAME:-main}
+URL="https://github.com/bzlparty/tools/releases/download/$TAG"
 
 if [ -z "$CI" ]; then
   URL="file://$DEST"
