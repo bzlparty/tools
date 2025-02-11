@@ -2,23 +2,23 @@
 
 ASSETS = {
     "darwin_amd64": struct(
-        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-apple-darwin.tar.gz",
-        binary = "ripgrep-14.1.0-x86_64-apple-darwin/rg",
-        integrity = "sha384-/nwSPTMJbz97PxOy5BD/yl30x5oNQ/MIhBeux9VQMwPlLOzOYcQo0+RdZnKWkEFp",
+        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-apple-darwin.tar.gz",
+        binary = "ripgrep-14.1.1-x86_64-apple-darwin/rg",
+        integrity = "sha384-7iYT5NrGGisCEm4E4rsxp1FXmoWNEVz7pvLdlHo9TfKI00WbIZvxBWrqldH3Vyfu",
     ),
     "darwin_arm64": struct(
-        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-aarch64-apple-darwin.tar.gz",
-        binary = "ripgrep-14.1.0-aarch64-apple-darwin/rg",
-        integrity = "sha384-3Ah7zo307VFV8plovAg8ex4hDy0P04YU5yz7Fwzs6mR5B4gwDeEJb7A6ggVFHyIL",
+        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-aarch64-apple-darwin.tar.gz",
+        binary = "ripgrep-14.1.1-aarch64-apple-darwin/rg",
+        integrity = "sha384-2CEUR2QYg3SrHOXQCXXRL+0/hGa1OBuYPLlE1fAhXF0J5KiEfQGYzjVPafygXbm/",
     ),
     "linux_amd64": struct(
-        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz",
-        binary = "ripgrep-14.1.0-x86_64-unknown-linux-musl/rg",
-        integrity = "sha384-9C2Ethl4TaPzvRR2SDqlSb4bGuBP9NyE9PVUalTLA9fJA1Jd4OTgFKvBgdpGh3vb",
+        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz",
+        binary = "ripgrep-14.1.1-x86_64-unknown-linux-musl/rg",
+        integrity = "sha384-vsQwC2OFroDE+l6lJhXC/qs/jvogOVFfRcz4/xQ0mZwfmLNgX9UV9qjDlZpd9A3V",
     ),
     "windows_amd64": struct(
-        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.0/ripgrep-14.1.0-x86_64-pc-windows-gnu.zip",
-        binary = "ripgrep-14.1.0-x86_64-pc-windows-gnu/rg.exe",
-        integrity = "sha384-gBz6YsKFpFzkZy6hjiEp2XKiJAkxKpaJQSlDKCj8+qkHHuUhQbWbxAxbXSxNjvij",
+        url = "https://github.com/BurntSushi/ripgrep/releases/download/14.1.1/ripgrep-14.1.1-x86_64-pc-windows-gnu.zip",
+        binary = "ripgrep-14.1.1-x86_64-pc-windows-gnu/rg.exe",
+        integrity = "sha384-xqV9r8xc7MUdxkay3Kf4W9E5Nu/ajMF0Y7z8x7FP2vVVLdGb0ZdLEfzzcGh9YNoA",
     ),
 }
